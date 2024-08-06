@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckjbq5ntpgqeb"]
+
+[ext_resource type="Script" path="res://Scenes/Knight.gd" id="1_jw48t"]
+
+[node name="Knight" type="Sprite2D"]
+script = ExtResource("1_jw48t")
