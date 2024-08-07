@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=3 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
+[ext_resource type="Script" path="res://Scripts/Level Counter.gd" id="2_o4k1a"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_bohl5")
@@ -21,3 +22,38 @@ offset_bottom = 720.0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 8
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 720.0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Level Counter" type="Label" parent="Control"]
+offset_left = 187.0
+offset_top = 31.0
+offset_right = 227.0
+offset_bottom = 54.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 1000
+script = ExtResource("2_o4k1a")
+
+[node name="Shop" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 203.0
+offset_top = 330.0
+offset_right = 2622.0
+offset_bottom = 1692.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 1000
+text = "Shop"
+
+[node name="ShopBackground" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 405.0
+offset_right = 104.0
+offset_bottom = 445.0
+scale = Vector2(10.7079, 7.01455)
+color = Color(0.180005, 0.180005, 0.180005, 1)

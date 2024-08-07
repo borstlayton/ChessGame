@@ -1,5 +1,6 @@
 extends Node
 
+var current_level
 var assets := []
 enum PieceNames {WHITE_BISHOP, WHITE_KING, WHITE_KNIGHT, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK, BLACK_BISHOP, BLACK_KING, BLACK_KNIGHT, BLACK_PAWN, BLACK_QUEEN, BLACK_ROOK}
 var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING, 
@@ -14,6 +15,8 @@ var level_fen = {
 }
 
 func _ready():
+	current_level=0
+
 	assets.append("res://Art/Chess Pieces/WhiteBishop.png")
 	assets.append("res://Art/Chess Pieces/WhiteKing.png")
 	assets.append("res://Art/Chess Pieces/WhiteKnight.png")

@@ -5,17 +5,17 @@ extends Node2D
 @onready var grid_container = $ColorRect/GridContainer
 
 var player_move = true
-var current_level = 0
 var alternate_color = Color.BEIGE
 
 func _ready():
+	
 	for i in range(8):
 		for j in range(8):
 			var new_slot = tile_scene.instantiate()
 			if (j+i)%2 == 0:
 				new_slot.set_color(alternate_color)
 			grid_container.add_child(new_slot)
-	parse_fen(current_level)
+	parse_fen(BoardManager.current_level)
 	
 func add_piece(num_grid, piece_type):
 	var wanted_grid = grid_container.get_child(num_grid)
