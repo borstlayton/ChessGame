@@ -10,7 +10,7 @@ func _process(_delta):
 		BoardManager.show_valid_tiles(tile_row, tile_column)
 
 func set_id(row, column):
-	ID = Vector2(column,row)
+	ID = row*8 + column
 	tile_row = row
 	tile_column = column
 func acceptable_tile(matching_ID):

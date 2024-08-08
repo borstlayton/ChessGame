@@ -48,7 +48,6 @@ func create_board(board_index, piece_type):
 
 func show_valid_tiles(row, column):
 	var valid_positions = get_valid_tiles(row,column)
-	
 
 func get_valid_tiles(row, column):
 	var piece = current_board[row][column]
@@ -67,8 +66,8 @@ func get_valid_tiles(row, column):
 
 func _move(row, column, color):
 	if row >= 0 and row <= 7 and column >=0 and row <= 7:
-		if current_board[row][column] == 0:
-			return vector2(row, column)
+		if current_board[row][column] == '0':
+			return Vector2(row, column)
 		else:
 			return 0
 	else:
@@ -81,8 +80,8 @@ func _attack(row, column, color):
 		#Color of the piece on the target square. 1 if white and 0 if black
 		var target_color = (current_board[row][column] == current_board[row][column].to_upper())
 		#If the square isn't blank and the target color is the oposite of the color of the moving piece, return the square to be added to moves.
-		if current_board[row][column] != 0 and color != target_color:
-			return vector2(row, column)
+		if current_board[row][column] != '0' and color != target_color:
+			return Vector2(row, column)
 		else:
 			return 0
 
@@ -110,7 +109,7 @@ func get_pawn_move(row, column, piece):
 	elif piece == "p":
 		#Move Forward
 		temp = _move(row-1,column, false)
-		if temp != 0:
+		if temp == 0:
 			legal_moves[idx] = temp
 			idx += 1
 		#Attack right diagonally
