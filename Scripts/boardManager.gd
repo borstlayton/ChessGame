@@ -14,7 +14,7 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order = ['b', 'k', 'n', 'p', 'q', 'r', 'B', 'K', 'N', 'P', 'Q', 'R']
 var level_fen = {
-	0: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
+	0: "rnbqkbnr/8/8/8/8/8/PPPPPPPP/RNBQKBNR",
 	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
 }
 
@@ -24,7 +24,7 @@ func _ready():
 	for i in range(board_size):
 		var row = []
 		for j in range(board_size):
-			row.append(0)
+			row.append('0')
 		current_board.append(row)
 
 	assets.append("res://Art/Chess Pieces/WhiteBishop.png")
@@ -47,16 +47,14 @@ func create_board(board_index, piece_type):
 	current_board[row][column] = fen_order[piece_type]
 
 func show_valid_tiles(row, column):
-	get_valid_tiles(row,column)
+	var valid_positions = get_valid_tiles(row,column)
 
 func get_valid_tiles(row, column):
 	var piece = current_board[row][column]
-	if piece == 0:
-		return
-	elif piece == 'p' || piece == 'P':
+	if piece == 'p' || piece == 'P':
 		get_pawn_move(row, column, piece)
 	elif piece == 'b' || piece == 'B':
-		get_bishop_move(row, column, piece)
+		return get_bishop_move(row, column, piece)
 	elif piece == 'n' || piece == 'N':
 		get_knight_move(row, column, piece)
 	elif piece == 'r' || piece == 'R':
@@ -68,7 +66,7 @@ func get_valid_tiles(row, column):
 
 func _move(row, column):
 	if row >= 0 and row <= 7 and column >=0 and row <= 7:
-		if current_board[row][column] == 0:
+		if current_board[row][column] == '0':
 			return Vector2(row, column)
 		else:
 			return Vector2.ZERO
@@ -82,7 +80,7 @@ func _attack(row, column, color):
 		#Color of the piece on the target square. 1 if white and 0 if black
 		var target_color = (current_board[row][column] == current_board[row][column].to_upper())
 		#If the square isn't blank and the target color is the oposite of the color of the moving piece, return the square to be added to moves.
-		if current_board[row][column] != 0 and color != target_color:
+		if current_board[row][column] != '0' and color != target_color:
 			return Vector2(row, column)
 		else:
 			return Vector2.ZERO
@@ -129,8 +127,32 @@ func get_pawn_move(row, column, piece):
 	return legal_moves
 	
 func get_bishop_move(row, column, piece):
-	pass
+	print("called bishop")
+	var valid_positions = []
+	var is_black = piece == piece.to_lower()
+	var is_white = piece == piece.to_upper()
+	var directions = [
+		Vector2(1, 1),
+		Vector2(-1, 1), 
+		Vector2(1, -1), 
+		Vector2(-1, -1) 
+	]
 	
+	for direction in directions:
+		var pos = Vector2(column, row) + direction
+		while pos.x >= 0 and pos.x < 8 and pos.y >= 0 and pos.y < 8:
+			var destination_piece = current_board[pos.y][pos.x]
+			if destination_piece == '0':  # Empty square
+				valid_positions.append(pos)
+			else:
+				# Stop if we encounter a piece; add it if it's an opponent's piece
+				if (is_black and destination_piece == destination_piece.to_upper()) or (is_white and destination_piece == destination_piece.to_lower()):
+					valid_positions.append(pos)
+				break  # Bishop cannot move further in this direction
+			pos += direction
+	print(valid_positions)
+	return valid_positions
+
 func get_knight_move(row, column, piece):
 	var legal_moves = []
 	var possible_attacks = [Vector2(row-2,column+1), Vector2(row-1,column+2), Vector2(row+1,column+2), Vector2(row+2,column+1), Vector2(row+2,column-1), Vector2(row+1,column-2), Vector2(row-1,column-2), Vector2(row-2,column-1)]
