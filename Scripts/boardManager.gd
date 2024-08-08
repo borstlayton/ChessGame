@@ -11,6 +11,8 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					"B" = PieceNames.WHITE_BISHOP, "K" = PieceNames.WHITE_KING, 
 					"N" = PieceNames.WHITE_KNIGHT, "P" = PieceNames.WHITE_PAWN, 
 					"Q" = PieceNames.WHITE_QUEEN, "R" = PieceNames.WHITE_ROOK, }
+					
+var fen_order = ['b', 'k', 'n', 'p', 'q', 'r', 'B', 'K', 'N', 'P', 'Q', 'R']
 var level_fen = {
 	0: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
 	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
@@ -37,3 +39,12 @@ func _ready():
 	assets.append("res://Art/Chess Pieces/BlackPawn.png")
 	assets.append("res://Art/Chess Pieces/BlackQueen.png")
 	assets.append("res://Art/Chess Pieces/BlackRook.png")
+
+func create_board(board_index, piece_type):
+	var row = int(board_index/8)
+	var column = board_index % 8
+	
+	current_board[row][column] = fen_order[piece_type]
+
+func show_valid_tiles(row, column):
+	print("valid", row, column)

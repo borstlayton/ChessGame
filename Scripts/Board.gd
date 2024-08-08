@@ -15,6 +15,7 @@ func _ready():
 			if (j+i)%2 == 0:
 				new_slot.set_color(alternate_color)
 			grid_container.add_child(new_slot)
+			new_slot.set_id(i,j)
 	parse_fen(BoardManager.current_level)
 	
 func add_piece(num_grid, piece_type):
@@ -22,6 +23,7 @@ func add_piece(num_grid, piece_type):
 	var new_piece = piece_scene.instantiate()
 	new_piece.load_icon(piece_type)
 	wanted_grid.add_child(new_piece)
+	BoardManager.create_board(num_grid, piece_type)
 	
 func parse_fen(level):
 	var fen = BoardManager.level_fen[level]
