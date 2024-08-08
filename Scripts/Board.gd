@@ -15,6 +15,7 @@ func _ready():
 			if (j+i)%2 == 0:
 				new_slot.set_color(alternate_color)
 			grid_container.add_child(new_slot)
+			new_slot.set_id(i,j)
 	parse_fen(BoardManager.current_level)
 	
 func add_piece(num_grid, piece_type):

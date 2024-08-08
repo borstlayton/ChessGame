@@ -45,4 +45,3 @@ func create_board(board_index, piece_type):
 	var column = board_index % 8
 	
 	current_board[row][column] = fen_order[piece_type]
-	print(current_board)
