@@ -14,7 +14,7 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order = ['b', 'k', 'n', 'p', 'q', 'r', 'B', 'K', 'N', 'P', 'Q', 'R']
 var level_fen = {
-	0: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
+	0: "rnbqkbnr/8/8/8/8/8/PPPPPPPP/RNBQKBNR",
 	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
 }
 
@@ -24,7 +24,7 @@ func _ready():
 	for i in range(board_size):
 		var row = []
 		for j in range(board_size):
-			row.append(0)
+			row.append('0')
 		current_board.append(row)
 
 	assets.append("res://Art/Chess Pieces/WhiteBishop.png")
@@ -47,16 +47,15 @@ func create_board(board_index, piece_type):
 	current_board[row][column] = fen_order[piece_type]
 
 func show_valid_tiles(row, column):
-	get_valid_tiles(row,column)
+	var valid_positions = get_valid_tiles(row,column)
+	
 
 func get_valid_tiles(row, column):
 	var piece = current_board[row][column]
-	if piece == 0:
-		return
-	elif piece == 'p' || piece == 'P':
+	if piece == 'p' || piece == 'P':
 		get_pawn_move(row, column, piece)
 	elif piece == 'b' || piece == 'B':
-		get_bishop_move(row, column, piece)
+		return get_bishop_move(row, column, piece)
 	elif piece == 'n' || piece == 'N':
 		get_knight_move(row, column, piece)
 	elif piece == 'r' || piece == 'R':
@@ -69,7 +68,31 @@ func get_valid_tiles(row, column):
 func get_pawn_move(row, column, piece):
 	pass
 func get_bishop_move(row, column, piece):
-	pass
+	print("called bishop")
+	var valid_positions = []
+	var is_black = piece == piece.to_lower()
+	var is_white = piece == piece.to_upper()
+	var directions = [
+		Vector2(1, 1),
+		Vector2(-1, 1), 
+		Vector2(1, -1), 
+		Vector2(-1, -1) 
+	]
+	
+	for direction in directions:
+		var pos = Vector2(column, row) + direction
+		while pos.x >= 0 and pos.x < 8 and pos.y >= 0 and pos.y < 8:
+			var destination_piece = current_board[pos.y][pos.x]
+			if destination_piece == '0':  # Empty square
+				valid_positions.append(pos)
+			else:
+				# Stop if we encounter a piece; add it if it's an opponent's piece
+				if (is_black and destination_piece == destination_piece.to_upper()) or (is_white and destination_piece == destination_piece.to_lower()):
+					valid_positions.append(pos)
+				break  # Bishop cannot move further in this direction
+			pos += direction
+	print(valid_positions)
+	return valid_positions
 func get_knight_move(row, column, piece):
 	pass
 func get_rook_move(row, column, piece):
