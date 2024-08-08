@@ -8,7 +8,6 @@ var player_move = true
 var alternate_color = Color.BEIGE
 
 func _ready():
-	
 	for i in range(8):
 		for j in range(8):
 			var new_slot = tile_scene.instantiate()
