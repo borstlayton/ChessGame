@@ -120,7 +120,7 @@ func get_pawn_move(row, column, piece):
 			legal_moves[idx] = temp
 			idx += 1
 		#Attack left diagonally
-		temp = _attack(row+1,column+1, false)
+		temp = _attack(row-1,column+1, false)
 		if temp != 0:
 			legal_moves[idx] = temp
 			idx += 1	
