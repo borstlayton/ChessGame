@@ -47,4 +47,34 @@ func create_board(board_index, piece_type):
 	current_board[row][column] = fen_order[piece_type]
 
 func show_valid_tiles(row, column):
-	print("valid", row, column)
+	get_valid_tiles(row,column)
+
+func get_valid_tiles(row, column):
+	var piece = current_board[row][column]
+	if piece == 0:
+		return
+	elif piece == 'p' || piece == 'P':
+		get_pawn_move(row, column, piece)
+	elif piece == 'b' || piece == 'B':
+		get_bishop_move(row, column, piece)
+	elif piece == 'n' || piece == 'N':
+		get_knight_move(row, column, piece)
+	elif piece == 'r' || piece == 'R':
+		get_rook_move(row, column, piece)
+	elif piece == 'q' || piece == 'Q':
+		get_queen_move(row, column, piece)	
+	elif piece == 'k' || piece == 'K':
+		get_king_move(row, column, piece)
+
+func get_pawn_move(row, column, piece):
+	pass
+func get_bishop_move(row, column, piece):
+	pass
+func get_knight_move(row, column, piece):
+	pass
+func get_rook_move(row, column, piece):
+	pass
+func get_queen_move(row, column, piece):
+	pass
+func get_king_move(row, column, piece):
+	pass
