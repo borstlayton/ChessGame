@@ -22,6 +22,7 @@ func add_piece(num_grid, piece_type):
 	var new_piece = piece_scene.instantiate()
 	new_piece.load_icon(piece_type)
 	wanted_grid.add_child(new_piece)
+	BoardManager.create_board(num_grid, piece_type)
 	
 func parse_fen(level):
 	var fen = BoardManager.level_fen[level]
