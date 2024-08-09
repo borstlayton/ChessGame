@@ -50,8 +50,11 @@ func create_board(board_index:int, piece_type:int):
 	current_board[row][column] = fen_order[piece_type]
 
 func show_valid_tiles(row:int, column:int):
-	var valid_positions = get_valid_tiles(row,column)
-
+	valid_tiles = get_valid_tiles(row,column)
+	tile_pressed = true
+func clear_tiles():
+	clear_board = true
+	tile_pressed = false
 func get_valid_tiles(row:int, column:int):
 	var piece : String = current_board[row][column]
 	if piece == "p" || piece == "P":
@@ -127,7 +130,6 @@ func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	return legal_moves
 	
 func get_bishop_move(row : int, column : int, piece : String) -> Array[Vector2]:
-	print("called bishop")
 	var valid_positions : Array[Vector2] = []
 	var is_black = piece == piece.to_lower()
 	var is_white = piece == piece.to_upper()
@@ -150,7 +152,6 @@ func get_bishop_move(row : int, column : int, piece : String) -> Array[Vector2]:
 					valid_positions.append(pos)
 				break  # Bishop cannot move further in this direction
 			pos += direction
-	print(valid_positions)
 	return valid_positions
 
 func get_knight_move(row : int, column : int, piece : String) -> Array[Vector2]:

@@ -5,7 +5,6 @@ func show_tiles(tiles_shown):
 	for tile in tiles_shown:
 		var ID = 8*tile.x + tile.y
 		get_child(ID).set_color(Color.DARK_OLIVE_GREEN)
-
 func clear_valid_tiles():
 	for i in range(8):
 		for j in range(8):
