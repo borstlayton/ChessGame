@@ -6,7 +6,6 @@ extends Node2D
 
 var player_move = true
 var alternate_color = Color.BEIGE
-
 func _ready():
 	for i in range(8):
 		for j in range(8):
@@ -36,3 +35,10 @@ func parse_fen(level):
 		else:
 			add_piece(board_index, BoardManager.fen_dict[i])
 			board_index +=1
+
+func _process(_delta):
+	if BoardManager.tile_pressed:
+		grid_container.show_tiles(BoardManager.valid_tiles)
+	if BoardManager.clear_board:
+		grid_container.clear_valid_tiles()
+		BoardManager.clear_board = false

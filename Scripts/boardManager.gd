@@ -4,6 +4,9 @@ var current_board = []
 var current_level
 var board_size = 8
 var assets := []
+var valid_tiles = []
+var tile_pressed = false
+var clear_board = false
 enum PieceNames {WHITE_BISHOP, WHITE_KING, WHITE_KNIGHT, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK, BLACK_BISHOP, BLACK_KING, BLACK_KNIGHT, BLACK_PAWN, BLACK_QUEEN, BLACK_ROOK}
 var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING, 
 					"n" = PieceNames.BLACK_KNIGHT, "p" = PieceNames.BLACK_PAWN, 
@@ -47,8 +50,12 @@ func create_board(board_index, piece_type):
 	current_board[row][column] = fen_order[piece_type]
 
 func show_valid_tiles(row, column):
-	var valid_positions = get_valid_tiles(row,column)
-
+	valid_tiles = get_valid_tiles(row,column)
+	tile_pressed = true
+	
+func clear_tiles():
+	tile_pressed = false
+	clear_board = true
 func get_valid_tiles(row, column):
 	var piece = current_board[row][column]
 	if piece == 'p' || piece == 'P':
