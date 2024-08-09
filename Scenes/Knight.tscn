@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://crpmmkgeil646"]
 
-[ext_resource type="Texture2D" uid="uid://bu0aeoyyansk0" path="res://Art/Knight.png" id="1_44tjy"]
+[ext_resource type="Texture2D" uid="uid://bu0aeoyyansk0" path="res://Art/Chess Pieces/BlackKnight.png" id="1_44tjy"]
 [ext_resource type="Script" path="res://Scripts/Knight.gd" id="1_jw48t"]
 
 [node name="Knight" type="Area2D"]

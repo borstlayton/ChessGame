@@ -1,8 +1,8 @@
 extends Node
 
-var current_board = []
-var current_level
-var board_size = 8
+var current_board : Array[Array] = []
+var current_level : int
+var board_size := 8
 var assets := []
 var valid_tiles = []
 var tile_pressed = false
@@ -15,19 +15,19 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					"N" = PieceNames.WHITE_KNIGHT, "P" = PieceNames.WHITE_PAWN, 
 					"Q" = PieceNames.WHITE_QUEEN, "R" = PieceNames.WHITE_ROOK, }
 					
-var fen_order = ['b', 'k', 'n', 'p', 'q', 'r', 'B', 'K', 'N', 'P', 'Q', 'R']
-var level_fen = {
+var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
+var level_fen := {
 	0: "rnbqkbnr/8/8/8/8/8/PPPPPPPP/RNBQKBNR",
 	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
 }
 
 func _ready():
-	current_level=0
+	current_level = 0
 	
 	for i in range(board_size):
 		var row = []
 		for j in range(board_size):
-			row.append('0')
+			row.append("0")
 		current_board.append(row)
 
 	assets.append("res://Art/Chess Pieces/WhiteBishop.png")
@@ -43,37 +43,33 @@ func _ready():
 	assets.append("res://Art/Chess Pieces/BlackQueen.png")
 	assets.append("res://Art/Chess Pieces/BlackRook.png")
 
-func create_board(board_index, piece_type):
-	var row = int(board_index/8)
-	var column = board_index % 8
+func create_board(board_index:int, piece_type:int):
+	var row := int(board_index/8)
+	var column := board_index % 8
 	
 	current_board[row][column] = fen_order[piece_type]
 
-func show_valid_tiles(row, column):
-	valid_tiles = get_valid_tiles(row,column)
-	tile_pressed = true
-	
-func clear_tiles():
-	tile_pressed = false
-	clear_board = true
-func get_valid_tiles(row, column):
-	var piece = current_board[row][column]
-	if piece == 'p' || piece == 'P':
-		get_pawn_move(row, column, piece)
-	elif piece == 'b' || piece == 'B':
-		return get_bishop_move(row, column, piece)
-	elif piece == 'n' || piece == 'N':
-		get_knight_move(row, column, piece)
-	elif piece == 'r' || piece == 'R':
-		get_rook_move(row, column, piece)
-	elif piece == 'q' || piece == 'Q':
-		get_queen_move(row, column, piece)	
-	elif piece == 'k' || piece == 'K':
-		get_king_move(row, column, piece)
+func show_valid_tiles(row:int, column:int):
+	var valid_positions = get_valid_tiles(row,column)
 
-func _move(row, column):
-	if row >= 0 and row <= 7 and column >=0 and row <= 7:
-		if current_board[row][column] == '0':
+func get_valid_tiles(row:int, column:int):
+	var piece : String = current_board[row][column]
+	if piece == "p" || piece == "P":
+		return get_pawn_move(row, column, piece)
+	elif piece == "b" || piece == "B":
+		return get_bishop_move(row, column, piece)
+	elif piece == "n" || piece == "N":
+		return get_knight_move(row, column, piece)
+	elif piece == "r" || piece == "R":
+		return get_rook_move(row, column, piece)
+	elif piece == "q" || piece == "Q":
+		return get_queen_move(row, column, piece)	
+	elif piece == "k" || piece == "K":
+		return get_king_move(row, column, piece)
+
+func _move(row:int, column:int) -> Vector2: 
+	if row >= 0 and row <= 7 and column >= 0 and column <= 7:
+		if current_board[row][column] == "0":
 			return Vector2(row, column)
 		else:
 			return Vector2.ZERO
@@ -81,61 +77,58 @@ func _move(row, column):
 		return Vector2.ZERO
 
 #Color is the color of the moving piece. 1 if white and 0 if black
-func _attack(row, column, color):
+func _attack(row : int, column : int, piece : bool) -> Vector2:
 	#If the square is in bounds
-	if row >= 0 and row <= 7 and column >=0 and row <= 7:
+	if row >= 0 and row <= 7 and column >= 0 and column <= 7:
 		#Color of the piece on the target square. 1 if white and 0 if black
-		var target_color = (current_board[row][column] == current_board[row][column].to_upper())
+		var target_color : bool
+		if current_board[row][column] == current_board[row][column].to_upper():
+			target_color = true
+		else:
+			target_color = false
 		#If the square isn't blank and the target color is the oposite of the color of the moving piece, return the square to be added to moves.
-		if current_board[row][column] != '0' and color != target_color:
+		if current_board[row][column] != "0" and piece != target_color:
 			return Vector2(row, column)
 		else:
 			return Vector2.ZERO
 	else: 
 		return Vector2.ZERO
 
-func get_pawn_move(row, column, piece):
-	var legal_moves = []
-	var idx = 0
+func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
+	var legal_moves : Array[Vector2] = []
 	var temp
 	#If a white piece
 	if piece == "P":
 		#Move Forward
 		temp = _move(row+1,column)
 		if temp != Vector2.ZERO:
-			legal_moves[idx] = temp
-			idx += 1
+			legal_moves.append(temp)  
 		#Attack right diagonally
 		temp = _attack(row+1,column+1, true)
 		if temp != Vector2.ZERO:
-			legal_moves[idx] = temp
-			idx += 1
+			legal_moves.append(temp) 
 		#Attack left diagonally
 		temp = _attack(row+1,column+1, true)
 		if temp != Vector2.ZERO:
-			legal_moves[idx] = temp
-			idx += 1	
+			legal_moves.append(temp) 
 	elif piece == "p":
 		#Move Forward
 		temp = _move(row-1,column)
 		if temp != Vector2.ZERO:
-			legal_moves[idx] = temp
-			idx += 1
+			legal_moves.append(temp) 
 		#Attack right diagonally
 		temp = _attack(row-1,column+1, false)
 		if temp != Vector2.ZERO:
-			legal_moves[idx] = temp
-			idx += 1
+			legal_moves.append(temp) 
 		#Attack left diagonally
 		temp = _attack(row-1,column+1, false)
 		if temp != Vector2.ZERO:
-			legal_moves[idx] = temp
-			idx += 1	
+			legal_moves.append(temp) 
 	return legal_moves
 	
-func get_bishop_move(row, column, piece):
+func get_bishop_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	print("called bishop")
-	var valid_positions = []
+	var valid_positions : Array[Vector2] = []
 	var is_black = piece == piece.to_lower()
 	var is_white = piece == piece.to_upper()
 	var directions = [
@@ -160,28 +153,33 @@ func get_bishop_move(row, column, piece):
 	print(valid_positions)
 	return valid_positions
 
-func get_knight_move(row, column, piece):
-	var legal_moves = []
-	var possible_attacks = [Vector2(row-2,column+1), Vector2(row-1,column+2), Vector2(row+1,column+2), Vector2(row+2,column+1), Vector2(row+2,column-1), Vector2(row+1,column-2), Vector2(row-1,column-2), Vector2(row-2,column-1)]
-	var color = (piece == piece.to_upper())
-	var idx = 0
-	var temp
+func get_knight_move(row : int, column : int, piece : String) -> Array[Vector2]:
+	var legal_moves : Array[Vector2] = []
+	var possible_attacks : Array[Vector2] = [Vector2(row-2,column+1), Vector2(row-1,column+2), Vector2(row+1,column+2), Vector2(row+2,column+1), Vector2(row+2,column-1), Vector2(row+1,column-2), Vector2(row-1,column-2), Vector2(row-2,column-1)]
+	var color : bool
+	if piece == piece.to_upper():
+		color = true
+	else:
+		color = false
+	var temp : Vector2
 	#If a Knight
 	if piece == "N" || piece == "n":
 		for square in possible_attacks:
 			temp = _attack(square.x, square.y, color)
 			if temp != Vector2.ZERO:
-				legal_moves[idx] = temp
-				idx += 1	
+				legal_moves.append(temp)
 	return legal_moves
 	
 	
-func get_rook_move(row, column, piece):
-	var legal_moves = []
-	var directions = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
-	var idx = 0
-	var color = (piece == piece.to_upper())
-	var temp
+func get_rook_move(row:int, column:int, piece:String) -> Array[Vector2]:
+	var legal_moves : Array[Vector2] = []
+	var directions : Array[Vector2] = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
+	var color : bool
+	if piece == piece.to_upper():
+		color = true
+	else:
+		color = false
+	var temp : Vector2
 	#If a rook
 	if piece == "R" || piece == "r":
 		for dir in directions:
@@ -190,20 +188,22 @@ func get_rook_move(row, column, piece):
 			while(true):
 				temp = _attack(t_row, t_column, color)
 				if temp != Vector2.ZERO:
-					legal_moves[idx] = temp
-					idx += 1
+					legal_moves.append(temp)
 					t_row += dir.x
 					t_column += dir.y	
 				else:
 					break
 	return legal_moves
 	
-func get_queen_move(row, column, piece):
-	var legal_moves = []
+func get_queen_move(row:int, column:int, piece:String) -> Array[Vector2]:
+	var legal_moves : Array[Vector2] = []
 	var directions = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN, Vector2(1,1), Vector2(-1,1), Vector2(-1,-1), Vector2(1,-1)]
-	var idx = 0
-	var color = (piece == piece.to_upper())
-	var temp
+	var color : bool
+	if piece == piece.to_upper():
+		color = true
+	else:
+		color = false
+	var temp : Vector2
 	#If a queen
 	if piece == "Q" || piece == "q":
 		for dir in directions:
@@ -212,26 +212,27 @@ func get_queen_move(row, column, piece):
 			while(true):
 				temp = _attack(t_row, t_column, color)
 				if temp != Vector2.ZERO:
-					legal_moves[idx] = temp
-					idx += 1
+					legal_moves.append(temp)
 					t_row += dir.x
 					t_column += dir.y	
 				else:
 					break
 	return legal_moves
 	
-func get_king_move(row, column, piece):
-	var legal_moves = []
+func get_king_move(row:int, column:int, piece:String) -> Array[Vector2]:
+	var legal_moves : Array[Vector2] = []
 	var possible_attacks = [Vector2(row-1,column-1), Vector2(row-1,column), Vector2(row-1,column+1), Vector2(row,column-1), Vector2(row,column+1), Vector2(row+1,column-1), Vector2(row+1,column), Vector2(row+1,column+1)]
-	var color = (piece == piece.to_upper())
-	var idx = 0
-	var temp
+	var color : bool
+	if piece == piece.to_upper():
+		color = true
+	else:
+		color = false
+	var temp : Vector2
 	#If a white piece
 	if piece == "K" || piece == "k":
 		for square in possible_attacks:
 			temp = _attack(square.x, square.y, color)
 			if temp != Vector2.ZERO:
-				legal_moves[idx] = temp
-				idx += 1	
+				legal_moves.append(temp)
 	return legal_moves
 	
