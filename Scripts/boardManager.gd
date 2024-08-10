@@ -17,7 +17,7 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	0: "rnbqkbnr/8/8/8/8/8/8/RNBQKBNR",
+	0: "rnbqkbnr/pppp4/8/8/8/8/8/RNBQKBNR",
 	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
 }
 
@@ -123,6 +123,11 @@ func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	var temp
 	#If a white piece
 	if piece == "P":
+		#Move Forward 2
+		if row == 1:
+			temp = _move(row+2,column)
+			if temp != Vector2.ZERO:
+				legal_moves.append(temp)
 		#Move Forward
 		temp = _move(row+1,column)
 		if temp != Vector2.ZERO:
@@ -136,6 +141,11 @@ func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 		if temp != Vector2.ZERO:
 			legal_moves.append(temp) 
 	elif piece == "p":
+		#Move Forward 2
+		if row == 6:
+			temp = _move(row-2,column)
+			if temp != Vector2.ZERO:
+				legal_moves.append(temp)
 		#Move Forward
 		temp = _move(row-1,column)
 		if temp != Vector2.ZERO:
