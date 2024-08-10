@@ -17,7 +17,7 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	0: "rnbqkbnr/8/8/8/8/8/PPPPPPPP/RNBQKBNR",
+	0: "rnbqkbnr/8/8/8/8/8/8/RNBQKBNR",
 	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
 }
 
@@ -96,6 +96,27 @@ func _attack(row : int, column : int, piece : bool) -> Vector2:
 			return Vector2.ZERO
 	else: 
 		return Vector2.ZERO
+		
+func check_path(direction : Vector2, row : int, column : int,color : bool):
+	
+	var legal_moves = []
+	var t_row = row + direction.x
+	var t_column = column + direction.y
+	var continue_direction = true
+	var temp : Vector2
+	while(continue_direction and t_column >= 0 and t_column < 8 and t_row >= 0 and t_row < 8):
+		temp = _move(t_row, t_column)
+		if temp != Vector2.ZERO:
+			legal_moves.append(temp)
+		else:
+			temp = _attack(t_row, t_column, color)
+			if temp != Vector2.ZERO:
+				legal_moves.append(temp)
+			else:
+				continue_direction = false
+		t_row = t_row + direction.x
+		t_column = t_column + direction.y
+	return legal_moves
 
 func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	var legal_moves : Array[Vector2] = []
@@ -130,29 +151,23 @@ func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	return legal_moves
 	
 func get_bishop_move(row : int, column : int, piece : String) -> Array[Vector2]:
-	var valid_positions : Array[Vector2] = []
-	var is_black = piece == piece.to_lower()
-	var is_white = piece == piece.to_upper()
-	var directions = [
-		Vector2(1, 1),
-		Vector2(-1, 1), 
-		Vector2(1, -1), 
-		Vector2(-1, -1) 
+	var legal_moves : Array[Vector2] = []
+	var new_moves : Array = []
+	var directions = [Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1) 
 	]
-	
-	for direction in directions:
-		var pos = Vector2(column, row) + direction
-		while pos.x >= 0 and pos.x < 8 and pos.y >= 0 and pos.y < 8:
-			var destination_piece = current_board[pos.y][pos.x]
-			if destination_piece == '0':  # Empty square
-				valid_positions.append(pos)
-			else:
-				# Stop if we encounter a piece; add it if it's an opponent's piece
-				if (is_black and destination_piece == destination_piece.to_upper()) or (is_white and destination_piece == destination_piece.to_lower()):
-					valid_positions.append(pos)
-				break  # Bishop cannot move further in this direction
-			pos += direction
-	return valid_positions
+	var color : bool
+	if piece == piece.to_upper():
+		color = true
+	else:
+		color = false
+	var temp : Vector2
+	#If a rook
+	if piece == "B" || piece == "b":
+		for dir in directions:
+			new_moves = check_path(dir,row,column,color)
+			for move in new_moves:
+				legal_moves.append(move)
+	return legal_moves
 
 func get_knight_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	var legal_moves : Array[Vector2] = []
@@ -174,6 +189,7 @@ func get_knight_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	
 func get_rook_move(row:int, column:int, piece:String) -> Array[Vector2]:
 	var legal_moves : Array[Vector2] = []
+	var new_moves : Array = []
 	var directions : Array[Vector2] = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 	var color : bool
 	if piece == piece.to_upper():
@@ -184,20 +200,14 @@ func get_rook_move(row:int, column:int, piece:String) -> Array[Vector2]:
 	#If a rook
 	if piece == "R" || piece == "r":
 		for dir in directions:
-			var t_row = row + dir.x
-			var t_column = column + dir.y
-			while(true):
-				temp = _attack(t_row, t_column, color)
-				if temp != Vector2.ZERO:
-					legal_moves.append(temp)
-					t_row += dir.x
-					t_column += dir.y	
-				else:
-					break
+			new_moves = check_path(dir,row,column,color)
+			for move in new_moves:
+				legal_moves.append(move)
 	return legal_moves
 	
 func get_queen_move(row:int, column:int, piece:String) -> Array[Vector2]:
 	var legal_moves : Array[Vector2] = []
+	var new_moves : Array = []
 	var directions = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN, Vector2(1,1), Vector2(-1,1), Vector2(-1,-1), Vector2(1,-1)]
 	var color : bool
 	if piece == piece.to_upper():
@@ -205,19 +215,12 @@ func get_queen_move(row:int, column:int, piece:String) -> Array[Vector2]:
 	else:
 		color = false
 	var temp : Vector2
-	#If a queen
+	#If a rook
 	if piece == "Q" || piece == "q":
 		for dir in directions:
-			var t_row = row + dir.x
-			var t_column = column + dir.y
-			while(true):
-				temp = _attack(t_row, t_column, color)
-				if temp != Vector2.ZERO:
-					legal_moves.append(temp)
-					t_row += dir.x
-					t_column += dir.y	
-				else:
-					break
+			new_moves = check_path(dir,row,column,color)
+			for move in new_moves:
+				legal_moves.append(move)
 	return legal_moves
 	
 func get_king_move(row:int, column:int, piece:String) -> Array[Vector2]:
@@ -232,6 +235,10 @@ func get_king_move(row:int, column:int, piece:String) -> Array[Vector2]:
 	#If a white piece
 	if piece == "K" || piece == "k":
 		for square in possible_attacks:
+			temp = _move(square.x, square.y)
+			if temp != Vector2.ZERO:
+				legal_moves.append(temp)
+				continue
 			temp = _attack(square.x, square.y, color)
 			if temp != Vector2.ZERO:
 				legal_moves.append(temp)
