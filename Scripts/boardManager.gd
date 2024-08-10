@@ -181,6 +181,10 @@ func get_knight_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	#If a Knight
 	if piece == "N" || piece == "n":
 		for square in possible_attacks:
+			temp = _move(square.x, square.y)
+			if temp != Vector2.ZERO:
+				legal_moves.append(temp)
+				continue
 			temp = _attack(square.x, square.y, color)
 			if temp != Vector2.ZERO:
 				legal_moves.append(temp)
