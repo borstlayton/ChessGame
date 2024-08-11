@@ -7,6 +7,9 @@ extends Node2D
 var player_move = true
 var alternate_color = Color.BEIGE
 func _ready():
+	
+	SignalManager.tile_pressed.connect(show_valid_grid_tiles)
+	SignalManager.clear_valid_tiles.connect(clear_valid_grid_tiles)
 	for i in range(8):
 		for j in range(8):
 			var new_slot = tile_scene.instantiate()
@@ -36,9 +39,7 @@ func parse_fen(level):
 			add_piece(board_index, BoardManager.fen_dict[i])
 			board_index +=1
 
-func _process(_delta):
-	if BoardManager.tile_pressed:
-		grid_container.show_tiles(BoardManager.valid_tiles)
-	if BoardManager.clear_board:
-		grid_container.clear_valid_tiles()
-		BoardManager.clear_board = false
+func show_valid_grid_tiles():
+	grid_container.show_tiles(BoardManager.valid_tiles)
+func clear_valid_grid_tiles():
+	grid_container.clear_valid_tiles()

@@ -5,8 +5,10 @@ var current_level : int
 var board_size := 8
 var assets := []
 var valid_tiles = []
-var tile_pressed = false
-var clear_board = false
+var current_board_state = board_states.WHITE_IDLE
+var current_piece : Vector2
+
+enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED}
 enum PieceNames {WHITE_BISHOP, WHITE_KING, WHITE_KNIGHT, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK, BLACK_BISHOP, BLACK_KING, BLACK_KNIGHT, BLACK_PAWN, BLACK_QUEEN, BLACK_ROOK}
 var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING, 
 					"n" = PieceNames.BLACK_KNIGHT, "p" = PieceNames.BLACK_PAWN, 
@@ -43,18 +45,38 @@ func _ready():
 	assets.append("res://Art/Chess Pieces/BlackQueen.png")
 	assets.append("res://Art/Chess Pieces/BlackRook.png")
 
+func piece_selected(row : int, column : int):
+	if current_board_state == board_states.WHITE_IDLE and current_board[row][column] == current_board[row][column].to_upper():
+		valid_tiles = get_valid_tiles(row, column)
+		current_board_state = board_states.WHITE_PIECE_CLICKED
+		current_piece = Vector2(row,column)
+		
+func piece_moved(row: int, column : int):
+	var is_valid_tile : bool
+	for tile in valid_tiles:
+		if tile == Vector2(row,column):
+			is_valid_tile = true
+			break
+	if is_valid_tile:
+		move_pieces(row,column)
+	else:
+		current_piece = Vector2(-1,-1)
+		current_board_state = board_states.WHITE_IDLE
+func move_pieces(row : int, column : int):
+
+	current_board[row][column] = current_board[current_piece.x][current_piece.y]
+	current_board[current_piece.x][current_piece.y] = "0"
+	print(current_board)
 func create_board(board_index:int, piece_type:int):
 	var row := int(board_index/8)
 	var column := board_index % 8
 	
 	current_board[row][column] = fen_order[piece_type]
 
-func show_valid_tiles(row:int, column:int):
-	valid_tiles = get_valid_tiles(row,column)
-	tile_pressed = true
-func clear_tiles():
-	clear_board = true
-	tile_pressed = false
+func show_valid_tiles(row: int, column:int):
+	if current_board[row][column] != "0":
+		valid_tiles = get_valid_tiles(row,column)
+
 func get_valid_tiles(row:int, column:int):
 	var piece : String = current_board[row][column]
 	if piece == "p" || piece == "P":
@@ -160,8 +182,7 @@ func get_bishop_move(row : int, column : int, piece : String) -> Array[Vector2]:
 		color = true
 	else:
 		color = false
-	var temp : Vector2
-	#If a rook
+	#If a bishop
 	if piece == "B" || piece == "b":
 		for dir in directions:
 			new_moves = check_path(dir,row,column,color)
@@ -200,7 +221,6 @@ func get_rook_move(row:int, column:int, piece:String) -> Array[Vector2]:
 		color = true
 	else:
 		color = false
-	var temp : Vector2
 	#If a rook
 	if piece == "R" || piece == "r":
 		for dir in directions:
@@ -218,8 +238,7 @@ func get_queen_move(row:int, column:int, piece:String) -> Array[Vector2]:
 		color = true
 	else:
 		color = false
-	var temp : Vector2
-	#If a rook
+	#If a queen
 	if piece == "Q" || piece == "q":
 		for dir in directions:
 			new_moves = check_path(dir,row,column,color)
