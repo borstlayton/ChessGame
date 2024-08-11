@@ -25,7 +25,11 @@ func _on_button_button_up():
 	SignalManager.clear_valid_tiles.emit()
 	
 func _on_button_pressed():
-	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE:
+	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and get_icon()!= null:
 		BoardManager.piece_selected(tile_row, tile_column)
 	elif BoardManager.current_board_state == BoardManager.board_states.WHITE_PIECE_CLICKED:
+		BoardManager.piece_moved(tile_row, tile_column)
+	if BoardManager.current_board_state == BoardManager.board_states.BLACK_IDLE and get_icon()!= null:
+		BoardManager.piece_selected(tile_row, tile_column)
+	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_PIECE_CLICKED:
 		BoardManager.piece_moved(tile_row, tile_column)

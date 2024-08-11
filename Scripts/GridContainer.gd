@@ -16,9 +16,14 @@ func clear_valid_tiles():
 				current_tile.set_color(Color.BEIGE)
 			else:
 				current_tile.set_color(original_color)
-func move_pieces(past_tile : Vector2, next_tile : Vector2): #NOT IN USE YET
+func move_pieces(past_tile : Vector2, next_tile : Vector2):
 	var past_ID = past_tile.x * 8 + past_tile.y
 	var next_tile_ID = next_tile.x*8 + next_tile.y
 	
 	get_child(next_tile_ID).set_icon(get_child(past_ID).get_icon())
 	get_child(past_ID).clear_piece()
+	
+	if BoardManager.current_board_state == BoardManager.board_states.WHITE_PIECE_MOVED:
+		BoardManager.current_board_state = BoardManager.board_states.BLACK_IDLE
+	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_PIECE_MOVED:
+		BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE

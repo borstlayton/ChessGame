@@ -38,7 +38,8 @@ func parse_fen(level):
 			board_index +=1
 
 func show_valid_grid_tiles():
-	grid_container.show_tiles(BoardManager.valid_tiles)
+	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE:
+		grid_container.show_tiles(BoardManager.valid_tiles)
 func clear_valid_grid_tiles():
 	grid_container.clear_valid_tiles()
 func move_piece_grid(current_piece : Vector2, next_piece : Vector2):

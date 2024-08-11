@@ -46,11 +46,14 @@ func _ready():
 	assets.append("res://Art/Chess Pieces/BlackRook.png")
 
 func piece_selected(row : int, column : int):
-	if current_board_state == board_states.WHITE_IDLE and current_board[row][column] == current_board[row][column].to_upper():
+	if current_board[row][column] != "0" and current_board_state == board_states.WHITE_IDLE and current_board[row][column] == current_board[row][column].to_lower():
 		valid_tiles = get_valid_tiles(row, column)
 		current_board_state = board_states.WHITE_PIECE_CLICKED
 		current_piece = Vector2(row,column)
-		
+	elif current_board[row][column] != "0" and current_board_state == board_states.BLACK_IDLE and current_board[row][column] == current_board[row][column].to_lower():
+		valid_tiles = get_valid_tiles(row, column)
+		current_board_state = board_states.BLACK_PIECE_CLICKED
+		current_piece = Vector2(row,column)
 func piece_moved(row: int, column : int):
 	var is_valid_tile : bool
 	for tile in valid_tiles:
@@ -63,7 +66,11 @@ func piece_moved(row: int, column : int):
 		current_piece = Vector2(-1,-1)
 		current_board_state = board_states.WHITE_IDLE
 func move_pieces(row : int, column : int):
-
+	if current_board_state == board_states.WHITE_PIECE_CLICKED:
+		current_board_state = board_states.WHITE_PIECE_MOVED
+	elif current_board_state == board_states.BLACK_PIECE_CLICKED:
+		current_board_state = board_states.BLACK_PIECE_MOVED
+	
 	current_board[row][column] = current_board[current_piece.x][current_piece.y]
 	current_board[current_piece.x][current_piece.y] = "0"
 	SignalManager.moved_piece.emit(current_piece, Vector2(row,column))
