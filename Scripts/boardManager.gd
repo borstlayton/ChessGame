@@ -66,7 +66,7 @@ func move_pieces(row : int, column : int):
 
 	current_board[row][column] = current_board[current_piece.x][current_piece.y]
 	current_board[current_piece.x][current_piece.y] = "0"
-	print(current_board)
+	SignalManager.moved_piece.emit(current_piece, Vector2(row,column))
 func create_board(board_index:int, piece_type:int):
 	var row := int(board_index/8)
 	var column := board_index % 8

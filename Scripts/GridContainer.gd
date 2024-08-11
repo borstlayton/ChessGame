@@ -20,4 +20,5 @@ func move_pieces(past_tile : Vector2, next_tile : Vector2): #NOT IN USE YET
 	var past_ID = past_tile.x * 8 + past_tile.y
 	var next_tile_ID = next_tile.x*8 + next_tile.y
 	
-	get_child(next_tile_ID).set_icon(get_child(past_ID.get_icon()))
+	get_child(next_tile_ID).set_icon(get_child(past_ID).get_icon())
+	get_child(past_ID).clear_piece()
