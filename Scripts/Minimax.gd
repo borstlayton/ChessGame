@@ -6,7 +6,6 @@ var best_move : Vector4
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	best_move = find_best(BoardManager.current_board, BoardManager.turn, depth)
-	pass # Replace with function body.
 
 var values := { "P" = 1, "p" = -1, 
 	"B" = 3, "b" = -3, 
@@ -67,7 +66,7 @@ func _minimax(board:Array[Array], depth:int, turn:bool, alpha:float, beta:float)
 				break
 		return best_value
 		
-func _eval(board:Array[Array]):
+func _eval(board:Array[Array]) -> float:
 	var count = 0
 	var val
 	for row in range(8):

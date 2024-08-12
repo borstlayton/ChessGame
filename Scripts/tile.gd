@@ -13,6 +13,9 @@ func set_icon(new_texture):
 	piece.texture = new_texture
 func clear_piece():
 	piece.texture = null
+
+var num_clicks := 0
+		
 func set_id(row, column):
 	ID = row*8 + column
 	tile_row = row
@@ -23,7 +26,10 @@ func _on_button_button_down():
 	
 func _on_button_button_up():
 	SignalManager.clear_valid_tiles.emit()
-	
+#func _on_button_button_up():
+	#BoardManager.clear_tiles()
+	#num_clicks += 1
+
 func _on_button_pressed():
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and get_icon()!= null:
 		BoardManager.piece_selected(tile_row, tile_column)
@@ -33,3 +39,7 @@ func _on_button_pressed():
 		BoardManager.piece_selected(tile_row, tile_column)
 	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_PIECE_CLICKED:
 		BoardManager.piece_moved(tile_row, tile_column)
+	num_clicks += 1
+	
+
+
