@@ -4,8 +4,8 @@ extends Node2D
 @onready var piece_scene = preload("res://Scenes/Piece.tscn")
 @onready var grid_container = $ColorRect/GridContainer
 
-var player_move = true
-var alternate_color = Color.BEIGE
+var player_move : bool = true
+var alternate_color := Color.BEIGE
 func _ready():
 	for i in range(8):
 		for j in range(8):

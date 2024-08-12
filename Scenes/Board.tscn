@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=5 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/GridContainer.gd" id="2_6tt8d"]
 [ext_resource type="Script" path="res://Scripts/Level Counter.gd" id="2_o4k1a"]
+[ext_resource type="Script" path="res://Scripts/Minimax.gd" id="4_2ft2w"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_bohl5")
@@ -60,3 +61,7 @@ offset_right = 104.0
 offset_bottom = 445.0
 scale = Vector2(10.7079, 7.01455)
 color = Color(0.180005, 0.180005, 0.180005, 1)
+
+[node name="Minmax" type="Node2D" parent="."]
+script = ExtResource("4_2ft2w")
+best_move = null

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://csi35xme1di3e"]
+
+[node name="Minimax" type="Node2D"]
