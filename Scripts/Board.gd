@@ -10,6 +10,7 @@ func _ready():
 	SignalManager.tile_pressed.connect(show_valid_grid_tiles)
 	SignalManager.clear_valid_tiles.connect(clear_valid_grid_tiles)
 	SignalManager.moved_piece.connect(move_piece_grid)
+	
 	for i in range(8):
 		for j in range(8):
 			var new_slot = tile_scene.instantiate()
@@ -38,8 +39,9 @@ func parse_fen(level):
 			board_index +=1
 
 func show_valid_grid_tiles():
-	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE:
+	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE or BoardManager.current_board_state == BoardManager.board_states.BLACK_IDLE:
 		grid_container.show_tiles(BoardManager.valid_tiles)
+		grid_container.show_current_tile(BoardManager.current_piece)
 func clear_valid_grid_tiles():
 	grid_container.clear_valid_tiles()
 func move_piece_grid(current_piece : Vector2, next_piece : Vector2):

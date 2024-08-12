@@ -8,6 +8,9 @@ func show_tiles(tiles_shown):
 	for tile in tiles_shown:
 		var ID = 8*tile.x + tile.y
 		get_child(ID).set_color(Color.DARK_OLIVE_GREEN)
+func show_current_tile(current_piece_tile : Vector2):
+	var ID = 8*current_piece_tile.x + current_piece_tile.y
+	get_child(ID).set_color(Color.GOLD)
 func clear_valid_tiles():
 	for i in range(8):
 		for j in range(8):

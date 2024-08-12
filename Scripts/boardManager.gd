@@ -50,21 +50,37 @@ func piece_selected(row : int, column : int):
 		valid_tiles = get_valid_tiles(row, column)
 		current_board_state = board_states.WHITE_PIECE_CLICKED
 		current_piece = Vector2(row,column)
-	elif current_board[row][column] != "0" and current_board_state == board_states.BLACK_IDLE and current_board[row][column] == current_board[row][column].to_lower():
+	elif current_board[row][column] != "0" and current_board_state == board_states.BLACK_IDLE and current_board[row][column] == current_board[row][column].to_upper():
 		valid_tiles = get_valid_tiles(row, column)
 		current_board_state = board_states.BLACK_PIECE_CLICKED
 		current_piece = Vector2(row,column)
 func piece_moved(row: int, column : int):
+	print("----------")
 	var is_valid_tile : bool
 	for tile in valid_tiles:
+		print(tile)
 		if tile == Vector2(row,column):
 			is_valid_tile = true
+			print("valid")
 			break
 	if is_valid_tile:
 		move_pieces(row,column)
 	else:
-		current_piece = Vector2(-1,-1)
-		current_board_state = board_states.WHITE_IDLE
+		print("invalid")
+		if current_board_state == board_states.WHITE_PIECE_CLICKED and current_board[row][column] == "0":
+			current_board_state = board_states.WHITE_IDLE
+			current_piece = Vector2(-1,-1)
+		elif current_board_state == board_states.BLACK_PIECE_CLICKED and current_board[row][column] == "0":
+			current_board_state = board_states.BLACK_IDLE
+			current_piece = Vector2(-1,-1)
+		elif current_board_state == board_states.WHITE_PIECE_CLICKED and current_board[row][column] != "0" and current_board[row][column] == current_board[row][column].to_lower():
+			current_board_state = board_states.WHITE_IDLE
+			current_piece = Vector2(row,column)
+			valid_tiles = get_valid_tiles(row,column)
+		elif current_board_state == board_states.BLACK_PIECE_CLICKED and current_board[row][column] != "0" and current_board[row][column] == current_board[row][column].to_upper():
+			current_board_state = board_states.BLACK_IDLE
+			current_piece = Vector2(row,column)
+			valid_tiles = get_valid_tiles(row,column)
 func move_pieces(row : int, column : int):
 	if current_board_state == board_states.WHITE_PIECE_CLICKED:
 		current_board_state = board_states.WHITE_PIECE_MOVED
@@ -74,6 +90,7 @@ func move_pieces(row : int, column : int):
 	current_board[row][column] = current_board[current_piece.x][current_piece.y]
 	current_board[current_piece.x][current_piece.y] = "0"
 	SignalManager.moved_piece.emit(current_piece, Vector2(row,column))
+	
 func create_board(board_index:int, piece_type:int):
 	var row := int(board_index/8)
 	var column := board_index % 8
@@ -82,6 +99,7 @@ func create_board(board_index:int, piece_type:int):
 
 func show_valid_tiles(row: int, column:int):
 	if current_board[row][column] != "0":
+		current_piece = Vector2(row,column)
 		valid_tiles = get_valid_tiles(row,column)
 
 func get_valid_tiles(row:int, column:int):
@@ -141,8 +159,7 @@ func check_path(direction : Vector2, row : int, column : int,color : bool):
 			temp = _attack(t_row, t_column, color)
 			if temp != Vector2.ZERO:
 				legal_moves.append(temp)
-			else:
-				continue_direction = false
+			continue_direction = false
 		t_row = t_row + direction.x
 		t_column = t_column + direction.y
 	return legal_moves

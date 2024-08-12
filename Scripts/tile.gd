@@ -18,9 +18,12 @@ func set_id(row, column):
 	tile_row = row
 	tile_column = column
 func _on_button_button_down():
-	BoardManager.show_valid_tiles(tile_row, tile_column)
-	SignalManager.tile_pressed.emit()
-	
+	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_lower():
+		BoardManager.show_valid_tiles(tile_row, tile_column)
+		SignalManager.tile_pressed.emit()
+	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_upper():
+		BoardManager.show_valid_tiles(tile_row, tile_column)
+		SignalManager.tile_pressed.emit()
 func _on_button_button_up():
 	SignalManager.clear_valid_tiles.emit()
 	
