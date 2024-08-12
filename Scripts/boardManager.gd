@@ -1,13 +1,13 @@
 extends Node
 
 var current_board : Array[Array] = []
+var turn:bool = true
 var current_level : int
 var board_size := 8
 var assets := []
 var valid_tiles = []
 var current_board_state = board_states.WHITE_IDLE
 var current_piece : Vector2
-
 enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED}
 enum PieceNames {WHITE_BISHOP, WHITE_KING, WHITE_KNIGHT, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK, BLACK_BISHOP, BLACK_KING, BLACK_KNIGHT, BLACK_PAWN, BLACK_QUEEN, BLACK_ROOK}
 var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING, 
