@@ -1,14 +1,16 @@
 extends Node
 
 var current_board : Array[Array] = []
+var turn:bool = true
 var current_level : int
 var board_size := 8
 var assets := []
 var valid_tiles = []
 var current_board_state = board_states.WHITE_IDLE
 var current_piece : Vector2
-
 enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED}
+var tile_pressed = false
+var clear_board = false
 enum PieceNames {WHITE_BISHOP, WHITE_KING, WHITE_KNIGHT, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK, BLACK_BISHOP, BLACK_KING, BLACK_KNIGHT, BLACK_PAWN, BLACK_QUEEN, BLACK_ROOK}
 var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING, 
 					"n" = PieceNames.BLACK_KNIGHT, "p" = PieceNames.BLACK_PAWN, 
@@ -19,7 +21,7 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	0: "rnbqkbnr/pppp4/8/8/8/8/8/RNBQKBNR",
+	0: "rnbqkbnr/8/8/8/8/8/8/RNBQKBNR",
 	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
 }
 
@@ -101,6 +103,31 @@ func show_valid_tiles(row: int, column:int):
 	if current_board[row][column] != "0":
 		current_piece = Vector2(row,column)
 		valid_tiles = get_valid_tiles(row,column)
+#func show_valid_tiles(row:int, column:int):
+	#valid_tiles = get_valid_tiles(row,column)
+	#tile_pressed = true
+
+func generate_moves(turn : bool) -> Array[Vector4]:
+	var possible_moves : Array[Vector4] = [] 
+	var curr_piece : Array[Vector2] = [] 
+	var target_color 
+	for row in range(8):
+		for column in range(8):
+			#The ending locations for the tile
+			
+			curr_piece += get_valid_tiles(row, column) 
+			
+			#A move is the starting position (w,x), and the ending position (y,z)
+			for loc in curr_piece:
+				possible_moves.append(Vector4(row,column,loc.x, loc.y))
+				
+			curr_piece.clear()
+			
+	return possible_moves
+
+func clear_tiles():
+	clear_board = true
+	tile_pressed = false
 
 func get_valid_tiles(row:int, column:int):
 	var piece : String = current_board[row][column]
@@ -167,15 +194,16 @@ func check_path(direction : Vector2, row : int, column : int,color : bool):
 func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	var legal_moves : Array[Vector2] = []
 	var temp
+	var temp2
 	#If a white piece
 	if piece == "P":
 		#Move Forward 2
 		if row == 1:
-			temp = _move(row+2,column)
-			if temp != Vector2.ZERO:
+			temp = _move(row+1,column)
+			temp2 = _move(row+2,column)
+			if temp != Vector2.ZERO and temp2 != Vector2.ZERO:
 				legal_moves.append(temp)
-		#Move Forward
-		temp = _move(row+1,column)
+		#Move Forward 1 (temp is already 1 forward)
 		if temp != Vector2.ZERO:
 			legal_moves.append(temp)  
 		#Attack right diagonally
@@ -183,17 +211,17 @@ func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 		if temp != Vector2.ZERO:
 			legal_moves.append(temp) 
 		#Attack left diagonally
-		temp = _attack(row+1,column+1, true)
+		temp = _attack(row+1,column-1, true)
 		if temp != Vector2.ZERO:
 			legal_moves.append(temp) 
 	elif piece == "p":
 		#Move Forward 2
 		if row == 6:
-			temp = _move(row-2,column)
-			if temp != Vector2.ZERO:
+			temp = _move(row-1,column)
+			temp2 = _move(row-2,column)
+			if temp != Vector2.ZERO and temp2 != Vector2.ZERO:
 				legal_moves.append(temp)
 		#Move Forward
-		temp = _move(row-1,column)
 		if temp != Vector2.ZERO:
 			legal_moves.append(temp) 
 		#Attack right diagonally

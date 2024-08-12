@@ -3,8 +3,8 @@ extends Node2D
 @onready var tile_scene = preload("res://Scenes/tile.tscn")
 @onready var grid_container = $ColorRect/GridContainer
 
-var player_move = true
-var alternate_color = Color.BEIGE
+var player_move : bool = true
+var alternate_color := Color.BEIGE
 func _ready():
 	
 	SignalManager.tile_pressed.connect(show_valid_grid_tiles)
