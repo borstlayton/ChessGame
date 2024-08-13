@@ -3,11 +3,14 @@ extends Node2D
 @onready var tile_scene = preload("res://Scenes/tile.tscn")
 @onready var grid_container = $ColorRect/GridContainer
 @onready var next_level_button = $"Control/Next Level"
+@onready var purchase_pieces_gui = $"Control/Purchase Pieces"
+
 var player_move : bool = true
 var alternate_color := Color.BEIGE
 func _ready():
 	
 	next_level_button.hide()
+	purchase_pieces_gui.hide()
 	
 	SignalManager.tile_pressed.connect(show_valid_grid_tiles)
 	SignalManager.clear_valid_tiles.connect(clear_valid_grid_tiles)
@@ -59,8 +62,10 @@ func next_level():
 	clear_board()
 	BoardManager.current_level += 1
 	next_level_button.show()
-
+	purchase_pieces_gui.show()
+	
 func _on_next_level_button_down():
 	next_level_button.hide()
+	purchase_pieces_gui.hide()
 	parse_fen(BoardManager.current_level)
 	BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
