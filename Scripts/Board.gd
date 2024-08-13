@@ -70,3 +70,4 @@ func next_level():
 func _on_next_level_button_down():
 	next_level_button.hide()
 	parse_fen(BoardManager.current_level)
+	BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
