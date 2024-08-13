@@ -1,25 +1,29 @@
 extends Node2D
 
-var best_move : Vector4 
 @export var DEPTH:int = 4
 
-var letters : String = "abcdefgh"
-
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	best_move = find_best(BoardManager.current_board, BoardManager.turn, DEPTH)
+#func _ready():
 
-func update_best():
-	best_move = find_best(BoardManager.current_board, BoardManager.turn, DEPTH)
+func current_best():
+	return find_best(BoardManager.current_board, BoardManager.turn, DEPTH)
+	
+func print_board(board:Array[Array]):
+	var temp:String = ""
+	for i in range(8):
+		for j in range(8):
+			temp += board[7-i][j]
+		print(temp)
+		temp = ""
+	print("")
 
 func move_to_text(move:Vector4):
-	var text : String
-	print(move.w)
-	text.insert(0,letters[move.w])
-	text.insert(1,str(move.x + 1))
-	text.insert(2," ")
-	text.insert(3,letters[move.y])
-	text.insert(4,str(move.z+1))
+	var text : String = ""
+	text += String.chr(97+move.y) #a+sq1.x
+	text += String.chr(49+move.x) #1 + sq1.y
+	text += String.chr(32) #Space
+	text += String.chr(97+move.w) #a+sq2.x
+	text += String.chr(49+move.z) #1 + sq2.y
 	return text
 
 var values := { "P" = 1, "p" = -1, 
@@ -34,15 +38,19 @@ func find_best(board:Array[Array], turn:bool, depth:int) -> Vector4:
 	var val:float
 	var idx:int = 0
 	var best_move:Vector4
+	var best_board:Array[Array]
 	var moves = generate_moves(board, turn)
-	var children := generate_children(board, moves, turn)
+	var children := generate_children(board, moves)
+	print(children.size())
 	if turn == true:
 		var best_val:float = -INF
 		for child_board in children:
+			print_board(child_board)
 			val = _minimax(child_board, depth-1, false, -INF, INF)
 			if val > best_val:
 				best_val = val
 				best_move = moves[idx]
+				best_board = child_board.duplicate(true)
 				idx += 1
 	else:
 		var best_val:float = INF
@@ -52,7 +60,10 @@ func find_best(board:Array[Array], turn:bool, depth:int) -> Vector4:
 			if val < best_val:
 				best_val = val
 				best_move = moves[idx]
+				best_board = child_board.duplicate(true)
 				idx += 1
+	#print_board(best_board)
+	#print(best_board.size())
 	return best_move
 
 func _minimax(board:Array[Array], depth:int, turn:bool, alpha:float, beta:float) -> float:
@@ -61,7 +72,7 @@ func _minimax(board:Array[Array], depth:int, turn:bool, alpha:float, beta:float)
 	if turn == true:
 		var best_value := -INF
 		var moves = generate_moves(board, turn)
-		var children := generate_children(board, moves, turn)
+		var children := generate_children(board, moves)
 		for child_board in children:
 			var value = _minimax(child_board, depth-1, false, alpha, beta)
 			best_value = max(best_value, value)
@@ -72,7 +83,7 @@ func _minimax(board:Array[Array], depth:int, turn:bool, alpha:float, beta:float)
 	else:
 		var best_value := INF
 		var moves = generate_moves(board, turn)
-		var children := generate_children(board, moves, turn)
+		var children := generate_children(board, moves)
 		for child_board in children:
 			var value = _minimax(child_board, depth-1, true, alpha, beta)
 			best_value = min(best_value, value)
@@ -86,7 +97,7 @@ func _eval(board:Array[Array]) -> float:
 	var val
 	for row in range(8):
 		for column in range(8):
-			val = values.board[row][column]
+			val = values[board[row][column]]
 			if val == 1:
 				val *= 1.1**row
 			elif val == -1:
@@ -103,23 +114,23 @@ func _eval(board:Array[Array]) -> float:
 			count += val
 	return count
 
-func generate_children(board:Array[Array], moves:Array[Vector4], turn:bool) -> Array[Array]:
+func generate_children(board:Array[Array], moves:Array[Vector4]) -> Array[Array]:
 	var children : Array[Array] = []
 	var temp : String
 	for move in moves:
 		#Temp stores what is on the target square
-		temp = board[move.y][move.z]
+		temp = board[move.z][move.w]
 		
 		#Move the piece
-		board[move.y][move.z] = board[move.w][move.x]
-		board[move.w][move.x] = "0"
+		board[move.z][move.w] = board[move.x][move.y]
+		board[move.x][move.y] = "0"
 		
 		#Add new board position to children
-		children.append(board.duplicate())
+		children.append(board.duplicate(true))
 		
 		#Undo the move
-		board[move.w][move.x] = board[move.y][move.z]
-		board[move.y][move.z] = temp
+		board[move.x][move.y] = board[move.z][move.w]
+		board[move.z][move.w] = temp
 	return children
 
 func generate_moves(board:Array[Array], turn : bool) -> Array[Vector4]:
@@ -128,7 +139,7 @@ func generate_moves(board:Array[Array], turn : bool) -> Array[Vector4]:
 	for row in range(8):
 		for column in range(8):
 			#The ending locations for the tile
-			curr_piece = get_valid_tiles(board, row, column) 
+			curr_piece = get_valid_tiles(board, row, column, turn) 
 			
 			#A move is the starting position (w,x), and the ending position (y,z)
 			for loc in curr_piece:
@@ -138,25 +149,39 @@ func generate_moves(board:Array[Array], turn : bool) -> Array[Vector4]:
 			curr_piece.clear()
 	return possible_moves
 
-func get_valid_tiles(board:Array[Array], row:int, column:int) -> Array[Vector2]:
+func get_valid_tiles(board:Array[Array], row:int, column:int, turn:bool) -> Array[Vector2]:
 	var piece : String = board[row][column]
-	if piece == "p" || piece == "P":
-		return get_pawn_move(board, row, column, piece)
-	elif piece == "b" || piece == "B":
-		return get_bishop_move(board, row, column, piece)
-	elif piece == "n" || piece == "N":
-		return get_knight_move(board, row, column, piece)
-	elif piece == "r" || piece == "R":
-		return get_rook_move(board, row, column, piece)
-	elif piece == "q" || piece == "Q":
-		return get_queen_move(board, row, column, piece)	
-	elif piece == "k" || piece == "K":
-		return get_king_move(board, row, column, piece)
-	elif piece == "0":
-		return []
+	if turn == true:
+		if piece == "P":
+			return get_pawn_move(board, row, column, piece)
+		elif piece == "B":
+			return get_bishop_move(board, row, column, piece)
+		elif piece == "N":
+			return get_knight_move(board, row, column, piece)
+		elif piece == "R":
+			return get_rook_move(board, row, column, piece)
+		elif piece == "Q":
+			return get_queen_move(board, row, column, piece)	
+		elif piece == "K":
+			return get_king_move(board, row, column, piece)
+		else:
+			return []
 	else:
-		print("ERROR, piece not found")
-		return []
+		if piece == "p":
+			return get_pawn_move(board, row, column, piece)
+		elif piece == "b":
+			return get_bishop_move(board, row, column, piece)
+		elif piece == "n":
+			return get_knight_move(board, row, column, piece)
+		elif piece == "r":
+			return get_rook_move(board, row, column, piece)
+		elif piece == "q":
+			return get_queen_move(board, row, column, piece)	
+		elif piece == "k":
+			return get_king_move(board, row, column, piece)
+		else:
+			return []
+		
 
 func _move(board:Array[Array], row:int, column:int) -> Vector2: 
 	if row >= 0 and row <= 7 and column >= 0 and column <= 7:

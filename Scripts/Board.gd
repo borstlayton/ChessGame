@@ -4,7 +4,7 @@ extends Node2D
 @onready var grid_container = $ColorRect/GridContainer
 @onready var next_level_button = $"Control/Next Level"
 @onready var best_move = $Control/BestMove
-@onready var minimax = preload("res://Scenes/Minimax.tscn")
+@onready var minimax = $Minimax
 
 var player_move : bool = true
 var alternate_color := Color.BEIGE
@@ -17,8 +17,7 @@ func _ready():
 	SignalManager.moved_piece.connect(move_piece_grid)
 	SignalManager.beat_level.connect(next_level)
 	
-	var opp = minimax.instantiate()
-	best_move.text = opp.move_to_text(opp.best_move)
+	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
 	
 	create_board()
 func create_board():
@@ -71,3 +70,7 @@ func _on_next_level_button_down():
 	next_level_button.hide()
 	parse_fen(BoardManager.current_level)
 	BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
+
+func _on_best_move_button_pressed():
+	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
+	print("Update Complete")

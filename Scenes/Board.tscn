@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=7 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/GridContainer.gd" id="2_6tt8d"]
 [ext_resource type="Script" path="res://Scripts/Level Counter.gd" id="2_o4k1a"]
 [ext_resource type="Script" path="res://Scripts/Board State.gd" id="4_lnx8x"]
 [ext_resource type="Script" path="res://Scripts/CoinCounter.gd" id="5_cx7gl"]
+[ext_resource type="PackedScene" uid="uid://bdut1ijk0vorh" path="res://Scenes/Minimax.tscn" id="6_n7pis"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_bohl5")
@@ -75,6 +76,22 @@ offset_right = 302.0
 offset_bottom = 329.0
 text = "Next Level"
 
+[node name="BestMove" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 269.0
+offset_right = 340.0
+offset_bottom = 339.0
+text = "Best Move: "
+
+[node name="BestMoveButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 305.0
+offset_right = 173.0
+offset_bottom = 336.0
+text = "Refresh Best Move"
+
 [node name="ShopBackground" type="ColorRect" parent="Control"]
 layout_mode = 0
 offset_left = 64.0
@@ -89,11 +106,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BestMove" type="Label" parent="Control"]
-offset_left = 92.0
-offset_top = 52.0
-offset_right = 405.0
-offset_bottom = 122.0
-text = "Best Move: "
+[node name="Minimax" parent="." instance=ExtResource("6_n7pis")]
 
 [connection signal="button_down" from="Control/Next Level" to="." method="_on_next_level_button_down"]
+[connection signal="pressed" from="Control/BestMoveButton" to="." method="_on_best_move_button_pressed"]

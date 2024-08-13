@@ -21,7 +21,8 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	0: "rnbqkbnr/8/8/8/8/8/8/RNBQKBNR",
+	#0: "rnbqkbnr/8/8/8/8/8/8/RNBQKBNR",
+	0: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
 	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
 }
 
@@ -108,24 +109,6 @@ func show_valid_tiles(row: int, column:int):
 		current_piece = Vector2(row,column)
 		valid_tiles = get_valid_tiles(row,column)
 
-func generate_moves(turn : bool) -> Array[Vector4]:
-	var possible_moves : Array[Vector4] = [] 
-	var curr_piece : Array[Vector2] = [] 
-	var target_color 
-	for row in range(8):
-		for column in range(8):
-			#The ending locations for the tile
-			
-			curr_piece += get_valid_tiles(row, column) 
-			
-			#A move is the starting position (w,x), and the ending position (y,z)
-			for loc in curr_piece:
-				possible_moves.append(Vector4(row,column,loc.x, loc.y))
-				
-			curr_piece.clear()
-			
-	return possible_moves
-
 func get_valid_tiles(row:int, column:int):
 	var piece : String = current_board[row][column]
 	if piece == "p" || piece == "P":
@@ -199,7 +182,7 @@ func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 			temp = _move(row+1,column)
 			temp2 = _move(row+2,column)
 			if temp != Vector2.ZERO and temp2 != Vector2.ZERO:
-				legal_moves.append(temp)
+				legal_moves.append(temp2)
 		#Move Forward 1 (temp is already 1 forward)
 		if temp != Vector2.ZERO:
 			legal_moves.append(temp)  
@@ -217,7 +200,7 @@ func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
 			temp = _move(row-1,column)
 			temp2 = _move(row-2,column)
 			if temp != Vector2.ZERO and temp2 != Vector2.ZERO:
-				legal_moves.append(temp)
+				legal_moves.append(temp2)
 		#Move Forward
 		if temp != Vector2.ZERO:
 			legal_moves.append(temp) 
