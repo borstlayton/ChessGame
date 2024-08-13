@@ -47,44 +47,46 @@ func _ready():
 	assets.append("res://Art/Chess Pieces/BlackQueen.png")
 	assets.append("res://Art/Chess Pieces/BlackRook.png")
 
+#piece_selected_selected
+#summary: checks if either side is in the IDLE state and sets the current_piece to the piece selected
+#returns nothing, sets the board state to PIECE_CLICKED and the current_piece to the piece they have selected
 func piece_selected(row : int, column : int):
+	#check if in IDLE and a white piece
 	if current_board[row][column] != "0" and current_board_state == board_states.WHITE_IDLE and current_board[row][column] == current_board[row][column].to_lower():
 		valid_tiles = get_valid_tiles(row, column)
 		current_board_state = board_states.WHITE_PIECE_CLICKED
 		current_piece = Vector2(row,column)
+	#check if in IDLE and a black piece
 	elif current_board[row][column] != "0" and current_board_state == board_states.BLACK_IDLE and current_board[row][column] == current_board[row][column].to_upper():
 		valid_tiles = get_valid_tiles(row, column)
 		current_board_state = board_states.BLACK_PIECE_CLICKED
 		current_piece = Vector2(row,column)
+		
+#piece_moved
+#summary: takes in the arguments of where the next click is after being in PIECE_CLICKED state
+#checks if the tile clicked is in the valid_tiles, and if it is, it moves the piece there
+#if not, it switches back to the IDLE state and waits for your next click to choose the next current_piece
 func piece_moved(row: int, column : int):
-	print("----------")
 	var is_valid_tile : bool
-	for tile in valid_tiles:
-		print(tile)
+	for tile in valid_tiles: #looks through all the tiles to see if the tile clicked matches with one of the valid tiles
 		if tile == Vector2(row,column):
 			is_valid_tile = true
-			print("valid")
 			break
 	if is_valid_tile:
+		#TEMPORARY: checks if piece captured is king, then moves on to the next level if this is true
 		if current_board[row][column] == "K" or current_board[row][column] == "k":
 			SignalManager.beat_level.emit()
-		move_pieces(row,column)
+		move_pieces(row,column) #moves the pieces
 	else:
-		print("invalid")
-		if current_board_state == board_states.WHITE_PIECE_CLICKED and current_board[row][column] == "0":
+		if current_board_state == board_states.WHITE_PIECE_CLICKED:
 			current_board_state = board_states.WHITE_IDLE
-			current_piece = Vector2(-1,-1)
-		elif current_board_state == board_states.BLACK_PIECE_CLICKED and current_board[row][column] == "0":
+		elif current_board_state == board_states.BLACK_PIECE_CLICKED:
 			current_board_state = board_states.BLACK_IDLE
-			current_piece = Vector2(-1,-1)
-		elif current_board_state == board_states.WHITE_PIECE_CLICKED and current_board[row][column] != "0" and current_board[row][column] == current_board[row][column].to_lower():
-			current_board_state = board_states.WHITE_IDLE
-			current_piece = Vector2(row,column)
-			valid_tiles = get_valid_tiles(row,column)
-		elif current_board_state == board_states.BLACK_PIECE_CLICKED and current_board[row][column] != "0" and current_board[row][column] == current_board[row][column].to_upper():
-			current_board_state = board_states.BLACK_IDLE
-			current_piece = Vector2(row,column)
-			valid_tiles = get_valid_tiles(row,column)
+
+#move_pieces
+#summary: is called after the current_board_state is PIECE_CLICKED and another tile that is in valid
+#tiles is clicked. It moves the pieces on the current board after changing the current_board_state
+#to PIECE_MOVED
 func move_pieces(row : int, column : int):
 	if current_board_state == board_states.WHITE_PIECE_CLICKED:
 		current_board_state = board_states.WHITE_PIECE_MOVED
@@ -105,9 +107,6 @@ func show_valid_tiles(row: int, column:int):
 	if current_board[row][column] != "0":
 		current_piece = Vector2(row,column)
 		valid_tiles = get_valid_tiles(row,column)
-#func show_valid_tiles(row:int, column:int):
-	#valid_tiles = get_valid_tiles(row,column)
-	#tile_pressed = true
 
 func generate_moves(turn : bool) -> Array[Vector4]:
 	var possible_moves : Array[Vector4] = [] 
@@ -126,10 +125,6 @@ func generate_moves(turn : bool) -> Array[Vector4]:
 			curr_piece.clear()
 			
 	return possible_moves
-
-func clear_tiles():
-	clear_board = true
-	tile_pressed = false
 
 func get_valid_tiles(row:int, column:int):
 	var piece : String = current_board[row][column]
