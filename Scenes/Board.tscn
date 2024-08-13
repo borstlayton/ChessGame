@@ -89,4 +89,11 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="BestMove" type="Label" parent="Control"]
+offset_left = 92.0
+offset_top = 52.0
+offset_right = 405.0
+offset_bottom = 122.0
+text = "Best Move: "
+
 [connection signal="button_down" from="Control/Next Level" to="." method="_on_next_level_button_down"]

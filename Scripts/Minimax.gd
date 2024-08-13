@@ -1,18 +1,33 @@
 extends Node2D
 
 var best_move : Vector4 
-@export var depth:int = 4
+@export var DEPTH:int = 4
+
+var letters : String = "abcdefgh"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	best_move = find_best(BoardManager.current_board, BoardManager.turn, depth)
+	best_move = find_best(BoardManager.current_board, BoardManager.turn, DEPTH)
+
+func update_best():
+	best_move = find_best(BoardManager.current_board, BoardManager.turn, DEPTH)
+
+func move_to_text(move:Vector4):
+	var text : String
+	print(move.w)
+	text.insert(0,letters[move.w])
+	text.insert(1,str(move.x + 1))
+	text.insert(2," ")
+	text.insert(3,letters[move.y])
+	text.insert(4,str(move.z+1))
+	return text
 
 var values := { "P" = 1, "p" = -1, 
 	"B" = 3, "b" = -3, 
 	"N" = 2.9, "n" = -2.9, 
 	"R" = 5, "r" = -5, 
 	"Q" = 9, "q" = -9, 
-	"K" = 0, "k" = 0,
+	"K" = INF, "k" = -INF,
 	"0" = 0,}
 
 func find_best(board:Array[Array], turn:bool, depth:int) -> Vector4:
@@ -110,11 +125,10 @@ func generate_children(board:Array[Array], moves:Array[Vector4], turn:bool) -> A
 func generate_moves(board:Array[Array], turn : bool) -> Array[Vector4]:
 	var possible_moves : Array[Vector4] = [] 
 	var curr_piece : Array[Vector2] = [] 
-	var target_color 
 	for row in range(8):
 		for column in range(8):
 			#The ending locations for the tile
-			curr_piece += get_valid_tiles(board, row, column) 
+			curr_piece = get_valid_tiles(board, row, column) 
 			
 			#A move is the starting position (w,x), and the ending position (y,z)
 			for loc in curr_piece:
@@ -124,7 +138,7 @@ func generate_moves(board:Array[Array], turn : bool) -> Array[Vector4]:
 			curr_piece.clear()
 	return possible_moves
 
-func get_valid_tiles(board:Array[Array], row:int, column:int):
+func get_valid_tiles(board:Array[Array], row:int, column:int) -> Array[Vector2]:
 	var piece : String = board[row][column]
 	if piece == "p" || piece == "P":
 		return get_pawn_move(board, row, column, piece)
@@ -138,6 +152,11 @@ func get_valid_tiles(board:Array[Array], row:int, column:int):
 		return get_queen_move(board, row, column, piece)	
 	elif piece == "k" || piece == "K":
 		return get_king_move(board, row, column, piece)
+	elif piece == "0":
+		return []
+	else:
+		print("ERROR, piece not found")
+		return []
 
 func _move(board:Array[Array], row:int, column:int) -> Vector2: 
 	if row >= 0 and row <= 7 and column >= 0 and column <= 7:
