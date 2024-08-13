@@ -19,6 +19,7 @@ config/icon="res://Art/icon.svg"
 
 BoardManager="*res://Scripts/boardManager.gd"
 SignalManager="*res://Scripts/SignalManager.gd"
+CoinManager="*res://Scripts/CoinManager.gd"
 
 [display]
 

@@ -66,6 +66,8 @@ func piece_moved(row: int, column : int):
 			print("valid")
 			break
 	if is_valid_tile:
+		if current_board[row][column] == "K" or current_board[row][column] == "k":
+			SignalManager.beat_level.emit()
 		move_pieces(row,column)
 	else:
 		print("invalid")
