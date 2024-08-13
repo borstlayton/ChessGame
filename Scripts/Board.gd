@@ -3,7 +3,8 @@ extends Node2D
 @onready var tile_scene = preload("res://Scenes/tile.tscn")
 @onready var grid_container = $ColorRect/GridContainer
 @onready var next_level_button = $"Control/Next Level"
-@onready var purchase_pieces_gui = $"Control/Purchase Pieces"
+@onready var best_move = $Control/BestMove
+@onready var minimax = $Minimax
 
 var player_move : bool = true
 var alternate_color := Color.BEIGE
@@ -16,6 +17,8 @@ func _ready():
 	SignalManager.clear_valid_tiles.connect(clear_valid_grid_tiles)
 	SignalManager.moved_piece.connect(move_piece_grid)
 	SignalManager.beat_level.connect(next_level)
+	
+	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
 	
 	create_board()
 func create_board():
@@ -30,6 +33,7 @@ func create_board():
 func clear_board():
 	for i in range(64):
 		grid_container.get_child(i).clear_piece()
+		
 func add_piece(num_grid, piece_type):
 	var wanted_grid = grid_container.get_child(num_grid)
 	wanted_grid.load_icon(piece_type)
@@ -69,3 +73,7 @@ func _on_next_level_button_down():
 	purchase_pieces_gui.hide()
 	parse_fen(BoardManager.current_level)
 	BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
+
+func _on_best_move_button_pressed():
+	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
+	print("Update Complete")

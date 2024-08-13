@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://geon4fltieuy"]
+
+[node name="Piece" type="Sprite2D"]
+position = Vector2(45, 45)
