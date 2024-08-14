@@ -17,9 +17,9 @@ func _ready():
 	SignalManager.moved_piece.connect(move_piece_grid)
 	SignalManager.beat_level.connect(next_level)
 	
+	create_board()
 	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
 	
-	create_board()
 func create_board():
 	for i in range(8):
 		for j in range(8):
@@ -73,4 +73,4 @@ func _on_next_level_button_down():
 
 func _on_best_move_button_pressed():
 	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
-	print("Update Complete")
+	print("Best Move Update Complete")
