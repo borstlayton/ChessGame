@@ -31,39 +31,36 @@ var values := { "P" = 1, "p" = -1,
 	"N" = 2.9, "n" = -2.9, 
 	"R" = 5, "r" = -5, 
 	"Q" = 9, "q" = -9, 
-	"K" = INF, "k" = -INF,
+	"K" = 1000, "k" = -1000,
 	"0" = 0,}
 
 func find_best(board:Array[Array], turn:bool, depth:int) -> Vector4:
 	var val:float
 	var idx:int = 0
 	var best_move:Vector4
-	var best_board:Array[Array]
+	var best_val:float
 	var moves = generate_moves(board, turn)
 	var children := generate_children(board, moves)
-	print(children.size())
 	if turn == true:
-		var best_val:float = -INF
+		best_val = -INF
 		for child_board in children:
-			print_board(child_board)
+			#print_board(child_board)
 			val = _minimax(child_board, depth-1, false, -INF, INF)
+			#print(_eval(child_board))
+			#print(val)
 			if val > best_val:
 				best_val = val
 				best_move = moves[idx]
-				best_board = child_board.duplicate(true)
-				idx += 1
+			idx += 1
 	else:
-		var best_val:float = INF
+		best_val = INF
 		for child_board in children:
 			val = _minimax(child_board, depth-1, true, -INF, INF)
 			best_val = min(val, best_val)
 			if val < best_val:
 				best_val = val
 				best_move = moves[idx]
-				best_board = child_board.duplicate(true)
-				idx += 1
-	#print_board(best_board)
-	#print(best_board.size())
+			idx += 1
 	return best_move
 
 func _minimax(board:Array[Array], depth:int, turn:bool, alpha:float, beta:float) -> float:
@@ -82,7 +79,7 @@ func _minimax(board:Array[Array], depth:int, turn:bool, alpha:float, beta:float)
 		return best_value
 	else:
 		var best_value := INF
-		var moves = generate_moves(board, turn)
+		var moves := generate_moves(board, turn)
 		var children := generate_children(board, moves)
 		for child_board in children:
 			var value = _minimax(child_board, depth-1, true, alpha, beta)
@@ -99,17 +96,17 @@ func _eval(board:Array[Array]) -> float:
 		for column in range(8):
 			val = values[board[row][column]]
 			if val == 1:
-				val *= 1.1**row
+				val *= 1.05**row
 			elif val == -1:
-				val *= 1.1**(7 - row)
+				val *= 1.05**(7 - row)
 			else:
 				if row >= 2 and row <= 5:
 					val *= 1.05
-				if row >= 3 and row <= 4:
+				if row == 3 or row == 4:
 					val *= 1.05
 				if column >= 2 and column <= 5:
 					val *= 1.05
-				if column >= 3 and column <= 4:
+				if column == 3 or column == 4:
 					val *= 1.05
 			count += val
 	return count
