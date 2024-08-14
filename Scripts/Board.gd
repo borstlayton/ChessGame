@@ -21,6 +21,7 @@ func _ready():
 	SignalManager.moved_piece.connect(move_piece_grid)
 	SignalManager.beat_level.connect(next_level)
 	SignalManager.purchased_piece.connect(moving_purchased_piece)
+	SignalManager.complete_purchase.connect(clear_purchased_piece_scene)
 	
 	create_board()
 	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
@@ -98,3 +99,6 @@ func moving_purchased_piece(piece_type):
 func _on_cancel_purchase_button_down():
 	purchased_piece.queue_free()
 	print("Best Move Update Complete")
+
+func clear_purchased_piece_scene():
+	purchased_piece.queue_free()

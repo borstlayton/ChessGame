@@ -44,5 +44,11 @@ func _on_button_pressed():
 		BoardManager.piece_moved(tile_row, tile_column)
 	num_clicks += 1
 	
-
+	if BoardManager.current_board_state == BoardManager.board_states.PURCHASE and ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_PIECE:
+		ShopManager.current_state = ShopManager.piece_purchase_states.PIECE_PLACED
+		var location_pressed = Vector2(tile_row, tile_column)
+		SignalManager.placed_purchased_piece.emit(location_pressed, ShopManager.current_piece)
+		SignalManager.complete_purchase.emit()
+		load_icon(BoardManager.fen_dict[ShopManager.current_piece])
+		ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
 

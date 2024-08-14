@@ -21,9 +21,8 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	#0: "rnbqkbnr/8/8/8/8/8/8/RNBQKBNR",
-	0: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
-	1: "rnbqkbnr/pppppppp/pppppppp/8/8/8/PPPPPPPP/RNBQKBNR",
+	0: "1111k111/8/8/8/8/8/8/111QK111",
+	1: "1111k111/8/8/8/8/8/8/4K3",
 }
 
 func _ready():

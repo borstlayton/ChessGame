@@ -9,7 +9,8 @@ extends HBoxContainer
 
 func _ready():
 	cancel_purchase_button.hide()
-
+	SignalManager.complete_purchase.connect(show_buttons)
+	
 func _on_pawn_purchase_button_down():
 	start_purchase("P")
 func _on_bishop_purchase_button_down():
@@ -24,15 +25,14 @@ func _on_rook_purchase_button_down():
 func _on_cancel_purchase_button_down():
 	ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
 	ShopManager.current_piece = ""
-	cancel_purchase_button.hide()
 	show_buttons()
 func start_purchase(piece_type : String):
 	hide_buttons()
 	if ShopManager.current_state == ShopManager.piece_purchase_states.PURCHASE_IDLE:
-		cancel_purchase_button.show()
 		ShopManager.purchase_piece(piece_type)
 
 func hide_buttons():
+	cancel_purchase_button.show()
 	pawn_button.hide()
 	bishop_button.hide()
 	knight_button.hide()
@@ -40,6 +40,7 @@ func hide_buttons():
 	rook_button.hide()
 	
 func show_buttons():
+	cancel_purchase_button.hide()
 	pawn_button.show()
 	bishop_button.show()
 	knight_button.show()
