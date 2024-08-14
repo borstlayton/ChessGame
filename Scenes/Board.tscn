@@ -1,15 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=8 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/GridContainer.gd" id="2_6tt8d"]
 [ext_resource type="Script" path="res://Scripts/Level Counter.gd" id="2_o4k1a"]
 [ext_resource type="Script" path="res://Scripts/Board State.gd" id="4_lnx8x"]
 [ext_resource type="Script" path="res://Scripts/CoinCounter.gd" id="5_cx7gl"]
-<<<<<<< HEAD
-[ext_resource type="Script" path="res://Scripts/Purchase Pieces.gd" id="6_aq471"]
-=======
-[ext_resource type="PackedScene" uid="uid://bdut1ijk0vorh" path="res://Scenes/Minimax.tscn" id="6_n7pis"]
->>>>>>> 36ffcb27a8a0e9d1bdd0559ea1aa82c1368d8d5a
+[ext_resource type="Script" path="res://Scripts/Purchase Pieces.gd" id="6_4x2eg"]
+[ext_resource type="PackedScene" uid="uid://dftccxkuncw53" path="res://Scenes/Minimax.tscn" id="6_n7pis"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_bohl5")
@@ -72,6 +69,38 @@ offset_right = 40.0
 offset_bottom = 144.0
 script = ExtResource("5_cx7gl")
 
+[node name="PurchasePieces" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 222.0
+offset_right = 84.0
+offset_bottom = 262.0
+script = ExtResource("6_4x2eg")
+
+[node name="PawnPurchase" type="Button" parent="Control/PurchasePieces"]
+layout_mode = 2
+text = "pawn"
+
+[node name="BishopPurchase" type="Button" parent="Control/PurchasePieces"]
+layout_mode = 2
+text = "bishop"
+
+[node name="KnightPurchase" type="Button" parent="Control/PurchasePieces"]
+layout_mode = 2
+text = "knight"
+
+[node name="QueenPurchase" type="Button" parent="Control/PurchasePieces"]
+layout_mode = 2
+text = "queen"
+
+[node name="RookPurchase" type="Button" parent="Control/PurchasePieces"]
+layout_mode = 2
+text = "rook"
+
+[node name="CancelPurchase" type="Button" parent="Control/PurchasePieces"]
+layout_mode = 2
+text = "cancel"
+
 [node name="Next Level" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 212.0
@@ -80,39 +109,6 @@ offset_right = 302.0
 offset_bottom = 329.0
 text = "Next Level"
 
-<<<<<<< HEAD
-[node name="Purchase Pieces" type="HBoxContainer" parent="Control"]
-layout_mode = 0
-offset_left = 54.0
-offset_top = 247.0
-offset_right = 454.0
-offset_bottom = 287.0
-script = ExtResource("6_aq471")
-
-[node name="PawnPurchase" type="Button" parent="Control/Purchase Pieces"]
-layout_mode = 2
-text = "pawn"
-
-[node name="BishopPurchase" type="Button" parent="Control/Purchase Pieces"]
-layout_mode = 2
-text = "bishop"
-
-[node name="KnightPurchase" type="Button" parent="Control/Purchase Pieces"]
-layout_mode = 2
-text = "knight"
-
-[node name="QueenPurchase" type="Button" parent="Control/Purchase Pieces"]
-layout_mode = 2
-text = "queen"
-
-[node name="RookPurchase" type="Button" parent="Control/Purchase Pieces"]
-layout_mode = 2
-text = "rook"
-
-[node name="CancelPurchase" type="Button" parent="Control/Purchase Pieces"]
-layout_mode = 2
-text = "cancel"
-=======
 [node name="BestMove" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = 27.0
@@ -128,7 +124,6 @@ offset_top = 305.0
 offset_right = 173.0
 offset_bottom = 336.0
 text = "Refresh Best Move"
->>>>>>> 36ffcb27a8a0e9d1bdd0559ea1aa82c1368d8d5a
 
 [node name="ShopBackground" type="ColorRect" parent="Control"]
 layout_mode = 0
@@ -146,14 +141,12 @@ offset_bottom = 40.0
 
 [node name="Minimax" parent="." instance=ExtResource("6_n7pis")]
 
+[connection signal="button_down" from="Control/PurchasePieces/PawnPurchase" to="Control/PurchasePieces" method="_on_pawn_purchase_button_down"]
+[connection signal="button_down" from="Control/PurchasePieces/BishopPurchase" to="Control/PurchasePieces" method="_on_bishop_purchase_button_down"]
+[connection signal="button_down" from="Control/PurchasePieces/KnightPurchase" to="Control/PurchasePieces" method="_on_knight_purchase_button_down"]
+[connection signal="button_down" from="Control/PurchasePieces/QueenPurchase" to="Control/PurchasePieces" method="_on_queen_purchase_button_down"]
+[connection signal="button_down" from="Control/PurchasePieces/RookPurchase" to="Control/PurchasePieces" method="_on_rook_purchase_button_down"]
+[connection signal="button_down" from="Control/PurchasePieces/CancelPurchase" to="." method="_on_cancel_purchase_button_down"]
+[connection signal="button_down" from="Control/PurchasePieces/CancelPurchase" to="Control/PurchasePieces" method="_on_cancel_purchase_button_down"]
 [connection signal="button_down" from="Control/Next Level" to="." method="_on_next_level_button_down"]
-<<<<<<< HEAD
-[connection signal="button_down" from="Control/Purchase Pieces/PawnPurchase" to="Control/Purchase Pieces" method="_on_pawn_purchase_button_down"]
-[connection signal="button_down" from="Control/Purchase Pieces/BishopPurchase" to="Control/Purchase Pieces" method="_on_bishop_purchase_button_down"]
-[connection signal="button_down" from="Control/Purchase Pieces/KnightPurchase" to="Control/Purchase Pieces" method="_on_knight_purchase_button_down"]
-[connection signal="button_down" from="Control/Purchase Pieces/QueenPurchase" to="Control/Purchase Pieces" method="_on_queen_purchase_button_down"]
-[connection signal="button_down" from="Control/Purchase Pieces/RookPurchase" to="Control/Purchase Pieces" method="_on_rook_purchase_button_down"]
-[connection signal="button_down" from="Control/Purchase Pieces/CancelPurchase" to="Control/Purchase Pieces" method="_on_cancel_purchase_button_down"]
-=======
 [connection signal="pressed" from="Control/BestMoveButton" to="." method="_on_best_move_button_pressed"]
->>>>>>> 36ffcb27a8a0e9d1bdd0559ea1aa82c1368d8d5a

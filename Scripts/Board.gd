@@ -5,7 +5,10 @@ extends Node2D
 @onready var next_level_button = $"Control/Next Level"
 @onready var best_move = $Control/BestMove
 @onready var minimax = $Minimax
+@onready var purchase_pieces_gui = $Control/PurchasePieces
+@onready var purchase_piece_scene = load("res://Scenes/Purchasable Piece.tscn")
 
+var purchased_piece
 var player_move : bool = true
 var alternate_color := Color.BEIGE
 func _ready():
@@ -17,10 +20,16 @@ func _ready():
 	SignalManager.clear_valid_tiles.connect(clear_valid_grid_tiles)
 	SignalManager.moved_piece.connect(move_piece_grid)
 	SignalManager.beat_level.connect(next_level)
+	SignalManager.purchased_piece.connect(moving_purchased_piece)
 	
 	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
 	
 	create_board()
+	
+func _process(delta):
+	if ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_PIECE:
+		purchased_piece.global_position = get_global_mouse_position()
+	
 func create_board():
 	for i in range(8):
 		for j in range(8):
@@ -77,3 +86,13 @@ func _on_next_level_button_down():
 func _on_best_move_button_pressed():
 	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
 	print("Update Complete")
+
+func moving_purchased_piece(piece_type):
+	var new_piece = purchase_piece_scene.instantiate()
+	new_piece.load_icon(BoardManager.fen_dict[piece_type])
+	purchased_piece = new_piece
+	add_child(purchased_piece)
+	ShopManager.current_state = ShopManager.piece_purchase_states.MOVING_PIECE
+
+func _on_cancel_purchase_button_down():
+	purchased_piece.queue_free()

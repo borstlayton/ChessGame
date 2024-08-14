@@ -109,7 +109,7 @@ func show_valid_tiles(row: int, column:int):
 	if current_board[row][column] != "0":
 		current_piece = Vector2(row,column)
 		valid_tiles = get_valid_tiles(row,column)
-
+		
 func get_valid_tiles(row:int, column:int):
 	var piece : String = current_board[row][column]
 	if piece == "p" || piece == "P":

@@ -1,5 +1,6 @@
-[gd_scene format=3 uid="uid://8wm814gor3qf"]
+[gd_scene load_steps=2 format=3 uid="uid://8wm814gor3qf"]
 
-[node name="PurchasablePiece" type="Node2D"]
+[ext_resource type="Script" path="res://Scripts/Purchasable Piece.gd" id="1_cxdyh"]
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="PurchasablePiece" type="Sprite2D"]
+script = ExtResource("1_cxdyh")
