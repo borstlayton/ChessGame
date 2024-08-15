@@ -18,4 +18,4 @@ func _process(delta):
 
 
 func _on_play_button_pressed():
-	var board = load("res://Scenes/Board.tscn").instantiate()
+	get_tree().change_scene_to_file("res://Scenes/Board.tscn")

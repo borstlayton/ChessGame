@@ -21,6 +21,7 @@ func _ready():
 	SignalManager.moved_piece.connect(move_piece_grid)
 	SignalManager.beat_level.connect(next_level)
 	SignalManager.purchased_piece.connect(moving_purchased_piece)
+	SignalManager.purchased_piece.connect(show_purchasable_tiles)
 	SignalManager.complete_purchase.connect(clear_purchased_piece_scene)
 	
 	create_board()
@@ -102,3 +103,12 @@ func _on_cancel_purchase_button_down():
 
 func clear_purchased_piece_scene():
 	purchased_piece.queue_free()
+
+func show_purchasable_tiles(piece_type : String):
+	var purchasable_tiles = []
+	for i in range(6,8):
+		for j in range(8):
+			if BoardManager.current_board[i][j] == "0":
+				purchasable_tiles.append(Vector2(i,j))
+	grid_container.show_tiles(purchasable_tiles)
+	ShopManager.purchasable_tiles = purchasable_tiles
