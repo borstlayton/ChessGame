@@ -21,10 +21,10 @@ func set_id(row, column):
 	tile_row = row
 	tile_column = column
 func _on_button_button_down():
-	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_lower():
+	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_upper():
 		BoardManager.show_valid_tiles(tile_row, tile_column)
 		SignalManager.tile_pressed.emit()
-	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_upper():
+	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_lower():
 		BoardManager.show_valid_tiles(tile_row, tile_column)
 		SignalManager.tile_pressed.emit()
 func _on_button_button_up():
@@ -50,5 +50,6 @@ func _on_button_pressed():
 		SignalManager.placed_purchased_piece.emit(location_pressed, ShopManager.current_piece)
 		SignalManager.complete_purchase.emit()
 		load_icon(BoardManager.fen_dict[ShopManager.current_piece])
+		BoardManager.add_to_board(tile_row, tile_column, ShopManager.current_piece)
 		ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
 

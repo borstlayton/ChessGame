@@ -61,6 +61,7 @@ func parse_fen(level):
 			board_index += i.to_int()
 		else:
 			add_piece(board_index, BoardManager.fen_dict[i])
+			print(i, BoardManager.fen_dict[i])
 			board_index +=1
 
 func show_valid_grid_tiles():
@@ -84,7 +85,7 @@ func _on_next_level_button_down():
 	purchase_pieces_gui.hide()
 	parse_fen(BoardManager.current_level)
 	BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
-
+	
 func _on_best_move_button_pressed():
 	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
 	print("Update Complete")

@@ -11,7 +11,7 @@ var current_piece : Vector2
 enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED, PURCHASE}
 var tile_pressed = false
 var clear_board = false
-enum PieceNames {WHITE_BISHOP, WHITE_KING, WHITE_KNIGHT, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK, BLACK_BISHOP, BLACK_KING, BLACK_KNIGHT, BLACK_PAWN, BLACK_QUEEN, BLACK_ROOK}
+enum PieceNames {BLACK_BISHOP, BLACK_KING, BLACK_KNIGHT, BLACK_PAWN, BLACK_QUEEN, BLACK_ROOK, WHITE_BISHOP, WHITE_KING, WHITE_KNIGHT, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK}
 var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING, 
 					"n" = PieceNames.BLACK_KNIGHT, "p" = PieceNames.BLACK_PAWN, 
 					"q" = PieceNames.BLACK_QUEEN, "r" = PieceNames.BLACK_ROOK, 
@@ -27,37 +27,38 @@ var level_fen := {
 
 func _ready():
 	current_level = 0
-	
 	for i in range(board_size):
 		var row = []
 		for j in range(board_size):
 			row.append("0")
 		current_board.append(row)
 
-	assets.append("res://Art/Chess Pieces/WhiteBishop.png")
-	assets.append("res://Art/Chess Pieces/WhiteKing.png")
-	assets.append("res://Art/Chess Pieces/WhiteKnight.png")
-	assets.append("res://Art/Chess Pieces/WhitePawn.png")
-	assets.append("res://Art/Chess Pieces/WhiteQueen.png")
-	assets.append("res://Art/Chess Pieces/WhiteRook.png")
 	assets.append("res://Art/Chess Pieces/BlackBishop.png")
 	assets.append("res://Art/Chess Pieces/BlackKing.png")
 	assets.append("res://Art/Chess Pieces/BlackKnight.png")
 	assets.append("res://Art/Chess Pieces/BlackPawn.png")
 	assets.append("res://Art/Chess Pieces/BlackQueen.png")
 	assets.append("res://Art/Chess Pieces/BlackRook.png")
+	assets.append("res://Art/Chess Pieces/WhiteBishop.png")
+	assets.append("res://Art/Chess Pieces/WhiteKing.png")
+	assets.append("res://Art/Chess Pieces/WhiteKnight.png")
+	assets.append("res://Art/Chess Pieces/WhitePawn.png")
+	assets.append("res://Art/Chess Pieces/WhiteQueen.png")
+	assets.append("res://Art/Chess Pieces/WhiteRook.png")
 
 #piece_selected_selected
 #summary: checks if either side is in the IDLE state and sets the current_piece to the piece selected
 #returns nothing, sets the board state to PIECE_CLICKED and the current_piece to the piece they have selected
 func piece_selected(row : int, column : int):
+	print(current_board)
 	#check if in IDLE and a white piece
-	if current_board[row][column] != "0" and current_board_state == board_states.WHITE_IDLE and current_board[row][column] == current_board[row][column].to_lower():
+	if current_board[row][column] != "0" and current_board_state == board_states.WHITE_IDLE and current_board[row][column] == current_board[row][column].to_upper():
+		print("here")
 		valid_tiles = get_valid_tiles(row, column)
 		current_board_state = board_states.WHITE_PIECE_CLICKED
 		current_piece = Vector2(row,column)
 	#check if in IDLE and a black piece
-	elif current_board[row][column] != "0" and current_board_state == board_states.BLACK_IDLE and current_board[row][column] == current_board[row][column].to_upper():
+	elif current_board[row][column] != "0" and current_board_state == board_states.BLACK_IDLE and current_board[row][column] == current_board[row][column].to_lower():
 		valid_tiles = get_valid_tiles(row, column)
 		current_board_state = board_states.BLACK_PIECE_CLICKED
 		current_piece = Vector2(row,column)
@@ -104,6 +105,9 @@ func create_board(board_index:int, piece_type:int):
 	
 	current_board[row][column] = fen_order[piece_type]
 
+func add_to_board(row : int, column : int, piece : String):
+	current_board[row][column] = piece
+	
 func show_valid_tiles(row: int, column:int):
 	if current_board[row][column] != "0":
 		current_piece = Vector2(row,column)
