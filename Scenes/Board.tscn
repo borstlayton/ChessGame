@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=9 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/GridContainer.gd" id="2_6tt8d"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/CoinCounter.gd" id="5_cx7gl"]
 [ext_resource type="Script" path="res://Scripts/Purchase Pieces.gd" id="6_4x2eg"]
 [ext_resource type="PackedScene" uid="uid://dftccxkuncw53" path="res://Scenes/Minimax.tscn" id="6_n7pis"]
+[ext_resource type="Texture2D" uid="uid://c6bm5mu3p10jq" path="res://Art/Coin.png" id="6_nii58"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_bohl5")
@@ -64,17 +65,22 @@ script = ExtResource("4_lnx8x")
 
 [node name="CoinCounter" type="Label" parent="Control"]
 layout_mode = 0
-offset_top = 121.0
-offset_right = 40.0
-offset_bottom = 144.0
+offset_left = 453.0
+offset_top = 21.0
+offset_right = 493.0
+offset_bottom = 44.0
 script = ExtResource("5_cx7gl")
+
+[node name="CoinSprite" type="Sprite2D" parent="Control/CoinCounter"]
+position = Vector2(74, 12)
+texture = ExtResource("6_nii58")
 
 [node name="PurchasePieces" type="HBoxContainer" parent="Control"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 222.0
-offset_right = 84.0
-offset_bottom = 262.0
+offset_left = 20.0
+offset_top = 155.0
+offset_right = 368.0
+offset_bottom = 195.0
 script = ExtResource("6_4x2eg")
 
 [node name="PawnPurchase" type="Button" parent="Control/PurchasePieces"]
