@@ -50,10 +50,8 @@ func _ready():
 #summary: checks if either side is in the IDLE state and sets the current_piece to the piece selected
 #returns nothing, sets the board state to PIECE_CLICKED and the current_piece to the piece they have selected
 func piece_selected(row : int, column : int):
-	print(current_board)
 	#check if in IDLE and a white piece
 	if current_board[row][column] != "0" and current_board_state == board_states.WHITE_IDLE and current_board[row][column] == current_board[row][column].to_upper():
-		print("here")
 		valid_tiles = get_valid_tiles(row, column)
 		current_board_state = board_states.WHITE_PIECE_CLICKED
 		current_piece = Vector2(row,column)

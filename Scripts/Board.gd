@@ -61,7 +61,6 @@ func parse_fen(level):
 			board_index += i.to_int()
 		else:
 			add_piece(board_index, BoardManager.fen_dict[i])
-			print(i, BoardManager.fen_dict[i])
 			board_index +=1
 
 func show_valid_grid_tiles():
