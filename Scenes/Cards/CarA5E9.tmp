@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8qpa7a6vj5u0"]
+
+[ext_resource type="Script" path="res://Scripts/Cards/CardTemplate.gd" id="1_t4yuw"]
+[ext_resource type="Texture2D" uid="uid://djmeqrpgytd7p" path="res://Art/Cards/Bounty Cards/BountyBishop.png" id="2_6hc0u"]
+
+[node name="CardTemplate" type="Node2D"]
+script = ExtResource("1_t4yuw")
+
+[node name="CardSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_6hc0u")

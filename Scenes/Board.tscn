@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=10 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/GridContainer.gd" id="2_6tt8d"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Purchase Pieces.gd" id="6_4x2eg"]
 [ext_resource type="PackedScene" uid="uid://dftccxkuncw53" path="res://Scenes/Minimax.tscn" id="6_n7pis"]
 [ext_resource type="Texture2D" uid="uid://c6bm5mu3p10jq" path="res://Art/Coin.png" id="6_nii58"]
+[ext_resource type="Script" path="res://Scripts/CardDisplay.gd" id="8_kpls1"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_bohl5")
@@ -205,10 +206,38 @@ offset_bottom = 445.0
 scale = Vector2(10.7079, 7.01455)
 color = Color(0.180005, 0.180005, 0.180005, 1)
 
-[node name="GridContainer" type="GridContainer" parent="Control/ShopBackground"]
-layout_mode = 0
+[node name="CardDisplay" type="Control" parent="Control/ShopBackground"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("8_kpls1")
+
+[node name="Card1" type="CenterContainer" parent="Control/ShopBackground/CardDisplay"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 5.0
+offset_bottom = 20.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Card2" type="CenterContainer" parent="Control/ShopBackground/CardDisplay"]
+layout_mode = 2
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Card3" type="CenterContainer" parent="Control/ShopBackground/CardDisplay"]
+layout_mode = 2
+offset_left = 35.0
+offset_top = 20.0
+offset_right = 35.0
+offset_bottom = 20.0
+size_flags_horizontal = 8
+size_flags_vertical = 4
 
 [node name="Minimax" parent="." instance=ExtResource("6_n7pis")]
 

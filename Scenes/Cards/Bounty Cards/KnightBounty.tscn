@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://plfiasxo3kjq"]
+
+[ext_resource type="PackedScene" uid="uid://c8qpa7a6vj5u0" path="res://Scenes/Cards/CardTemplate.tscn" id="1_s3rmu"]
+[ext_resource type="Texture2D" uid="uid://omohb20elqsp" path="res://Art/Cards/Bounty Cards/BountyKnight.png" id="2_gihry"]
+
+[node name="KnightBounty" type="Node2D"]
+
+[node name="CardTemplate" parent="." node_paths=PackedStringArray("card_image") instance=ExtResource("1_s3rmu")]
+visible = false
+card_ID = 1
+base_cost = 3
+card_image = NodePath("../Sprite")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_gihry")
