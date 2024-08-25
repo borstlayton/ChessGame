@@ -249,4 +249,5 @@ size_flags_vertical = 4
 [connection signal="button_down" from="Control/PurchasePieces/CancelPurchase" to="." method="_on_cancel_purchase_button_down"]
 [connection signal="button_down" from="Control/PurchasePieces/CancelPurchase" to="Control/PurchasePieces" method="_on_cancel_purchase_button_down"]
 [connection signal="button_down" from="Control/Next Level" to="." method="_on_next_level_button_down"]
+[connection signal="button_down" from="Control/Next Level" to="Control/ShopBackground/CardDisplay" method="_on_next_level_button_down"]
 [connection signal="pressed" from="Control/BestMoveButton" to="." method="_on_best_move_button_pressed"]

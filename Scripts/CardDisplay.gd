@@ -16,3 +16,9 @@ func generate_shop():
 	second_card.add_child(knight_scene)
 	knight_scene = CardManager.knight_scene.instantiate()
 	third_card.add_child(knight_scene)
+
+
+func _on_next_level_button_down():
+	first_card.queue_free()
+	second_card.queue_free()
+	third_card.queue_free()
