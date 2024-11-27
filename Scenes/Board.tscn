@@ -37,6 +37,7 @@ anchors_preset = 0
 offset_left = 720.0
 offset_right = 1280.0
 offset_bottom = 720.0
+mouse_filter = 1
 
 [node name="Level Counter" type="Label" parent="Control"]
 layout_mode = 0
@@ -204,12 +205,14 @@ offset_top = 405.0
 offset_right = 104.0
 offset_bottom = 445.0
 scale = Vector2(10.7079, 7.01455)
+mouse_filter = 1
 color = Color(0.180005, 0.180005, 0.180005, 1)
 
 [node name="CardDisplay" type="Control" parent="Control/ShopBackground"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
 script = ExtResource("8_kpls1")
 
 [node name="Card1" type="CenterContainer" parent="Control/ShopBackground/CardDisplay"]

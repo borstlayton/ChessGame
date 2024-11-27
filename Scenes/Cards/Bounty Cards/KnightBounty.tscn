@@ -1,16 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://plfiasxo3kjq"]
+[gd_scene load_steps=5 format=3 uid="uid://plfiasxo3kjq"]
 
-[ext_resource type="PackedScene" uid="uid://c8qpa7a6vj5u0" path="res://Scenes/Cards/CardTemplate.tscn" id="1_s3rmu"]
+[ext_resource type="Script" path="res://Scripts/Cards/BountyCards/KnightBounty.gd" id="1_38ukd"]
+[ext_resource type="Script" path="res://Scripts/Cards/CardTemplate.gd" id="2_1csc5"]
 [ext_resource type="Texture2D" uid="uid://omohb20elqsp" path="res://Art/Cards/Bounty Cards/BountyKnight.png" id="2_gihry"]
 
-[node name="KnightBounty" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8bdg1"]
+size = Vector2(106, 150)
 
-[node name="CardTemplate" parent="." node_paths=PackedStringArray("card_image") instance=ExtResource("1_s3rmu")]
-visible = false
+[node name="KnightBounty" type="Node2D"]
+script = ExtResource("1_38ukd")
+
+[node name="CardTemplate" type="Node2D" parent="." node_paths=PackedStringArray("card_image")]
+scale = Vector2(0.1, 0.1)
+script = ExtResource("2_1csc5")
 card_ID = 1
 base_cost = 3
-card_image = NodePath("../Sprite")
+card_image = NodePath("CardSprite")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
+[node name="CardSprite" type="Sprite2D" parent="CardTemplate"]
+scale = Vector2(1, 1)
 texture = ExtResource("2_gihry")
+
+[node name="Area2D" type="Area2D" parent="CardTemplate"]
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardTemplate/Area2D"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_8bdg1")
+
+[connection signal="mouse_entered" from="CardTemplate/Area2D" to="CardTemplate" method="_on_area_2d_mouse_entered"]
