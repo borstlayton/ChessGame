@@ -93,6 +93,9 @@ func move_pieces(row : int, column : int):
 	elif current_board_state == board_states.BLACK_PIECE_CLICKED:
 		current_board_state = board_states.BLACK_PIECE_MOVED
 	
+	if current_board[row][column] != "0":
+		RoundManager.change_total(current_board[row][column])
+		
 	current_board[row][column] = current_board[current_piece.x][current_piece.y]
 	current_board[current_piece.x][current_piece.y] = "0"
 	SignalManager.moved_piece.emit(current_piece, Vector2(row,column))

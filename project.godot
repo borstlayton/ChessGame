@@ -21,6 +21,7 @@ BoardManager="*res://Scripts/boardManager.gd"
 SignalManager="*res://Scripts/SignalManager.gd"
 ShopManager="*res://Scripts/ShopManager.gd"
 CardManager="*res://Scripts/CardManager.gd"
+RoundManager="*res://Scripts/RoundManager.gd"
 
 [display]
 
