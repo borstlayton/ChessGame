@@ -10,12 +10,9 @@ size = Vector2(106, 150)
 [node name="KnightBounty" type="Node2D"]
 script = ExtResource("1_38ukd")
 
-[node name="CardTemplate" type="Node2D" parent="." node_paths=PackedStringArray("card_image")]
+[node name="CardTemplate" type="Node2D" parent="."]
 scale = Vector2(0.1, 0.1)
 script = ExtResource("2_1csc5")
-card_ID = 1
-base_cost = 3
-card_image = NodePath("CardSprite")
 
 [node name="CardSprite" type="Sprite2D" parent="CardTemplate"]
 texture = ExtResource("2_gihry")
@@ -26,4 +23,44 @@ texture = ExtResource("2_gihry")
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_8bdg1")
 
+[node name="BuyPanel" type="Control" parent="CardTemplate"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -60.0
+offset_top = -40.0
+offset_right = 60.0
+offset_bottom = 30.0
+
+[node name="BuyBackground" type="ColorRect" parent="CardTemplate/BuyPanel"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 70.0
+color = Color(0.321569, 0.321569, 0.321569, 1)
+
+[node name="Label" type="Label" parent="CardTemplate/BuyPanel/BuyBackground"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 40.0
+text = "Buy Card?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyButton" type="Button" parent="CardTemplate/BuyPanel/BuyBackground"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 60.0
+offset_bottom = 70.0
+text = "Yes"
+
+[node name="CancelButton" type="Button" parent="CardTemplate/BuyPanel/BuyBackground"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 40.0
+offset_right = 120.0
+offset_bottom = 70.0
+text = "Cancel"
+
+[connection signal="input_event" from="CardTemplate/Area2D" to="CardTemplate" method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="CardTemplate/Area2D" to="CardTemplate" method="_on_area_2d_mouse_entered"]
+[connection signal="button_down" from="CardTemplate/BuyPanel/BuyBackground/CancelButton" to="CardTemplate" method="_on_cancel_button_button_down"]

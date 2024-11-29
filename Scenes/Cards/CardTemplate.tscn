@@ -19,5 +19,45 @@ texture = ExtResource("2_88hl1")
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_8bdg1")
 
+[node name="BuyPanel" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -60.0
+offset_top = -40.0
+offset_right = 60.0
+offset_bottom = 30.0
+
+[node name="BuyBackground" type="ColorRect" parent="BuyPanel"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 70.0
+color = Color(0.321569, 0.321569, 0.321569, 1)
+
+[node name="Label" type="Label" parent="BuyPanel/BuyBackground"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 40.0
+text = "Buy Card?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyButton" type="Button" parent="BuyPanel/BuyBackground"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 60.0
+offset_bottom = 70.0
+text = "Yes"
+
+[node name="CancelButton" type="Button" parent="BuyPanel/BuyBackground"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 40.0
+offset_right = 120.0
+offset_bottom = 70.0
+text = "Cancel"
+
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="button_down" from="BuyPanel/BuyBackground/BuyButton" to="." method="_on_buy_button_button_down"]
+[connection signal="button_down" from="BuyPanel/BuyBackground/CancelButton" to="." method="_on_cancel_button_button_down"]
