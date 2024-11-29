@@ -81,6 +81,7 @@ func next_level():
 	purchase_pieces_gui.show()
 	
 func _on_next_level_button_down():
+	SignalManager.emit_signal("next_level_selected")
 	next_level_button.hide()
 	purchase_pieces_gui.hide()
 	parse_fen(BoardManager.current_level)
