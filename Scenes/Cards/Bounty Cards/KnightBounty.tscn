@@ -18,11 +18,9 @@ base_cost = 3
 card_image = NodePath("CardSprite")
 
 [node name="CardSprite" type="Sprite2D" parent="CardTemplate"]
-scale = Vector2(1, 1)
 texture = ExtResource("2_gihry")
 
 [node name="Area2D" type="Area2D" parent="CardTemplate"]
-scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CardTemplate/Area2D"]
 position = Vector2(0, -2)
