@@ -1,5 +1,9 @@
 extends Node
 
+
+var my_csharp_script = load("res://Scripts/ChessAi.cs")
+var my_csharp_node = my_csharp_script.new()
+
 var current_board : Array[Array] = []
 var turn:bool = true
 var current_level : int
@@ -8,9 +12,11 @@ var assets := []
 var valid_tiles = []
 var current_board_state = board_states.WHITE_IDLE
 var current_piece : Vector2
+
 enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED, PURCHASE}
 var tile_pressed = false
 var clear_board = false
+
 enum PieceNames {BLACK_BISHOP, BLACK_KING, BLACK_KNIGHT, BLACK_PAWN, BLACK_QUEEN, BLACK_ROOK, WHITE_BISHOP, WHITE_KING, WHITE_KNIGHT, WHITE_PAWN, WHITE_QUEEN, WHITE_ROOK}
 var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING, 
 					"n" = PieceNames.BLACK_KNIGHT, "p" = PieceNames.BLACK_PAWN, 
@@ -45,7 +51,11 @@ func _ready():
 	assets.append("res://Art/Chess Pieces/WhitePawn.png")
 	assets.append("res://Art/Chess Pieces/WhiteQueen.png")
 	assets.append("res://Art/Chess Pieces/WhiteRook.png")
-
+	
+	SignalManager.done_moving.connect(get_ai_move)
+func get_board():
+	return current_board
+	
 #piece_selected_selected
 #summary: checks if either side is in the IDLE state and sets the current_piece to the piece selected
 #returns nothing, sets the board state to PIECE_CLICKED and the current_piece to the piece they have selected
@@ -314,3 +324,5 @@ func get_king_move(row:int, column:int, piece:String) -> Array[Vector2]:
 				legal_moves.append(temp)
 	return legal_moves
 	
+func get_ai_move():
+	my_csharp_node.test()

@@ -43,5 +43,6 @@ func move_pieces(past_tile : Vector2, next_tile : Vector2):
 	
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_PIECE_MOVED:
 		BoardManager.current_board_state = BoardManager.board_states.BLACK_IDLE
+		SignalManager.emit_signal("done_moving")
 	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_PIECE_MOVED:
 		BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE

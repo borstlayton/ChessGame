@@ -22,5 +22,3 @@ func _on_next_level_button_down():
 	first_card.hide()
 	second_card.hide()
 	third_card.hide()
-
-

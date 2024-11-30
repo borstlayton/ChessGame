@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://qlxgle4nfr7x"]
+
+[ext_resource type="Script" path="res://Scripts/ChessAi.cs" id="1_1xhri"]
+
+[node name="ChessAI" type="Node"]
+script = ExtResource("1_1xhri")

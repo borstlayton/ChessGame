@@ -8,3 +8,4 @@ signal purchased_piece(piece : String)
 signal placed_purchased_piece(location : Vector2, piece : String)
 signal complete_purchase
 signal next_level_selected
+signal done_moving
