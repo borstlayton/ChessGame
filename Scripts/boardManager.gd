@@ -26,7 +26,7 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	0: "1111k111/111rrrrr/8/8/8/8/8/111QK111",
+	0: "1111k111/11111111/8/8/8/8/8/11QQK111",
 	1: "1111k111/8/8/8/8/8/8/4K3",
 }
 

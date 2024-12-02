@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=10 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/GridContainer.gd" id="2_6tt8d"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://Scripts/CoinCounter.gd" id="5_cx7gl"]
 [ext_resource type="Script" path="res://Scenes/RoundTotal.gd" id="5_eqnbu"]
 [ext_resource type="Script" path="res://Scripts/Purchase Pieces.gd" id="6_4x2eg"]
-[ext_resource type="PackedScene" uid="uid://dftccxkuncw53" path="res://Scenes/Minimax.tscn" id="6_n7pis"]
 [ext_resource type="Texture2D" uid="uid://c6bm5mu3p10jq" path="res://Art/Coin.png" id="6_nii58"]
 [ext_resource type="Script" path="res://Scripts/CardDisplay.gd" id="8_kpls1"]
 
@@ -238,8 +237,6 @@ offset_bottom = 20.0
 scale = Vector2(1, 1.6)
 size_flags_horizontal = 8
 size_flags_vertical = 4
-
-[node name="Minimax" parent="." instance=ExtResource("6_n7pis")]
 
 [connection signal="button_down" from="Control/PurchasePieces/PawnPurchase" to="Control/PurchasePieces" method="_on_pawn_purchase_button_down"]
 [connection signal="button_down" from="Control/PurchasePieces/BishopPurchase" to="Control/PurchasePieces" method="_on_bishop_purchase_button_down"]
