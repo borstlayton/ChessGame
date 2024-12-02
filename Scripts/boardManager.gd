@@ -1,6 +1,5 @@
 extends Node
 
-
 var my_csharp_script = load("res://Scripts/ChessAi.cs")
 var my_csharp_node = my_csharp_script.new()
 
@@ -27,7 +26,7 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	0: "1111k111/8/8/8/8/8/8/111QK111",
+	0: "1111k111/111rrrrr/8/8/8/8/8/111QK111",
 	1: "1111k111/8/8/8/8/8/8/4K3",
 }
 
@@ -76,6 +75,7 @@ func piece_selected(row : int, column : int):
 #checks if the tile clicked is in the valid_tiles, and if it is, it moves the piece there
 #if not, it switches back to the IDLE state and waits for your next click to choose the next current_piece
 func piece_moved(row: int, column : int):
+	print("entered with: ", row," ", column)
 	var is_valid_tile : bool
 	for tile in valid_tiles: #looks through all the tiles to see if the tile clicked matches with one of the valid tiles
 		if tile == Vector2(row,column):
@@ -325,4 +325,13 @@ func get_king_move(row:int, column:int, piece:String) -> Array[Vector2]:
 	return legal_moves
 	
 func get_ai_move():
-	my_csharp_node.test()
+	var flattened_board : Array = []
+	for row in current_board:
+		for cell in row:
+			flattened_board.append(cell)
+	await get_tree().create_timer(0.25).timeout
+	var best_move = my_csharp_node.get_best_move(flattened_board)
+	
+	piece_selected(int(best_move.substr(0,1)), int(best_move.substr(1,1)))
+	print(current_piece)
+	piece_moved(int(best_move.substr(2,1)), int(best_move.substr(3,1)))

@@ -3,8 +3,6 @@ extends Node2D
 @onready var tile_scene = preload("res://Scenes/tile.tscn")
 @onready var grid_container = $ColorRect/GridContainer
 @onready var next_level_button = $"Control/Next Level"
-@onready var best_move = $Control/BestMove
-@onready var minimax = $Minimax
 @onready var purchase_pieces_gui = $Control/PurchasePieces
 @onready var purchase_piece_scene = load("res://Scenes/Purchasable Piece.tscn")
 
@@ -24,8 +22,6 @@ func _ready():
 	SignalManager.purchased_piece.connect(show_purchasable_tiles)
 	SignalManager.complete_purchase.connect(clear_purchased_piece_scene)
 	
-	create_board()
-	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
 	
 	create_board()
 	
@@ -86,10 +82,6 @@ func _on_next_level_button_down():
 	purchase_pieces_gui.hide()
 	parse_fen(BoardManager.current_level)
 	BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
-	
-func _on_best_move_button_pressed():
-	best_move.text = "Best Move:" + minimax.move_to_text(minimax.current_best())
-	print("Update Complete")
 
 func moving_purchased_piece(piece_type):
 	var new_piece = purchase_piece_scene.instantiate()

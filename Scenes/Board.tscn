@@ -192,22 +192,6 @@ offset_right = 302.0
 offset_bottom = 329.0
 text = "Next Level"
 
-[node name="BestMove" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 27.0
-offset_top = 269.0
-offset_right = 340.0
-offset_bottom = 339.0
-text = "Best Move: "
-
-[node name="BestMoveButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 305.0
-offset_right = 173.0
-offset_bottom = 336.0
-text = "Refresh Best Move"
-
 [node name="ShopBackground" type="ColorRect" parent="Control"]
 layout_mode = 0
 offset_left = 64.0
@@ -241,6 +225,7 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 20.0
 offset_bottom = 20.0
+scale = Vector2(1, 1.6)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
@@ -250,6 +235,7 @@ offset_left = 35.0
 offset_top = 20.0
 offset_right = 35.0
 offset_bottom = 20.0
+scale = Vector2(1, 1.6)
 size_flags_horizontal = 8
 size_flags_vertical = 4
 
@@ -264,4 +250,3 @@ size_flags_vertical = 4
 [connection signal="button_down" from="Control/PurchasePieces/CancelPurchase" to="Control/PurchasePieces" method="_on_cancel_purchase_button_down"]
 [connection signal="button_down" from="Control/Next Level" to="." method="_on_next_level_button_down"]
 [connection signal="button_down" from="Control/Next Level" to="Control/ShopBackground/CardDisplay" method="_on_next_level_button_down"]
-[connection signal="pressed" from="Control/BestMoveButton" to="." method="_on_best_move_button_pressed"]
