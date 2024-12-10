@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://qt2ptyvc4yhf"]
+
+[ext_resource type="PackedScene" uid="uid://c8qpa7a6vj5u0" path="res://Scenes/Cards/CardTemplate.tscn" id="1_wwl3b"]
+[ext_resource type="Script" path="res://Scripts/Cards/BountyCards/bishop_bounty.gd" id="2_5mku8"]
+[ext_resource type="Texture2D" uid="uid://djmeqrpgytd7p" path="res://Art/Cards/Bounty Cards/BountyBishop.png" id="3_2b5x5"]
+
+[node name="CardTemplate" instance=ExtResource("1_wwl3b")]
+script = ExtResource("2_5mku8")
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("3_2b5x5")
+
+[node name="Backside" parent="." index="6"]
+visible = false

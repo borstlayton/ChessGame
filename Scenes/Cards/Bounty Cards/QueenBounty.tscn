@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbhn6cghyog72"]
+
+[ext_resource type="PackedScene" uid="uid://c8qpa7a6vj5u0" path="res://Scenes/Cards/CardTemplate.tscn" id="1_em4bq"]
+[ext_resource type="Texture2D" uid="uid://bj2638rlt244e" path="res://Art/Cards/Bounty Cards/BountyQueen.png" id="2_kmqa3"]
+[ext_resource type="Script" path="res://Scripts/Cards/BountyCards/queen_bounty.gd" id="2_ssu63"]
+
+[node name="CardTemplate" instance=ExtResource("1_em4bq")]
+script = ExtResource("2_ssu63")
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("2_kmqa3")
+
+[node name="Backside" parent="." index="6"]
+visible = false
