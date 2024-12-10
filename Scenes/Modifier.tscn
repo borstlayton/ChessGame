@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv2jhfd5lnkhi"]
+
+[ext_resource type="Texture2D" uid="uid://baa5ocrlul2qg" path="res://Art/Board/Modifier.png" id="1_5rlrv"]
+
+[node name="Modifier" type="Node2D"]
+
+[node name="ModiferBase" type="Sprite2D" parent="."]
+texture = ExtResource("1_5rlrv")
