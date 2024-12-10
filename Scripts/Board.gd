@@ -21,7 +21,7 @@ func _ready():
 	SignalManager.purchased_piece.connect(moving_purchased_piece)
 	SignalManager.purchased_piece.connect(show_purchasable_tiles)
 	SignalManager.complete_purchase.connect(clear_purchased_piece_scene)
-	
+	SignalManager.modifier_purchased.connect(modifier_moving)
 	
 	create_board()
 	
@@ -105,3 +105,7 @@ func show_purchasable_tiles(piece_type : String):
 				purchasable_tiles.append(Vector2(i,j))
 	grid_container.show_tiles(purchasable_tiles)
 	ShopManager.purchasable_tiles = purchasable_tiles
+
+func modifier_moving():
+	BoardManager.current_board_state = BoardManager.board_states.MODIFIER_PURCHASED
+	print("moving modifier")
