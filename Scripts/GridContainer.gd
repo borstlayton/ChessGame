@@ -46,3 +46,7 @@ func move_pieces(past_tile : Vector2, next_tile : Vector2):
 		SignalManager.emit_signal("done_moving")
 	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_PIECE_MOVED:
 		BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
+
+func is_tile_modified(tile : Vector2):
+	var ID = 8*tile.x + tile.y
+	return get_child(ID).check_if_has_modifier()

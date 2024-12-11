@@ -10,3 +10,4 @@ signal complete_purchase
 signal next_level_selected
 signal done_moving
 signal modifier_purchased
+signal modifier_placed(location : Vector2)

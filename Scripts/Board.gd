@@ -111,7 +111,7 @@ func modifier_moving():
 	var modifiable_tiles = []
 	for i in range(6,8):
 		for j in range(8):
-			if BoardManager.current_board[i][j] != "0":
+			if BoardManager.current_board[i][j] != "0" and not grid_container.is_tile_modified(Vector2(i,j)):
 				modifiable_tiles.append(Vector2(i,j))
 	grid_container.show_tiles(modifiable_tiles)
 	ShopManager.modifiable_tiles = modifiable_tiles

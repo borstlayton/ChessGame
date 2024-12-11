@@ -4,7 +4,8 @@ extends ColorRect
 var ID
 var tile_row
 var tile_column
-
+@onready var has_modifier : bool = false
+@onready var modifier_scene = preload("res://Scenes/Modifier.tscn")
 func load_icon(piece_name):
 	piece.texture = load(BoardManager.assets[piece_name])
 func get_icon():
@@ -20,6 +21,15 @@ func set_id(row, column):
 	ID = row*8 + column
 	tile_row = row
 	tile_column = column
+	
+func show_modifier():
+	var new_modifier = modifier_scene.instantiate()
+	add_child(new_modifier)
+	has_modifier = true
+	
+func check_if_has_modifier():
+	return has_modifier
+	
 func _on_button_button_down():
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_upper():
 		BoardManager.show_valid_tiles(tile_row, tile_column)
@@ -27,11 +37,9 @@ func _on_button_button_down():
 	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_lower():
 		BoardManager.show_valid_tiles(tile_row, tile_column)
 		SignalManager.tile_pressed.emit()
+		
 func _on_button_button_up():
 	SignalManager.clear_valid_tiles.emit()
-#func _on_button_button_up():
-	#BoardManager.clear_tiles()
-	#num_clicks += 1
 
 func _on_button_pressed():
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and get_icon()!= null:
@@ -53,9 +61,12 @@ func _on_button_pressed():
 			load_icon(BoardManager.fen_dict[ShopManager.current_piece])
 			BoardManager.add_to_board(tile_row, tile_column, ShopManager.current_piece)
 			ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
+			
 		elif ShopManager.check_purchasable_tile(Vector2(tile_row,tile_column)) == false:
 			ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
 			SignalManager.complete_purchase.emit()
 			
 	if BoardManager.current_board_state == BoardManager.board_states.PURCHASE and ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_MODIFIER:
-		print("made it")
+		if ShopManager.check_modifiable_tile(Vector2(tile_row, tile_column)):
+			SignalManager.modifier_placed.emit(Vector2(tile_row, tile_column))
+			show_modifier()
