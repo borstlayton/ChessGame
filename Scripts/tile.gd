@@ -56,3 +56,6 @@ func _on_button_pressed():
 		elif ShopManager.check_purchasable_tile(Vector2(tile_row,tile_column)) == false:
 			ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
 			SignalManager.complete_purchase.emit()
+			
+	if BoardManager.current_board_state == BoardManager.board_states.PURCHASE and ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_MODIFIER:
+		print("made it")

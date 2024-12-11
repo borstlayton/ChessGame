@@ -107,5 +107,11 @@ func show_purchasable_tiles(piece_type : String):
 	ShopManager.purchasable_tiles = purchasable_tiles
 
 func modifier_moving():
-	BoardManager.current_board_state = BoardManager.board_states.MODIFIER_PURCHASED
-	print("moving modifier")
+	ShopManager.current_state = ShopManager.piece_purchase_states.MOVING_MODIFIER
+	var modifiable_tiles = []
+	for i in range(6,8):
+		for j in range(8):
+			if BoardManager.current_board[i][j] != "0":
+				modifiable_tiles.append(Vector2(i,j))
+	grid_container.show_tiles(modifiable_tiles)
+	ShopManager.modifiable_tiles = modifiable_tiles

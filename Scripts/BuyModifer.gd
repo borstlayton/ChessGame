@@ -11,5 +11,5 @@ func _on_button_down() -> void:
 	
 	
 func _process(delta: float) -> void:
-	if BoardManager.current_board_state == BoardManager.board_states.MODIFIER_PURCHASED:
+	if ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_MODIFIER:
 		new_modifier.global_position = get_global_mouse_position()

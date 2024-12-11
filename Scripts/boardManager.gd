@@ -12,7 +12,7 @@ var valid_tiles = []
 var current_board_state = board_states.WHITE_IDLE
 var current_piece : Vector2
 
-enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED, PURCHASE, MODIFIER_PURCHASED}
+enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED, PURCHASE}
 var tile_pressed = false
 var clear_board = false
 

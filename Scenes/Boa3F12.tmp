@@ -242,10 +242,10 @@ size_flags_vertical = 4
 
 [node name="BuyModifier" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 35.0
-offset_top = 267.0
-offset_right = 142.0
-offset_bottom = 298.0
+offset_left = 34.0
+offset_top = 268.0
+offset_right = 141.0
+offset_bottom = 299.0
 text = "Buy Modifier"
 script = ExtResource("10_dh3n4")
 

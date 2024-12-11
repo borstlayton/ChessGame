@@ -7,7 +7,8 @@ var current_piece_scene
 var purchased_pieces_locations = []
 var purchased_pieces_names = []
 var purchasable_tiles = []
-enum piece_purchase_states{PURCHASE_IDLE, MOVING_PIECE, PIECE_PLACED}
+var modifiable_tiles = []
+enum piece_purchase_states{PURCHASE_IDLE, MOVING_PIECE, PIECE_PLACED, MOVING_MODIFIER, MODIFIER_PLACED}
 
 var coin_amount := {
 	"P": 1,
@@ -33,6 +34,12 @@ func subtract_coin_amount(piece : String):
 
 func check_purchasable_tile(tile_pressed : Vector2):
 	for tile in purchasable_tiles:
+		if tile_pressed == tile:
+			return true
+	return false
+
+func check_modifiable_tile(tile_pressed : Vector2):
+	for tile in modifiable_tiles:
 		if tile_pressed == tile:
 			return true
 	return false
