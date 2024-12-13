@@ -21,6 +21,7 @@ func _ready():
 	SignalManager.purchased_piece.connect(moving_purchased_piece)
 	SignalManager.purchased_piece.connect(show_purchasable_tiles)
 	SignalManager.complete_purchase.connect(clear_purchased_piece_scene)
+	SignalManager.complete_purchase.connect(check_modifiable)
 	SignalManager.modifier_purchased.connect(modifier_moving)
 	SignalManager.modifier_placed.connect(check_modifiable)
 	
@@ -117,7 +118,7 @@ func modifier_moving():
 	grid_container.show_tiles(modifiable_tiles)
 	ShopManager.modifiable_tiles = modifiable_tiles
 
-func check_modifiable(tile : Vector2):
+func check_modifiable(tile : Vector2 = Vector2(-1,-1)):
 	var modifiable_tiles_on_board = false
 	for i in range(6,8):
 		for j in range(8):
