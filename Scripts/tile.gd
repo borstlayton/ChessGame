@@ -77,8 +77,8 @@ func _on_button_pressed():
 			
 	if BoardManager.current_board_state == BoardManager.board_states.PURCHASE and ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_MODIFIER:
 		if ShopManager.check_modifiable_tile(Vector2(tile_row, tile_column)):
-			SignalManager.modifier_placed.emit(Vector2(tile_row, tile_column))
 			show_modifier()
+			SignalManager.modifier_placed.emit(Vector2(tile_row, tile_column))
 			ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
 			
 		elif ShopManager.check_modifiable_tile(Vector2(tile_row, tile_column)) == false:
