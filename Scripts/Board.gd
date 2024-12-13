@@ -5,7 +5,10 @@ extends Node2D
 @onready var next_level_button = $"Control/Next Level"
 @onready var purchase_pieces_gui = $Control/PurchasePieces
 @onready var purchase_piece_scene = load("res://Scenes/Purchasable Piece.tscn")
+@onready var modifier_scene = preload("res://Scenes/Modifier.tscn")
 
+@onready var new_modifier
+@onready var has_modifier : bool = false
 var purchased_piece
 var player_move : bool = true
 var alternate_color := Color.BEIGE
@@ -31,6 +34,8 @@ func _process(delta):
 	if ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_PIECE:
 		purchased_piece.global_position = get_global_mouse_position()
 	
+	if ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_MODIFIER and has_modifier:
+		new_modifier.global_position = get_global_mouse_position()
 func create_board():
 	for i in range(8):
 		for j in range(8):
@@ -99,7 +104,7 @@ func _on_cancel_purchase_button_down():
 func clear_purchased_piece_scene():
 	purchased_piece.queue_free()
 
-func show_purchasable_tiles(piece_type : String):
+func show_purchasable_tiles(_piece_type : String):
 	var purchasable_tiles = []
 	for i in range(6,8):
 		for j in range(8):
@@ -109,7 +114,6 @@ func show_purchasable_tiles(piece_type : String):
 	ShopManager.purchasable_tiles = purchasable_tiles
 
 func modifier_moving():
-	ShopManager.current_state = ShopManager.piece_purchase_states.MOVING_MODIFIER
 	var modifiable_tiles = []
 	for i in range(6,8):
 		for j in range(8):
@@ -117,8 +121,11 @@ func modifier_moving():
 				modifiable_tiles.append(Vector2(i,j))
 	grid_container.show_tiles(modifiable_tiles)
 	ShopManager.modifiable_tiles = modifiable_tiles
-
-func check_modifiable(tile : Vector2 = Vector2(-1,-1)):
+	ShopManager.current_state = ShopManager.piece_purchase_states.MOVING_MODIFIER
+	
+	instantiate_modifier()
+	
+func check_modifiable(_tile : Vector2 = Vector2(-1,-1)):
 	var modifiable_tiles_on_board = false
 	for i in range(6,8):
 		for j in range(8):
@@ -127,3 +134,15 @@ func check_modifiable(tile : Vector2 = Vector2(-1,-1)):
 				
 	ModifierManager.is_modifiable = modifiable_tiles_on_board
 	SignalManager.done_checking_modifiable_board.emit()
+	
+	release_modifier()
+	
+func instantiate_modifier():
+	new_modifier = modifier_scene.instantiate()
+	add_child(new_modifier)
+	has_modifier = true
+
+func release_modifier():
+	if has_modifier:
+		new_modifier.queue_free()
+		has_modifier = false

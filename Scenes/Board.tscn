@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=10 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/GridContainer.gd" id="2_6tt8d"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://Scripts/Purchase Pieces.gd" id="6_4x2eg"]
 [ext_resource type="Texture2D" uid="uid://c6bm5mu3p10jq" path="res://Art/Coin.png" id="6_nii58"]
 [ext_resource type="Script" path="res://Scripts/CardDisplay.gd" id="8_kpls1"]
-[ext_resource type="Script" path="res://Scripts/BuyModifer.gd" id="10_dh3n4"]
 
 [node name="Board" type="Node2D"]
 position = Vector2(-2, -2)
@@ -240,15 +239,6 @@ scale = Vector2(1, 1.6)
 size_flags_horizontal = 8
 size_flags_vertical = 4
 
-[node name="BuyModifier" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 35.0
-offset_top = 267.0
-offset_right = 142.0
-offset_bottom = 298.0
-text = "Buy Modifier"
-script = ExtResource("10_dh3n4")
-
 [connection signal="button_down" from="Control/PurchasePieces/PawnPurchase" to="Control/PurchasePieces" method="_on_pawn_purchase_button_down"]
 [connection signal="button_down" from="Control/PurchasePieces/BishopPurchase" to="Control/PurchasePieces" method="_on_bishop_purchase_button_down"]
 [connection signal="button_down" from="Control/PurchasePieces/KnightPurchase" to="Control/PurchasePieces" method="_on_knight_purchase_button_down"]
@@ -258,4 +248,3 @@ script = ExtResource("10_dh3n4")
 [connection signal="button_down" from="Control/PurchasePieces/CancelPurchase" to="Control/PurchasePieces" method="_on_cancel_purchase_button_down"]
 [connection signal="button_down" from="Control/Next Level" to="." method="_on_next_level_button_down"]
 [connection signal="button_down" from="Control/Next Level" to="Control/ShopBackground/CardDisplay" method="_on_next_level_button_down"]
-[connection signal="button_down" from="Control/BuyModifier" to="Control/BuyModifier" method="_on_button_down"]
