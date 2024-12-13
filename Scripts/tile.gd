@@ -6,6 +6,9 @@ var tile_row
 var tile_column
 @onready var has_modifier : bool = false
 @onready var modifier_scene = preload("res://Scenes/Modifier.tscn")
+@onready var modifier_offset = Vector2(80,10)
+@onready var new_modifier
+
 func load_icon(piece_name):
 	piece.texture = load(BoardManager.assets[piece_name])
 func get_icon():
@@ -23,13 +26,19 @@ func set_id(row, column):
 	tile_column = column
 	
 func show_modifier():
-	var new_modifier = modifier_scene.instantiate()
+	new_modifier = modifier_scene.instantiate()
+	new_modifier.position += modifier_offset
 	add_child(new_modifier)
 	has_modifier = true
 	
 func check_if_has_modifier():
 	return has_modifier
-	
+
+func clear_tile_modifier():
+	if has_modifier:
+		new_modifier.queue_free()
+		has_modifier = false
+		
 func _on_button_button_down():
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_upper():
 		BoardManager.show_valid_tiles(tile_row, tile_column)
@@ -70,3 +79,8 @@ func _on_button_pressed():
 		if ShopManager.check_modifiable_tile(Vector2(tile_row, tile_column)):
 			SignalManager.modifier_placed.emit(Vector2(tile_row, tile_column))
 			show_modifier()
+			ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
+			
+		elif ShopManager.check_modifiable_tile(Vector2(tile_row, tile_column)) == false:
+			ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
+			SignalManager.modifier_placed.emit(Vector2(tile_row, tile_column))
