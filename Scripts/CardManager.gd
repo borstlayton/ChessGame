@@ -9,8 +9,11 @@ extends Node
 @onready var rook_bounty = preload("res://Scenes/Cards/Bounty Cards/RookBounty.tscn")
 @onready var pawn_bounty = preload("res://Scenes/Cards/Bounty Cards/PawnBounty.tscn")
 
-
-
+@onready var speed_modifier_card = preload("res://Scenes/Cards/ModifierCards/SpeedModifierCard.tscn")
+@onready var balance_modifier_card = preload("res://Scenes/Cards/ModifierCards/BalanceModifierCard.tscn")
+@onready var crimson_modifier_card = preload("res://Scenes/Cards/ModifierCards/CrimsonModifierCard.tscn")
+@onready var crown_modifier_card = preload("res://Scenes/Cards/ModifierCards/CrownModifierCard.tscn")
+@onready var hero_modifier_card = preload("res://Scenes/Cards/ModifierCards/HeroModifierCard.tscn")
 var deck = []
 
 func _ready():
@@ -23,6 +26,12 @@ func _ready():
 	#deck.append(bishop_bounty)
 	#deck.append(rook_bounty)
 	#deck.append(pawn_bounty)
+	
+	deck.append(speed_modifier_card)
+	deck.append(balance_modifier_card)
+	deck.append(crimson_modifier_card)
+	deck.append(crown_modifier_card)
+	deck.append(hero_modifier_card)
 	
 func get_card():
 	return deck.pick_random().instantiate()

@@ -113,7 +113,7 @@ func show_purchasable_tiles(_piece_type : String):
 	grid_container.show_tiles(purchasable_tiles)
 	ShopManager.purchasable_tiles = purchasable_tiles
 
-func modifier_moving():
+func modifier_moving(ID : int):
 	var modifiable_tiles = []
 	for i in range(6,8):
 		for j in range(8):
@@ -123,7 +123,8 @@ func modifier_moving():
 	ShopManager.modifiable_tiles = modifiable_tiles
 	ShopManager.current_state = ShopManager.piece_purchase_states.MOVING_MODIFIER
 	
-	instantiate_modifier()
+	ModifierManager.current_purchased_modifier_ID = ID
+	instantiate_modifier(ID)
 	
 func check_modifiable(_tile : Vector2 = Vector2(-1,-1)):
 	var modifiable_tiles_on_board = false
@@ -137,8 +138,9 @@ func check_modifiable(_tile : Vector2 = Vector2(-1,-1)):
 	
 	release_modifier()
 	
-func instantiate_modifier():
+func instantiate_modifier(ID : int):
 	new_modifier = modifier_scene.instantiate()
+	new_modifier.load_icon(ID)
 	add_child(new_modifier)
 	has_modifier = true
 

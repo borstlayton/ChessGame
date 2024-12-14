@@ -2,7 +2,6 @@ class_name ModifierCard extends Card
 
 @onready var cannot_purchase = $CanPurchase
 @onready var modifiable : bool = true
-
 func _ready():
 	super()
 	cannot_purchase.hide()
@@ -27,4 +26,4 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			collision_shape.disabled = true
 
 func card_effect():
-	SignalManager.emit_signal("modifier_purchased")
+	SignalManager.modifier_purchased.emit(0)

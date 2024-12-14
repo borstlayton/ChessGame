@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://7c3e0w0n0h6f"]
+
+[ext_resource type="PackedScene" uid="uid://dxplf6dkuko2m" path="res://Scenes/Cards/ModifierCardTemplate.tscn" id="1_ctenc"]
+[ext_resource type="Script" path="res://Scripts/Cards/ModifierCards/CrimsonModifierCard.gd" id="2_wa4er"]
+[ext_resource type="Texture2D" uid="uid://mn1nlaskvhhc" path="res://Art/Cards/ModifierCards/CrimsonModifier.png" id="3_2dxf6"]
+
+[node name="CardTemplate" instance=ExtResource("1_ctenc")]
+script = ExtResource("2_wa4er")
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("3_2dxf6")

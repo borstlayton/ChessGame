@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://baa5ocrlul2qg"
-path="res://.godot/imported/Modifier.png-54897f71dc1ca7689432d01e649fbb7a.ctex"
+uid="uid://c63g5gghvaoic"
+path="res://.godot/imported/BalanceMod.png-20b2c1480b50cd52b9bfe4c057b7a4f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Board/Modifier.png"
-dest_files=["res://.godot/imported/Modifier.png-54897f71dc1ca7689432d01e649fbb7a.ctex"]
+source_file="res://Art/Cards/Modifiers/BalanceMod.png"
+dest_files=["res://.godot/imported/BalanceMod.png-20b2c1480b50cd52b9bfe4c057b7a4f6.ctex"]
 
 [params]
 

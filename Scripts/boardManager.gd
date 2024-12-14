@@ -75,7 +75,6 @@ func piece_selected(row : int, column : int):
 #checks if the tile clicked is in the valid_tiles, and if it is, it moves the piece there
 #if not, it switches back to the IDLE state and waits for your next click to choose the next current_piece
 func piece_moved(row: int, column : int):
-	print("entered with: ", row," ", column)
 	var is_valid_tile : bool
 	for tile in valid_tiles: #looks through all the tiles to see if the tile clicked matches with one of the valid tiles
 		if tile == Vector2(row,column):
@@ -333,5 +332,4 @@ func get_ai_move():
 	var best_move = my_csharp_node.get_best_move(flattened_board)
 	
 	piece_selected(int(best_move.substr(0,1)), int(best_move.substr(1,1)))
-	print(current_piece)
 	piece_moved(int(best_move.substr(2,1)), int(best_move.substr(3,1)))

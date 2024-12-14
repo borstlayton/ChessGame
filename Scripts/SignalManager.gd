@@ -9,6 +9,6 @@ signal placed_purchased_piece(location : Vector2, piece : String)
 signal complete_purchase
 signal next_level_selected
 signal done_moving
-signal modifier_purchased
+signal modifier_purchased(ID : int)
 signal modifier_placed(location : Vector2)
 signal done_checking_modifiable_board

@@ -48,10 +48,8 @@ public partial class ChessAi : Node
 			{
 				row += board[i, j] + " ";
 			}
-			GD.Print(row);
 		}
 		string best_move = BestMove(board, 4);
-		GD.Print(best_move);
 		return best_move;
 	}
 	private static readonly Dictionary<string, int> PieceValues = new Dictionary<string, int>

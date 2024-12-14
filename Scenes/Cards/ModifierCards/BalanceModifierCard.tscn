@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0vssmec38nlx"]
+
+[ext_resource type="PackedScene" uid="uid://dxplf6dkuko2m" path="res://Scenes/Cards/ModifierCardTemplate.tscn" id="1_7n3b3"]
+[ext_resource type="Texture2D" uid="uid://dj4g3b5wywrkr" path="res://Art/Cards/ModifierCards/BalanceModifier.png" id="2_gc5rq"]
+[ext_resource type="Script" path="res://Scripts/Cards/ModifierCards/BalanceModifierCard.gd" id="2_nw3xh"]
+
+[node name="CardTemplate" instance=ExtResource("1_7n3b3")]
+script = ExtResource("2_nw3xh")
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("2_gc5rq")

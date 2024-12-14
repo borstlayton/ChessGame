@@ -28,6 +28,7 @@ func set_id(row, column):
 func show_modifier():
 	new_modifier = modifier_scene.instantiate()
 	new_modifier.position += modifier_offset
+	new_modifier.load_icon(ModifierManager.current_purchased_modifier_ID)
 	add_child(new_modifier)
 	has_modifier = true
 	
