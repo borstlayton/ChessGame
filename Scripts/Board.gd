@@ -48,7 +48,15 @@ func create_board():
 func clear_board():
 	for i in range(64):
 		grid_container.get_child(i).clear_piece()
-		
+		if grid_container.get_child(i).check_if_has_modifier():
+			grid_container.get_child(i).clear_tile_modifier()
+	
+	for i in range(BoardManager.board_size):
+		for j in range(BoardManager.board_size):
+			BoardManager.current_board[i][j] = "0"
+			
+			
+	
 func add_piece(num_grid, piece_type):
 	var wanted_grid = grid_container.get_child(num_grid)
 	wanted_grid.load_icon(piece_type)
@@ -82,6 +90,7 @@ func next_level():
 	BoardManager.current_level += 1
 	next_level_button.show()
 	purchase_pieces_gui.show()
+	add_piece(60, BoardManager.fen_dict["K"]) #adding king
 	
 func _on_next_level_button_down():
 	SignalManager.emit_signal("next_level_selected")
@@ -132,7 +141,6 @@ func check_modifiable(_tile : Vector2 = Vector2(-1,-1)):
 		for j in range(8):
 			if BoardManager.current_board[i][j] != "0" and not grid_container.is_tile_modified(Vector2(i,j)):
 				modifiable_tiles_on_board = true
-				
 	ModifierManager.is_modifiable = modifiable_tiles_on_board
 	SignalManager.done_checking_modifiable_board.emit()
 	
