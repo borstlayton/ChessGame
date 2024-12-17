@@ -1,5 +1,5 @@
 extends Label
 
 
-func _process(delta):
+func _process(_delta):
 	text = "Level: " + str(BoardManager.current_level)

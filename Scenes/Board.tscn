@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=12 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/GridContainer.gd" id="2_6tt8d"]
 [ext_resource type="Script" path="res://Scripts/Level Counter.gd" id="2_o4k1a"]
+[ext_resource type="Script" path="res://Scripts/material_display.gd" id="3_bxv2v"]
+[ext_resource type="Script" path="res://Scripts/MaterialDisplayControl.gd" id="3_ubyv7"]
 [ext_resource type="Script" path="res://Scripts/Board State.gd" id="4_lnx8x"]
 [ext_resource type="Script" path="res://Scripts/CoinCounter.gd" id="5_cx7gl"]
 [ext_resource type="Script" path="res://Scenes/RoundTotal.gd" id="5_eqnbu"]
@@ -15,13 +17,15 @@ position = Vector2(-2, -2)
 script = ExtResource("1_bohl5")
 
 [node name="Background" type="ColorRect" parent="."]
-offset_right = 1280.0
-offset_bottom = 722.0
+offset_right = 1922.0
+offset_bottom = 1081.0
 color = Color(0.103744, 0.103744, 0.103744, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 720.0
-offset_bottom = 720.0
+offset_left = 600.0
+offset_top = 180.0
+offset_right = 1320.0
+offset_bottom = 900.0
 
 [node name="GridContainer" type="GridContainer" parent="ColorRect"]
 layout_mode = 0
@@ -32,23 +36,51 @@ theme_override_constants/v_separation = 0
 columns = 8
 script = ExtResource("2_6tt8d")
 
+[node name="MaterialDisplay" type="Control" parent="ColorRect"]
+clip_contents = true
+anchors_preset = 0
+offset_top = 180.0
+offset_right = 720.0
+offset_bottom = 260.0
+mouse_filter = 2
+script = ExtResource("3_ubyv7")
+
+[node name="MaterialDisplayBackground" type="ColorRect" parent="ColorRect/MaterialDisplay"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21978, 0.2049, 0.203967, 1)
+
+[node name="MaterialDisplay" type="Label" parent="ColorRect/MaterialDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_bxv2v")
+
+[node name="RightSide" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1320.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 720.0
-offset_right = 1280.0
-offset_bottom = 720.0
+offset_left = 1359.0
+offset_top = 2.0
+offset_right = 1919.0
+offset_bottom = 722.0
 mouse_filter = 1
-
-[node name="Level Counter" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 50.0
-offset_right = 101.0
-offset_bottom = 1412.0
-scale = Vector2(0.05, 0.05)
-theme_override_font_sizes/font_size = 1000
-script = ExtResource("2_o4k1a")
 
 [node name="Shop" type="Label" parent="Control"]
 layout_mode = 0
@@ -59,21 +91,6 @@ offset_bottom = 1692.0
 scale = Vector2(0.05, 0.05)
 theme_override_font_sizes/font_size = 1000
 text = "Shop"
-
-[node name="Board State" type="Label" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-script = ExtResource("4_lnx8x")
-
-[node name="RoundTotal" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 33.0
-offset_top = 238.0
-offset_right = 161.0
-offset_bottom = 261.0
-text = "Round Total"
-script = ExtResource("5_eqnbu")
 
 [node name="CoinCounter" type="Label" parent="Control"]
 layout_mode = 0
@@ -86,103 +103,6 @@ script = ExtResource("5_cx7gl")
 [node name="CoinSprite" type="Sprite2D" parent="Control/CoinCounter"]
 position = Vector2(74, 12)
 texture = ExtResource("6_nii58")
-
-[node name="PurchasePieces" type="HBoxContainer" parent="Control"]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 193.0
-offset_right = 380.0
-offset_bottom = 233.0
-script = ExtResource("6_4x2eg")
-
-[node name="PawnPurchase" type="Button" parent="Control/PurchasePieces"]
-layout_mode = 2
-text = "pawn"
-
-[node name="Price" type="Label" parent="Control/PurchasePieces/PawnPurchase"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 31.0
-offset_right = 50.0
-offset_bottom = 54.0
-text = "1"
-
-[node name="CoinSprite" type="Sprite2D" parent="Control/PurchasePieces/PawnPurchase"]
-position = Vector2(29, 43)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_nii58")
-
-[node name="BishopPurchase" type="Button" parent="Control/PurchasePieces"]
-layout_mode = 2
-text = "bishop"
-
-[node name="Price" type="Label" parent="Control/PurchasePieces/BishopPurchase"]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 30.0
-offset_right = 58.0
-offset_bottom = 53.0
-text = "3"
-
-[node name="CoinSprite" type="Sprite2D" parent="Control/PurchasePieces/BishopPurchase"]
-position = Vector2(38, 42)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_nii58")
-
-[node name="KnightPurchase" type="Button" parent="Control/PurchasePieces"]
-layout_mode = 2
-text = "knight"
-
-[node name="Price" type="Label" parent="Control/PurchasePieces/KnightPurchase"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 30.0
-offset_right = 55.0
-offset_bottom = 53.0
-text = "3"
-
-[node name="CoinSprite" type="Sprite2D" parent="Control/PurchasePieces/KnightPurchase"]
-position = Vector2(35, 42)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_nii58")
-
-[node name="QueenPurchase" type="Button" parent="Control/PurchasePieces"]
-layout_mode = 2
-text = "queen"
-
-[node name="Price" type="Label" parent="Control/PurchasePieces/QueenPurchase"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 30.0
-offset_right = 55.0
-offset_bottom = 53.0
-text = "8"
-
-[node name="CoinSprite" type="Sprite2D" parent="Control/PurchasePieces/QueenPurchase"]
-position = Vector2(34, 42)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_nii58")
-
-[node name="RookPurchase" type="Button" parent="Control/PurchasePieces"]
-layout_mode = 2
-text = "rook"
-
-[node name="Price" type="Label" parent="Control/PurchasePieces/RookPurchase"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 30.0
-offset_right = 47.0
-offset_bottom = 53.0
-text = "5"
-
-[node name="CoinSprite" type="Sprite2D" parent="Control/PurchasePieces/RookPurchase"]
-position = Vector2(26, 41)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_nii58")
-
-[node name="CancelPurchase" type="Button" parent="Control/PurchasePieces"]
-layout_mode = 2
-text = "cancel"
 
 [node name="Next Level" type="Button" parent="Control"]
 layout_mode = 0
@@ -239,12 +159,158 @@ scale = Vector2(1, 1.6)
 size_flags_horizontal = 8
 size_flags_vertical = 4
 
-[connection signal="button_down" from="Control/PurchasePieces/PawnPurchase" to="Control/PurchasePieces" method="_on_pawn_purchase_button_down"]
-[connection signal="button_down" from="Control/PurchasePieces/BishopPurchase" to="Control/PurchasePieces" method="_on_bishop_purchase_button_down"]
-[connection signal="button_down" from="Control/PurchasePieces/KnightPurchase" to="Control/PurchasePieces" method="_on_knight_purchase_button_down"]
-[connection signal="button_down" from="Control/PurchasePieces/QueenPurchase" to="Control/PurchasePieces" method="_on_queen_purchase_button_down"]
-[connection signal="button_down" from="Control/PurchasePieces/RookPurchase" to="Control/PurchasePieces" method="_on_rook_purchase_button_down"]
-[connection signal="button_down" from="Control/PurchasePieces/CancelPurchase" to="." method="_on_cancel_purchase_button_down"]
-[connection signal="button_down" from="Control/PurchasePieces/CancelPurchase" to="Control/PurchasePieces" method="_on_cancel_purchase_button_down"]
+[node name="LeftSide" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 600.0
+offset_bottom = 1080.0
+
+[node name="Top" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 600.0
+offset_right = 1320.0
+offset_bottom = 180.0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Top"]
+clip_contents = true
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 180.0
+metadata/_edit_use_anchors_ = true
+
+[node name="RoundTotal" type="Label" parent="Top/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("5_eqnbu")
+
+[node name="Level Counter" type="Label" parent="Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+script = ExtResource("2_o4k1a")
+
+[node name="Board State" type="Label" parent="Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+script = ExtResource("4_lnx8x")
+
+[node name="Bottom" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 600.0
+offset_top = 900.0
+offset_right = 1320.0
+offset_bottom = 1080.0
+
+[node name="GridContainer" type="GridContainer" parent="Bottom"]
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 180.0
+
+[node name="PurchasePieces" type="HBoxContainer" parent="Bottom/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("6_4x2eg")
+
+[node name="PawnPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
+layout_mode = 2
+text = "pawn"
+
+[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/PawnPurchase"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 31.0
+offset_right = 50.0
+offset_bottom = 54.0
+text = "1"
+
+[node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/PawnPurchase"]
+position = Vector2(29, 43)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_nii58")
+
+[node name="BishopPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
+layout_mode = 2
+text = "bishop"
+
+[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/BishopPurchase"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 30.0
+offset_right = 58.0
+offset_bottom = 53.0
+text = "3"
+
+[node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/BishopPurchase"]
+position = Vector2(38, 42)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_nii58")
+
+[node name="KnightPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
+layout_mode = 2
+text = "knight"
+
+[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/KnightPurchase"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 30.0
+offset_right = 55.0
+offset_bottom = 53.0
+text = "3"
+
+[node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/KnightPurchase"]
+position = Vector2(35, 42)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_nii58")
+
+[node name="QueenPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
+layout_mode = 2
+text = "queen"
+
+[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/QueenPurchase"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 30.0
+offset_right = 55.0
+offset_bottom = 53.0
+text = "8"
+
+[node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/QueenPurchase"]
+position = Vector2(34, 42)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_nii58")
+
+[node name="RookPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
+layout_mode = 2
+text = "rook"
+
+[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/RookPurchase"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 30.0
+offset_right = 47.0
+offset_bottom = 53.0
+text = "5"
+
+[node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/RookPurchase"]
+position = Vector2(26, 41)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_nii58")
+
+[node name="CancelPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
+layout_mode = 2
+text = "cancel"
+
 [connection signal="button_down" from="Control/Next Level" to="." method="_on_next_level_button_down"]
 [connection signal="button_down" from="Control/Next Level" to="Control/ShopBackground/CardDisplay" method="_on_next_level_button_down"]
+[connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/PawnPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_pawn_purchase_button_down"]
+[connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/BishopPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_bishop_purchase_button_down"]
+[connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/KnightPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_knight_purchase_button_down"]
+[connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/QueenPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_queen_purchase_button_down"]
+[connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/RookPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_rook_purchase_button_down"]
+[connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/CancelPurchase" to="." method="_on_cancel_purchase_button_down"]
+[connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/CancelPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_cancel_purchase_button_down"]

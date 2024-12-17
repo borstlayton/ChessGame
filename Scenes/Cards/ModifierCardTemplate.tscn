@@ -9,6 +9,3 @@ script = ExtResource("2_m6utd")
 
 [node name="CanPurchase" type="Sprite2D" parent="." index="3"]
 texture = ExtResource("3_04nfk")
-
-[node name="Backside" parent="." index="7"]
-visible = false

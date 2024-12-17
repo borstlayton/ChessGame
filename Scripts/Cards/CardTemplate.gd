@@ -12,6 +12,8 @@ class_name Card extends Node2D
 @onready var summary_label = $Backside/Summary
 @onready var price_label = $Price
 
+var tween_hover : Tween
+
 func _ready():
 	buy_panel.hide()
 	base_cost = 0
@@ -21,7 +23,7 @@ func _ready():
 	summary_label.text = summary
 	price_label.text = str(base_cost)
 
-func _on_area_2d_input_event(viewport, event, shape_idx):
+func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			buy_panel.show()
@@ -52,3 +54,17 @@ func _on_cancel_backside_button_down() -> void:
 	collision_shape.disabled = true
 	await get_tree().create_timer(0.25).timeout
 	collision_shape.disabled = false
+
+
+func _on_area_2d_mouse_entered() -> void:
+	if tween_hover and tween_hover.is_running():
+		tween_hover.kill()
+	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_hover.tween_property(self, "scale", Vector2(.12, .12), 0.5)
+
+
+func _on_area_2d_mouse_exited() -> void:
+	if tween_hover and tween_hover.is_running():
+		tween_hover.kill()
+	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_hover.tween_property(self, "scale", Vector2(.1,.1), 0.55)

@@ -3,12 +3,12 @@ extends Node2D
 @onready var tile_scene = preload("res://Scenes/tile.tscn")
 @onready var grid_container = $ColorRect/GridContainer
 @onready var next_level_button = $"Control/Next Level"
-@onready var purchase_pieces_gui = $Control/PurchasePieces
+@onready var purchase_pieces_gui = $Bottom/GridContainer/PurchasePieces
 @onready var purchase_piece_scene = load("res://Scenes/Purchasable Piece.tscn")
 @onready var modifier_scene = preload("res://Scenes/Modifier.tscn")
 
-@onready var new_modifier
-@onready var has_modifier : bool = false
+var new_modifier
+var has_modifier : bool = false
 var purchased_piece
 var player_move : bool = true
 var alternate_color := Color.BEIGE
