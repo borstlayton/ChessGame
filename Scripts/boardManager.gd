@@ -106,6 +106,7 @@ func move_pieces(row : int, column : int):
 	
 	if current_board[row][column] != "0":
 		RoundManager.change_total(current_board[row][column])
+		SignalManager.captured_piece.emit(current_board[row][column], current_board[current_piece.x][current_piece.y], column, row, current_piece.x, current_piece.y)
 		
 	current_board[row][column] = current_board[current_piece.x][current_piece.y]
 	current_board[current_piece.x][current_piece.y] = "0"

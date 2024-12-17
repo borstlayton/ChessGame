@@ -27,15 +27,17 @@ func _ready():
 	SignalManager.complete_purchase.connect(check_modifiable)
 	SignalManager.modifier_purchased.connect(modifier_moving)
 	SignalManager.modifier_placed.connect(check_modifiable)
+	SignalManager.captured_piece.connect(piece_captured)
 	
 	create_board()
 	
-func _process(delta):
+func _process(_delta):
 	if ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_PIECE:
 		purchased_piece.global_position = get_global_mouse_position()
 	
 	if ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_MODIFIER and has_modifier:
 		new_modifier.global_position = get_global_mouse_position()
+		
 func create_board():
 	for i in range(8):
 		for j in range(8):
@@ -45,6 +47,7 @@ func create_board():
 			grid_container.add_child(new_slot)
 			new_slot.set_id(i,j)
 	parse_fen(BoardManager.current_level)
+	
 func clear_board():
 	for i in range(64):
 		grid_container.get_child(i).clear_piece()
@@ -156,3 +159,8 @@ func release_modifier():
 	if has_modifier:
 		new_modifier.queue_free()
 		has_modifier = false
+
+func piece_captured(piece_captured : String, piece_used : String, column, row, past_column, past_row):
+	var piece_ID = past_column*8 + past_row
+	if(grid_container.get_child(piece_ID).check_if_has_modifier()):
+		ModifierManager.modifier_piece_used(piece_captured, piece_used, column, row, past_column, past_row)

@@ -10,7 +10,7 @@ func change_total(piece : String):
 	var white : bool = piece == piece.to_upper()
 
 	# Multiplier to determine point addition or subtraction
-	var multiplier = -1 if white else 1
+	var multiplier = 0 if white else 1
 
 	# Determine the lowercase form of the piece name
 	var piece_name = piece.to_lower()

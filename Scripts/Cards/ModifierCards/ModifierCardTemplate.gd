@@ -9,7 +9,6 @@ func _ready():
 	
 func can_purchase():
 	modifiable = ModifierManager.is_modifiable
-	print(modifiable)
 	
 	if not modifiable:
 		cannot_purchase.show()
@@ -19,7 +18,7 @@ func can_purchase():
 		cannot_purchase.hide()
 		buy_panel.show()
 
-func _on_area_2d_input_event(viewport, event, shape_idx):
+func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and modifiable:
 			buy_panel.show()
