@@ -17,11 +17,11 @@ config/icon="res://Art/Chess Pieces/BlackKing.png"
 
 [autoload]
 
-BoardManager="*res://Scripts/boardManager.gd"
-SignalManager="*res://Scripts/SignalManager.gd"
-ShopManager="*res://Scripts/ShopManager.gd"
-CardManager="*res://Scripts/CardManager.gd"
-RoundManager="*res://Scripts/RoundManager.gd"
+BoardManager="*res://Scripts/Managers/boardManager.gd"
+SignalManager="*res://Scripts/Managers/SignalManager.gd"
+ShopManager="*res://Scripts/Managers/ShopManager.gd"
+CardManager="*res://Scripts/Managers/CardManager.gd"
+RoundManager="*res://Scripts/Managers/RoundManager.gd"
 ModifierManager="*res://Scripts/Cards/ModifierCards/ModifierManager.gd"
 
 [display]

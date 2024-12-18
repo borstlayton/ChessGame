@@ -96,6 +96,7 @@ func next_level():
 	add_piece(60, BoardManager.fen_dict["K"]) #adding king
 	
 func _on_next_level_button_down():
+	BoardManager.turn_counter = 0
 	SignalManager.emit_signal("next_level_selected")
 	next_level_button.hide()
 	purchase_pieces_gui.hide()
@@ -163,4 +164,7 @@ func release_modifier():
 func piece_captured(piece_captured : String, piece_used : String, column, row, past_column, past_row):
 	var piece_ID = past_column*8 + past_row
 	if(grid_container.get_child(piece_ID).check_if_has_modifier()):
-		ModifierManager.modifier_piece_used(piece_captured, piece_used, column, row, past_column, past_row)
+		var modifier_ID = grid_container.get_child(piece_ID).get_modifier_ID()
+		ModifierManager.modifier_piece_used(piece_captured, piece_used, column, row, past_column, past_row, modifier_ID)
+	else:
+		RoundManager.change_total(piece_captured)

@@ -1,6 +1,6 @@
 extends Node
 
-var my_csharp_script = load("res://Scripts/ChessAi.cs")
+var my_csharp_script = load("res://Scripts/Board/ChessAi.cs")
 var my_csharp_node = my_csharp_script.new()
 
 var current_board : Array[Array] = []
@@ -11,6 +11,7 @@ var assets := []
 var valid_tiles = []
 var current_board_state = board_states.WHITE_IDLE
 var current_piece : Vector2
+var turn_counter : int = 0
 
 enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED, PURCHASE}
 var tile_pressed = false
@@ -105,12 +106,15 @@ func move_pieces(row : int, column : int):
 		current_board_state = board_states.BLACK_PIECE_MOVED
 	
 	if current_board[row][column] != "0":
-		RoundManager.change_total(current_board[row][column])
 		SignalManager.captured_piece.emit(current_board[row][column], current_board[current_piece.x][current_piece.y], column, row, current_piece.x, current_piece.y)
 		
 	current_board[row][column] = current_board[current_piece.x][current_piece.y]
 	current_board[current_piece.x][current_piece.y] = "0"
+	
 	SignalManager.moved_piece.emit(current_piece, Vector2(row,column))
+	
+	turn_counter += 1
+	SignalManager.turn_change.emit()
 	
 func create_board(board_index:int, piece_type:int):
 	var row := int(board_index/8)

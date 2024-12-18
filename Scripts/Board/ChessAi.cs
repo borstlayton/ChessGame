@@ -68,25 +68,75 @@ public partial class ChessAi : Node
         { "K", -100 }, // White king
         { "0", 0 }   // Empty square
     };
-    public static string BestMove(string[,] currentBoard, int depth)
-    {
-        int bestScore = int.MinValue;
-        string bestMove = "";
+	private static int Minimax(string[,] board, int depth, bool isMaximizing, int alpha, int beta)
+	{
+		// Base case: return the board evaluation if depth is 0 or the game is over
+		if (depth == 0 || IsGameOver(board))
+		{
+			return EvaluateBoard(board);
+		}
 
-        foreach (var move in GenerateAllPossibleMoves(currentBoard, "black"))
-        {
-            string[,] newBoard = ApplyMove(currentBoard, move);
-            int score = Minimax(newBoard, depth - 1, false);
+		if (isMaximizing)
+		{
+			int maxEval = int.MinValue;
 
-            if (score > bestScore)
-            {
-                bestScore = score;
-                bestMove = move;
-            }
-        }
+			foreach (var move in GenerateAllPossibleMoves(board, "black"))
+			{
+				string[,] newBoard = ApplyMove(board, move);
+				int eval = Minimax(newBoard, depth - 1, false, alpha, beta);
+				maxEval = Math.Max(maxEval, eval);
 
-        return bestMove;
-    }
+				// Update alpha and prune if beta <= alpha
+				alpha = Math.Max(alpha, eval);
+				if (beta <= alpha)
+					break; // Prune remaining branches
+			}
+
+			return maxEval;
+		}
+		else
+		{
+			int minEval = int.MaxValue;
+
+			foreach (var move in GenerateAllPossibleMoves(board, "white"))
+			{
+				string[,] newBoard = ApplyMove(board, move);
+				int eval = Minimax(newBoard, depth - 1, true, alpha, beta);
+				minEval = Math.Min(minEval, eval);
+
+				// Update beta and prune if beta <= alpha
+				beta = Math.Min(beta, eval);
+				if (beta <= alpha)
+					break; // Prune remaining branches
+			}
+
+			return minEval;
+		}
+	}
+	public static string BestMove(string[,] currentBoard, int depth)
+	{
+		int bestScore = int.MinValue;
+		string bestMove = "";
+		int alpha = int.MinValue;
+		int beta = int.MaxValue;
+
+		foreach (var move in GenerateAllPossibleMoves(currentBoard, "black"))
+		{
+			string[,] newBoard = ApplyMove(currentBoard, move);
+			int score = Minimax(newBoard, depth - 1, false, alpha, beta);
+
+			if (score > bestScore)
+			{
+				bestScore = score;
+				bestMove = move;
+			}
+
+			// Update alpha
+			alpha = Math.Max(alpha, score);
+		}
+
+		return bestMove;
+	}
 
     private static int Minimax(string[,] board, int depth, bool isMaximizing)
     {

@@ -39,7 +39,10 @@ func clear_tile_modifier():
 	if has_modifier:
 		new_modifier.queue_free()
 		has_modifier = false
-		
+
+func get_modifier_ID():
+	if has_modifier:
+		return 	new_modifier.modifier_ID
 func _on_button_button_down():
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_upper():
 		BoardManager.show_valid_tiles(tile_row, tile_column)
