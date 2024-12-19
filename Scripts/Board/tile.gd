@@ -4,6 +4,7 @@ extends ColorRect
 var ID
 var tile_row
 var tile_column
+var modifier_ID
 @onready var has_modifier : bool = false
 @onready var modifier_scene = preload("res://Scenes/Modifier.tscn")
 @onready var modifier_offset = Vector2(80,10)
@@ -17,8 +18,6 @@ func set_icon(new_texture):
 	piece.texture = new_texture
 func clear_piece():
 	piece.texture = null
-
-var num_clicks := 0
 		
 func set_id(row, column):
 	ID = row*8 + column
@@ -29,6 +28,14 @@ func show_modifier():
 	new_modifier = modifier_scene.instantiate()
 	new_modifier.position += modifier_offset
 	new_modifier.load_icon(ModifierManager.current_purchased_modifier_ID)
+	add_child(new_modifier)
+	has_modifier = true
+
+func create_modifier(mod_ID : int):
+	new_modifier = modifier_scene.instantiate()
+	new_modifier.position += modifier_offset
+	new_modifier.load_icon(mod_ID)
+	new_modifier.set_ID(mod_ID)
 	add_child(new_modifier)
 	has_modifier = true
 	
@@ -42,7 +49,8 @@ func clear_tile_modifier():
 
 func get_modifier_ID():
 	if has_modifier:
-		return 	new_modifier.modifier_ID
+		return new_modifier.modifier_ID
+	
 func _on_button_button_down():
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and BoardManager.current_board[tile_row][tile_column] == BoardManager.current_board[tile_row][tile_column].to_upper():
 		BoardManager.show_valid_tiles(tile_row, tile_column)
@@ -59,11 +67,6 @@ func _on_button_pressed():
 		BoardManager.piece_selected(tile_row, tile_column)
 	elif BoardManager.current_board_state == BoardManager.board_states.WHITE_PIECE_CLICKED:
 		BoardManager.piece_moved(tile_row, tile_column)
-	if BoardManager.current_board_state == BoardManager.board_states.BLACK_IDLE and get_icon()!= null:
-		BoardManager.piece_selected(tile_row, tile_column)
-	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_PIECE_CLICKED:
-		BoardManager.piece_moved(tile_row, tile_column)
-	num_clicks += 1
 	
 	if BoardManager.current_board_state == BoardManager.board_states.PURCHASE and ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_PIECE:
 		if ShopManager.check_purchasable_tile(Vector2(tile_row,tile_column)):

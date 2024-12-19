@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var tile_scene = preload("res://Scenes/tile.tscn")
 @onready var grid_container = $ColorRect/GridContainer
-@onready var next_level_button = $"Control/Next Level"
+@onready var next_level_button = $"ColorRect/Next Level"
 @onready var purchase_pieces_gui = $Bottom/GridContainer/PurchasePieces
 @onready var purchase_piece_scene = load("res://Scenes/Purchasable Piece.tscn")
 @onready var modifier_scene = preload("res://Scenes/Modifier.tscn")
@@ -162,9 +162,18 @@ func release_modifier():
 		has_modifier = false
 
 func piece_captured(piece_captured : String, piece_used : String, column, row, past_column, past_row):
-	var piece_ID = past_column*8 + past_row
-	if(grid_container.get_child(piece_ID).check_if_has_modifier()):
-		var modifier_ID = grid_container.get_child(piece_ID).get_modifier_ID()
-		ModifierManager.modifier_piece_used(piece_captured, piece_used, column, row, past_column, past_row, modifier_ID)
-	else:
-		RoundManager.change_total(piece_captured)
+	var black_piece_used : bool = true if piece_used == piece_used.to_lower() else false
+	
+	var piece_captured_ID = row*8 + column
+	if black_piece_used:
+		if(grid_container.get_child(piece_captured_ID).check_if_has_modifier()):
+			var modifier_captured_ID = grid_container.get_child(piece_captured_ID).get_modifier_ID()
+			ModifierManager.modifier_piece_captured(piece_captured, piece_used, column, row, past_column, past_row, modifier_captured_ID)
+			grid_container.get_child(piece_captured_ID).clear_tile_modifier()
+			
+	elif not black_piece_used:
+		if(grid_container.get_child(piece_captured_ID).check_if_has_modifier()):
+			var modifier_ID = grid_container.get_child(piece_captured_ID).get_modifier_ID()
+			ModifierManager.modifier_piece_used(piece_captured, piece_used, column, row, past_column, past_row, modifier_ID)
+		else:
+			RoundManager.change_total(piece_captured)

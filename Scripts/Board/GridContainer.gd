@@ -41,15 +41,16 @@ func move_pieces(past_tile : Vector2, next_tile : Vector2):
 	get_child(next_tile_ID).set_icon(get_child(past_ID).get_icon())
 	get_child(past_ID).clear_piece()
 	
+	if get_child(past_ID).check_if_has_modifier():
+		get_child(next_tile_ID).create_modifier(get_child(past_ID).get_modifier_ID())
+		get_child(past_ID).clear_tile_modifier()
+
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_PIECE_MOVED:
 		BoardManager.current_board_state = BoardManager.board_states.BLACK_IDLE
 		SignalManager.emit_signal("done_moving")
 	elif BoardManager.current_board_state == BoardManager.board_states.BLACK_PIECE_MOVED:
 		BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
 	
-	if get_child(past_ID).check_if_has_modifier():
-		get_child(next_tile_ID).show_modifier()
-		get_child(past_ID).clear_tile_modifier()
 		
 func is_tile_modified(tile : Vector2):
 	var ID = 8*tile.x + tile.y

@@ -55,6 +55,7 @@ func _ready():
 	assets.append("res://Art/Chess Pieces/WhiteRook.png")
 	
 	SignalManager.done_moving.connect(get_ai_move)
+	
 func get_board():
 	return current_board
 	
@@ -105,13 +106,16 @@ func move_pieces(row : int, column : int):
 	elif current_board_state == board_states.BLACK_PIECE_CLICKED:
 		current_board_state = board_states.BLACK_PIECE_MOVED
 	
-	if current_board[row][column] != "0":
-		SignalManager.captured_piece.emit(current_board[row][column], current_board[current_piece.x][current_piece.y], column, row, current_piece.x, current_piece.y)
-		
+	var past_piece = current_board[row][column]
+	
 	current_board[row][column] = current_board[current_piece.x][current_piece.y]
 	current_board[current_piece.x][current_piece.y] = "0"
 	
 	SignalManager.moved_piece.emit(current_piece, Vector2(row,column))
+	
+	if past_piece != "0":
+		SignalManager.captured_piece.emit(past_piece, current_board[row][column], column, row, current_piece.y, current_piece.x)
+	
 	
 	turn_counter += 1
 	SignalManager.turn_change.emit()

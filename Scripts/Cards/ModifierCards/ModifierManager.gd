@@ -11,8 +11,6 @@ func is_board_modifiable():
 	return is_modifiable
 	
 func modifier_piece_used(piece_captured : String, piece_used : String, column, row, past_column, past_row, modifier_ID):
-	print(modifier_ID)
-	
 	match modifier_ID:
 		0:
 			handle_base_modifier()
@@ -23,12 +21,17 @@ func modifier_piece_used(piece_captured : String, piece_used : String, column, r
 		3:
 			handle_crimson_modifier()
 		4:
-			handle_crown_modifier()
+			handle_crown_modifier(piece_captured)
 		5:
 			handle_hero_modifier()
 		
 	RoundManager.change_total(piece_captured)
-	
+
+func modifier_piece_captured(piece_captured : String, piece_used : String, column, row, past_column, past_row, modifier_ID):
+	match modifier_ID:
+		3:
+			crimson_modifier_taken(piece_captured)
+			
 func handle_base_modifier():
 	print("base modifier used")
 
@@ -46,12 +49,19 @@ func handle_balance_modifier(piece_captured : String, piece_used : String):
 	else:
 		RoundManager.modifier_multiplier = 1
 	
-	
 func handle_crimson_modifier():
 	print("crimson modifier used")
 
-func handle_crown_modifier():
-	print("crown modifier used")
+func crimson_modifier_taken(piece_captured : String):
+	
+	RoundManager.multiplier = -1
+	RoundManager.subtract_total(piece_captured)
+	
+func handle_crown_modifier(piece_captured):
+	if piece_captured == "k":
+		RoundManager.modifier_multiplier = 2
+	else:
+		RoundManager.modifier_multiplier = 1
 	
 func handle_hero_modifier():
 	print("hero modifier used")

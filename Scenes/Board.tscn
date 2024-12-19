@@ -23,6 +23,7 @@ offset_bottom = 1081.0
 color = Color(0.103744, 0.103744, 0.103744, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
+clip_contents = true
 offset_left = 600.0
 offset_top = 180.0
 offset_right = 1320.0
@@ -36,6 +37,21 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 8
 script = ExtResource("2_6tt8d")
+
+[node name="Next Level" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -15.5
+offset_right = 45.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Next Level"
 
 [node name="MaterialDisplay" type="Control" parent="ColorRect"]
 clip_contents = true
@@ -104,14 +120,6 @@ script = ExtResource("5_cx7gl")
 [node name="CoinSprite" type="Sprite2D" parent="Control/CoinCounter"]
 position = Vector2(74, 12)
 texture = ExtResource("6_nii58")
-
-[node name="Next Level" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 212.0
-offset_top = 298.0
-offset_right = 302.0
-offset_bottom = 329.0
-text = "Next Level"
 
 [node name="ShopBackground" type="ColorRect" parent="Control"]
 layout_mode = 0
@@ -310,8 +318,8 @@ texture = ExtResource("6_nii58")
 layout_mode = 2
 text = "cancel"
 
-[connection signal="button_down" from="Control/Next Level" to="." method="_on_next_level_button_down"]
-[connection signal="button_down" from="Control/Next Level" to="Control/ShopBackground/CardDisplay" method="_on_next_level_button_down"]
+[connection signal="button_down" from="ColorRect/Next Level" to="." method="_on_next_level_button_down"]
+[connection signal="button_down" from="ColorRect/Next Level" to="Control/ShopBackground/CardDisplay" method="_on_next_level_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/PawnPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_pawn_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/BishopPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_bishop_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/KnightPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_knight_purchase_button_down"]

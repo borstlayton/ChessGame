@@ -12,6 +12,8 @@ func load_icon(modifier_num : int):
 	modifier_ID = modifier_num
 	self.texture = load(modifier_assets[modifier_num])
 
+func set_ID(ID : int):
+	modifier_ID = ID
 
 func load_array():
 	modifier_assets.append("res://Art/Cards/Modifiers/Modifier.png")
