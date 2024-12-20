@@ -14,24 +14,27 @@ extends Node
 @onready var crimson_modifier_card = preload("res://Scenes/Cards/ModifierCards/CrimsonModifierCard.tscn")
 @onready var crown_modifier_card = preload("res://Scenes/Cards/ModifierCards/CrownModifierCard.tscn")
 @onready var hero_modifier_card = preload("res://Scenes/Cards/ModifierCards/HeroModifierCard.tscn")
-var deck = []
+
+var modifier_deck = []
+var bounty_deck = []
+var permanent_deck = []
 
 func _ready():
 	
-	#deck.append(card_template)
-	deck.append(modifier_card_template)
+	bounty_deck.append(queen_bounty)
+	bounty_deck.append(knight_bounty)
+	bounty_deck.append(bishop_bounty)
+	bounty_deck.append(rook_bounty)
+	bounty_deck.append(pawn_bounty)
 	
-	#deck.append(queen_bounty)
-	#deck.append(knight_bounty)
-	#deck.append(bishop_bounty)
-	#deck.append(rook_bounty)
-	#deck.append(pawn_bounty)
+	modifier_deck.append(speed_modifier_card)
+	modifier_deck.append(balance_modifier_card)
+	modifier_deck.append(crimson_modifier_card)
+	modifier_deck.append(crown_modifier_card)
+	modifier_deck.append(hero_modifier_card)
 	
-	deck.append(speed_modifier_card)
-	deck.append(balance_modifier_card)
-	deck.append(crimson_modifier_card)
-	deck.append(crown_modifier_card)
-	deck.append(hero_modifier_card)
-	
-func get_card():
-	return deck.pick_random().instantiate()
+func get_modifier_card():
+	return modifier_deck.pick_random().instantiate()
+
+func get_bounty_card():
+	return bounty_deck.pick_random().instantiate()

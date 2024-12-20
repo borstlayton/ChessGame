@@ -89,83 +89,70 @@ anchors_preset = 0
 offset_left = 1320.0
 offset_right = 1920.0
 offset_bottom = 1080.0
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1359.0
-offset_top = 2.0
-offset_right = 1919.0
-offset_bottom = 722.0
 mouse_filter = 1
 
-[node name="Shop" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 203.0
-offset_top = 330.0
-offset_right = 2622.0
-offset_bottom = 1692.0
-scale = Vector2(0.05, 0.05)
-theme_override_font_sizes/font_size = 1000
+[node name="Shop" type="Label" parent="RightSide"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -19.5
+offset_right = 19.5
+offset_bottom = 23.0
+grow_horizontal = 2
 text = "Shop"
 
-[node name="CoinCounter" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 453.0
-offset_top = 21.0
-offset_right = 493.0
-offset_bottom = 44.0
-script = ExtResource("5_cx7gl")
-
-[node name="CoinSprite" type="Sprite2D" parent="Control/CoinCounter"]
-position = Vector2(74, 12)
-texture = ExtResource("6_nii58")
-
-[node name="ShopBackground" type="ColorRect" parent="Control"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 405.0
-offset_right = 104.0
-offset_bottom = 445.0
-scale = Vector2(10.7079, 7.01455)
-mouse_filter = 1
+[node name="ShopBackground" type="ColorRect" parent="RightSide"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -450.0
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 color = Color(0.180005, 0.180005, 0.180005, 1)
 
-[node name="CardDisplay" type="Control" parent="Control/ShopBackground"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CardDisplay" type="Control" parent="RightSide/ShopBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("8_kpls1")
 
-[node name="Card1" type="CenterContainer" parent="Control/ShopBackground/CardDisplay"]
+[node name="CardContainer" type="HBoxContainer" parent="RightSide/ShopBackground/CardDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Card1" type="CenterContainer" parent="RightSide/ShopBackground/CardDisplay/CardContainer"]
 layout_mode = 2
-offset_left = 5.0
-offset_top = 20.0
-offset_right = 5.0
-offset_bottom = 20.0
-scale = Vector2(1, 1.6)
-size_flags_horizontal = 0
+size_flags_horizontal = 6
 size_flags_vertical = 4
 
-[node name="Card2" type="CenterContainer" parent="Control/ShopBackground/CardDisplay"]
+[node name="Card2" type="CenterContainer" parent="RightSide/ShopBackground/CardDisplay/CardContainer"]
 layout_mode = 2
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 20.0
-offset_bottom = 20.0
-scale = Vector2(1, 1.6)
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
 
-[node name="Card3" type="CenterContainer" parent="Control/ShopBackground/CardDisplay"]
+[node name="Card3" type="CenterContainer" parent="RightSide/ShopBackground/CardDisplay/CardContainer"]
 layout_mode = 2
-offset_left = 35.0
-offset_top = 20.0
-offset_right = 35.0
-offset_bottom = 20.0
-scale = Vector2(1, 1.6)
-size_flags_horizontal = 8
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Card4" type="CenterContainer" parent="RightSide/ShopBackground/CardDisplay/CardContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
 size_flags_vertical = 4
 
 [node name="LeftSide" type="Control" parent="."]
@@ -208,6 +195,15 @@ script = ExtResource("4_lnx8x")
 [node name="TurnCounter" type="Label" parent="Top/HBoxContainer"]
 layout_mode = 2
 script = ExtResource("11_vnya1")
+
+[node name="CoinCounter" type="Label" parent="Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("5_cx7gl")
+
+[node name="CoinSprite" type="Sprite2D" parent="Top/HBoxContainer/CoinCounter"]
+position = Vector2(74, 12)
+texture = ExtResource("6_nii58")
 
 [node name="Bottom" type="Control" parent="."]
 clip_contents = true
@@ -319,7 +315,7 @@ layout_mode = 2
 text = "cancel"
 
 [connection signal="button_down" from="ColorRect/Next Level" to="." method="_on_next_level_button_down"]
-[connection signal="button_down" from="ColorRect/Next Level" to="Control/ShopBackground/CardDisplay" method="_on_next_level_button_down"]
+[connection signal="button_down" from="ColorRect/Next Level" to="RightSide/ShopBackground/CardDisplay" method="_on_next_level_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/PawnPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_pawn_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/BishopPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_bishop_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/KnightPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_knight_purchase_button_down"]
