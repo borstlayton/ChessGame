@@ -13,8 +13,13 @@ var current_bishop_bounty
 var current_pawn_bounty
 
 func _ready():
-	knight_bounty_label.text = str("knight bounty 1x")
-	queen_bounty_label.text = str("queen bounty 1x")
-	rook_bounty_label.text = str("rook bounty 1x")
-	bishop_bounty_label.text = str("bishop bounty 1x")
-	pawn_bounty_label.text = str("pawn bounty 1x")
+	update_board()
+	
+	SignalManager.changed_bounty.connect(update_board)
+	
+func update_board():
+	knight_bounty_label.text = str("knight bounty ", BountyManager.knight_bounty_amount)
+	queen_bounty_label.text = str("queen bounty ", BountyManager.queen_bounty_amount)
+	rook_bounty_label.text = str("rook bounty ", BountyManager.rook_bounty_amount)
+	bishop_bounty_label.text = str("bishop bounty ", BountyManager.bishop_bounty_amount)
+	pawn_bounty_label.text = str("pawn bounty ", BountyManager.pawn_bounty_amount)

@@ -151,12 +151,14 @@ func get_valid_tiles(row:int, column:int):
 
 func _move(row:int, column:int) -> Vector2: 
 	if row >= 0 and row <= 7 and column >= 0 and column <= 7:
+		if(row == 0 and column == 0):
+			print("checked for (0,0)")
 		if current_board[row][column] == "0":
 			return Vector2(row, column)
 		else:
-			return Vector2.ZERO
+			return Vector2(-1,-1)
 	else:
-		return Vector2.ZERO
+		return Vector2(-1,-1)
 
 #Color is the color of the moving piece. 1 if white and 0 if black
 func _attack(row : int, column : int, piece : bool) -> Vector2:
@@ -172,9 +174,9 @@ func _attack(row : int, column : int, piece : bool) -> Vector2:
 		if current_board[row][column] != "0" and piece != target_color:
 			return Vector2(row, column)
 		else:
-			return Vector2.ZERO
+			return Vector2(-1,-1)
 	else: 
-		return Vector2.ZERO
+		return Vector2(-1,-1)
 		
 func check_path(direction : Vector2, row : int, column : int,color : bool):
 	
@@ -185,11 +187,11 @@ func check_path(direction : Vector2, row : int, column : int,color : bool):
 	var temp : Vector2
 	while(continue_direction and t_column >= 0 and t_column < 8 and t_row >= 0 and t_row < 8):
 		temp = _move(t_row, t_column)
-		if temp != Vector2.ZERO:
+		if temp != Vector2(-1,-1):
 			legal_moves.append(temp)
 		else:
 			temp = _attack(t_row, t_column, color)
-			if temp != Vector2.ZERO:
+			if temp != Vector2(-1,-1):
 				legal_moves.append(temp)
 			continue_direction = false
 		t_row = t_row + direction.x

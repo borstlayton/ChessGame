@@ -23,6 +23,7 @@ ShopManager="*res://Scripts/Managers/ShopManager.gd"
 CardManager="*res://Scripts/Managers/CardManager.gd"
 RoundManager="*res://Scripts/Managers/RoundManager.gd"
 ModifierManager="*res://Scripts/Cards/ModifierCards/ModifierManager.gd"
+BountyManager="*res://Scripts/Managers/BountyManager.gd"
 
 [display]
 
