@@ -15,11 +15,11 @@ var coin_amount := {
 	"B": 3,
 	"N": 3,
 	"R": 5,
-	"Q": 8,
+	"Q": 9,
 }
 func _ready():
 	SignalManager.placed_purchased_piece.connect(add_piece)
-	current_coin_amount = 100
+	current_coin_amount = 30
 func purchase_piece(piece_type : String):
 	current_piece = piece_type
 	SignalManager.purchased_piece.emit(piece_type)
@@ -28,6 +28,7 @@ func add_piece(location : Vector2, piece : String):
 	purchased_pieces_locations.append(location)
 	purchased_pieces_names.append(piece)
 	subtract_coin_amount(piece)
+	coin_amount[piece] += 1
 	
 func subtract_coin_amount(piece : String):
 	current_coin_amount -= coin_amount[piece]

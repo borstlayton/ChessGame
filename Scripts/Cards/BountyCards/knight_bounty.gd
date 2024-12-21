@@ -2,4 +2,5 @@ class_name KnightBounty extends Card
 
 
 func card_effect():
-	print("new effect by knight")
+	BountyManager.knight_bounty_amount *= 1.25
+	SignalManager.changed_bounty.emit()

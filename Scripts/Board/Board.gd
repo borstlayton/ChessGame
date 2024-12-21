@@ -14,8 +14,8 @@ var player_move : bool = true
 var alternate_color := Color.BEIGE
 func _ready():
 	
-	next_level_button.hide()
-	purchase_pieces_gui.hide()
+	next_level_button.show()
+	purchase_pieces_gui.show()
 	
 	SignalManager.tile_pressed.connect(show_valid_grid_tiles)
 	SignalManager.clear_valid_tiles.connect(clear_valid_grid_tiles)
@@ -28,7 +28,7 @@ func _ready():
 	SignalManager.modifier_purchased.connect(modifier_moving)
 	SignalManager.modifier_placed.connect(check_modifiable)
 	SignalManager.captured_piece.connect(piece_captured)
-	
+	SignalManager.defeated.connect(reset)
 	create_board()
 	
 func _process(_delta):
@@ -177,3 +177,7 @@ func piece_captured(piece_captured : String, piece_used : String, column, row, p
 			ModifierManager.modifier_piece_used(piece_captured, piece_used, column, row, past_column, past_row, modifier_ID)
 		else:
 			RoundManager.change_total(piece_captured)
+
+func reset():
+	print("defeated")
+	BoardManager.current_board_state = BoardManager.board_states.DEFEATED

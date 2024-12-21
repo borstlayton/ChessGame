@@ -280,7 +280,7 @@ script = ExtResource("6_4x2eg")
 layout_mode = 2
 text = "pawn"
 
-[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/PawnPurchase"]
+[node name="PawnPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/PawnPurchase"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 31.0
@@ -297,7 +297,7 @@ texture = ExtResource("6_nii58")
 layout_mode = 2
 text = "bishop"
 
-[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/BishopPurchase"]
+[node name="BishopPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/BishopPurchase"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 30.0
@@ -314,7 +314,7 @@ texture = ExtResource("6_nii58")
 layout_mode = 2
 text = "knight"
 
-[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/KnightPurchase"]
+[node name="KnightPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/KnightPurchase"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 30.0
@@ -331,7 +331,7 @@ texture = ExtResource("6_nii58")
 layout_mode = 2
 text = "queen"
 
-[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/QueenPurchase"]
+[node name="QueenPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/QueenPurchase"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 30.0
@@ -348,7 +348,7 @@ texture = ExtResource("6_nii58")
 layout_mode = 2
 text = "rook"
 
-[node name="Price" type="Label" parent="Bottom/GridContainer/PurchasePieces/RookPurchase"]
+[node name="RookPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/RookPurchase"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 30.0

@@ -7,8 +7,17 @@ extends HBoxContainer
 @onready var rook_button = $RookPurchase
 @onready var cancel_purchase_button = $CancelPurchase
 
+@onready var pawn_price_label = $PawnPurchase/PawnPrice
+@onready var bishop_price_label = $BishopPurchase/BishopPrice
+@onready var knight_price_label = $KnightPurchase/KnightPrice
+@onready var queen_price_label = $QueenPurchase/QueenPrice
+@onready var rook_price_label = $RookPurchase/RookPrice
+
 func _ready():
 	cancel_purchase_button.hide()
+	update_prices()
+	
+	SignalManager.complete_purchase.connect(update_prices)
 	SignalManager.complete_purchase.connect(show_buttons)
 	
 func _on_pawn_purchase_button_down():
@@ -46,3 +55,10 @@ func show_buttons():
 	knight_button.show()
 	queen_button.show()
 	rook_button.show()
+
+func update_prices():
+	pawn_price_label.text = str(ShopManager.coin_amount["P"])
+	bishop_price_label.text = str(ShopManager.coin_amount["B"])
+	knight_price_label.text = str(ShopManager.coin_amount["N"])
+	queen_price_label.text = str(ShopManager.coin_amount["Q"])
+	rook_price_label.text = str(ShopManager.coin_amount["R"])

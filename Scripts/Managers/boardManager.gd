@@ -9,11 +9,11 @@ var current_level : int
 var board_size := 8
 var assets := []
 var valid_tiles = []
-var current_board_state = board_states.WHITE_IDLE
+var current_board_state = board_states.PURCHASE
 var current_piece : Vector2
 var turn_counter : int = 0
 
-enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED, PURCHASE}
+enum board_states {WHITE_IDLE,WHITE_PIECE_CLICKED, WHITE_PIECE_MOVED, BLACK_IDLE, BLACK_PIECE_CLICKED, BLACK_PIECE_MOVED, PURCHASE, DEFEATED}
 var tile_pressed = false
 var clear_board = false
 
@@ -27,10 +27,11 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	0: "1111k111/11111111/8/8/8/8/8/11QQK111",
-	1: "111qknnn/8/8/8/8/8/8/4K3",
+	0: "111nkn11/111ppp11/8/8/8/8/8/1111K111",
+	1: "8/8/8/8/8/8/8/8",
 	2: "111qknnn/8/8/8/8/8/8/4K3",
 	3: "111qknnn/8/8/8/8/8/8/4K3",
+	4: "111qknnn/8/8/8/8/8/8/4K3",
 }
 
 func _ready():
@@ -86,9 +87,12 @@ func piece_moved(row: int, column : int):
 			break
 	if is_valid_tile:
 		#TEMPORARY: checks if piece captured is king, then moves on to the next level if this is true
-		if current_board[row][column] == "K" or current_board[row][column] == "k":
+		if current_board[row][column] == "k":
 			current_board_state = board_states.PURCHASE
 			SignalManager.beat_level.emit()
+		elif current_board[row][column] == "K":
+			SignalManager.defeated.emit()
+			
 		move_pieces(row,column) #moves the pieces
 	else:
 		if current_board_state == board_states.WHITE_PIECE_CLICKED:
@@ -116,9 +120,9 @@ func move_pieces(row : int, column : int):
 	if past_piece != "0":
 		SignalManager.captured_piece.emit(past_piece, current_board[row][column], column, row, current_piece.y, current_piece.x)
 	
-	
-	turn_counter += 1
-	SignalManager.turn_change.emit()
+	if current_board_state == board_states.WHITE_PIECE_MOVED:
+		turn_counter += 1
+		SignalManager.turn_change.emit()
 	
 func create_board(board_index:int, piece_type:int):
 	var row := int(board_index/8)
@@ -151,8 +155,6 @@ func get_valid_tiles(row:int, column:int):
 
 func _move(row:int, column:int) -> Vector2: 
 	if row >= 0 and row <= 7 and column >= 0 and column <= 7:
-		if(row == 0 and column == 0):
-			print("checked for (0,0)")
 		if current_board[row][column] == "0":
 			return Vector2(row, column)
 		else:
@@ -198,49 +200,56 @@ func check_path(direction : Vector2, row : int, column : int,color : bool):
 		t_column = t_column + direction.y
 	return legal_moves
 
-func get_pawn_move(row : int, column : int, piece : String) -> Array[Vector2]:
-	var legal_moves : Array[Vector2] = []
-	var temp
-	var temp2
-	#If a white piece
-	if piece == "P":
-		#Move Forward 2
-		if row == 1:
-			temp = _move(row+1,column)
-			temp2 = _move(row+2,column)
-			if temp != Vector2.ZERO and temp2 != Vector2.ZERO:
-				legal_moves.append(temp2)
-		#Move Forward 1 (temp is already 1 forward)
-		if temp != Vector2.ZERO:
-			legal_moves.append(temp)  
-		#Attack right diagonally
-		temp = _attack(row+1,column+1, true)
-		if temp != Vector2.ZERO:
-			legal_moves.append(temp) 
-		#Attack left diagonally
-		temp = _attack(row+1,column-1, true)
-		if temp != Vector2.ZERO:
-			legal_moves.append(temp) 
-	elif piece == "p":
-		#Move Forward 2
-		if row == 6:
-			temp = _move(row-1,column)
-			temp2 = _move(row-2,column)
-			if temp != Vector2.ZERO and temp2 != Vector2.ZERO:
-				legal_moves.append(temp2)
-		#Move Forward
-		if temp != Vector2.ZERO:
-			legal_moves.append(temp) 
-		#Attack right diagonally
-		temp = _attack(row-1,column+1, false)
-		if temp != Vector2.ZERO:
-			legal_moves.append(temp) 
-		#Attack left diagonally
-		temp = _attack(row-1,column+1, false)
-		if temp != Vector2.ZERO:
-			legal_moves.append(temp) 
-	return legal_moves
+func get_pawn_move(row: int, column: int, piece: String) -> Array[Vector2]:
+	var legal_moves: Array[Vector2] = []
+	var temp: Vector2
+	var temp2: Vector2
+
+	if piece == "P": # White Pawn
+		# Move forward one step
+		temp = _move(row - 1, column)
+		if temp != Vector2(-1, -1):
+			legal_moves.append(temp)
+			
+			# Move forward two steps if on the starting row
+			if row == 6:
+				temp2 = _move(row - 2, column)
+				if temp2 != Vector2(-1, -1):
+					legal_moves.append(temp2)
+		
+		# Capture diagonally to the right
+		temp = _attack(row - 1, column + 1, true)
+		if temp != Vector2(-1, -1):
+			legal_moves.append(temp)
+		
+		# Capture diagonally to the left
+		temp = _attack(row - 1, column - 1, true)
+		if temp != Vector2(-1, -1):
+			legal_moves.append(temp)
 	
+	elif piece == "p": # Black Pawn
+		# Move forward one step
+		temp = _move(row + 1, column)
+		if temp != Vector2(-1, -1):
+			legal_moves.append(temp)
+			
+			# Move forward two steps if on the starting row
+			if row == 1:
+				temp2 = _move(row + 2, column)
+				if temp2 != Vector2(-1, -1):
+					legal_moves.append(temp2)
+		
+		# Capture diagonally to the right
+		temp = _attack(row + 1, column + 1, false)
+		if temp != Vector2(-1, -1):
+			legal_moves.append(temp)
+		
+		# Capture diagonally to the left
+		temp = _attack(row + 1, column - 1, false)
+		if temp != Vector2(-1, -1):
+			legal_moves.append(temp)
+	
+	return legal_moves
 func get_bishop_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	var legal_moves : Array[Vector2] = []
 	var new_moves : Array = []
@@ -272,11 +281,11 @@ func get_knight_move(row : int, column : int, piece : String) -> Array[Vector2]:
 	if piece == "N" || piece == "n":
 		for square in possible_attacks:
 			temp = _move(square.x, square.y)
-			if temp != Vector2.ZERO:
+			if temp != Vector2(-1,-1):
 				legal_moves.append(temp)
 				continue
 			temp = _attack(square.x, square.y, color)
-			if temp != Vector2.ZERO:
+			if temp != Vector2(-1,-1):
 				legal_moves.append(temp)
 	return legal_moves
 	
@@ -328,11 +337,11 @@ func get_king_move(row:int, column:int, piece:String) -> Array[Vector2]:
 	if piece == "K" || piece == "k":
 		for square in possible_attacks:
 			temp = _move(square.x, square.y)
-			if temp != Vector2.ZERO:
+			if temp != Vector2(-1,-1):
 				legal_moves.append(temp)
 				continue
 			temp = _attack(square.x, square.y, color)
-			if temp != Vector2.ZERO:
+			if temp != Vector2(-1,-1):
 				legal_moves.append(temp)
 	return legal_moves
 	
