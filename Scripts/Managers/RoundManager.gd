@@ -3,6 +3,7 @@ extends Node
 var round_total = 0
 var modifier_multiplier = 1
 var multiplier
+var piece_total = 0
 
 var piece_values = {
 		"p": 1,  # Pawn
@@ -25,7 +26,21 @@ func change_total(piece : String):
 	# Determine the lowercase form of the piece name
 	var piece_name = piece.to_lower()
 
-	round_total += piece_values[piece_name] * multiplier * modifier_multiplier
+	piece_total += piece_values[piece_name] * multiplier * modifier_multiplier
+	
+	match piece_name:
+		"p":
+			piece_total *= BountyManager.pawn_bounty_amount
+		"q":
+			piece_total *= BountyManager.queen_bounty_amount
+		"n":
+			piece_total *= BountyManager.knight_bounty_amount
+		"r":
+			piece_total *= BountyManager.rook_bounty_amount
+		"b":
+			piece_total *= BountyManager.bishop_bounty_amount
+	
+	round_total += piece_total
 	modifier_multiplier = 1
 
 func subtract_total(piece : String):
