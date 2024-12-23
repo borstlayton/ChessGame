@@ -15,10 +15,6 @@ var player_move : bool = true
 var alternate_color := Color.BEIGE
 func _ready():
 	
-	next_level_button.show()
-	purchase_pieces_gui.show()
-	defeat_gui.hide()
-	
 	SignalManager.tile_pressed.connect(show_valid_grid_tiles)
 	SignalManager.clear_valid_tiles.connect(clear_valid_grid_tiles)
 	SignalManager.moved_piece.connect(move_piece_grid)
@@ -31,15 +27,21 @@ func _ready():
 	SignalManager.modifier_placed.connect(check_modifiable)
 	SignalManager.captured_piece.connect(piece_captured)
 	SignalManager.defeated.connect(reset)
-	create_board()
 	
+	setup_run()
 func _process(_delta):
 	if ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_PIECE:
 		purchased_piece.global_position = get_global_mouse_position()
 	
 	if ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_MODIFIER and has_modifier:
 		new_modifier.global_position = get_global_mouse_position()
-		
+
+func setup_run():
+	next_level_button.show()
+	purchase_pieces_gui.show()
+	defeat_gui.hide()
+	create_board()
+	
 func create_board():
 	for i in range(8):
 		for j in range(8):
@@ -184,3 +186,11 @@ func reset():
 	print("defeated")
 	BoardManager.current_board_state = BoardManager.board_states.DEFEATED
 	defeat_gui.show()
+
+
+func _on_reset_button_down() -> void:
+	clear_board()
+	BoardManager.setup_board()
+	ShopManager.current_coin_amount = 50
+	setup_run()
+	defeat_gui.hide()

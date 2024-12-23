@@ -418,6 +418,7 @@ text = "cancel"
 [connection signal="button_down" from="ColorRect/Next Level" to="." method="_on_next_level_button_down"]
 [connection signal="button_down" from="ColorRect/Next Level" to="RightSide/ModifierCardsBackground/ModifierCardDisplay" method="_on_next_level_button_down"]
 [connection signal="button_down" from="ColorRect/Next Level" to="RightSide/BountyAndPermaBackground/BountyandPermaDisplay" method="_on_next_level_button_down"]
+[connection signal="button_down" from="ColorRect/Defeat/DefeatBackground/Reset" to="." method="_on_reset_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/PawnPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_pawn_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/BishopPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_bishop_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/KnightPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_knight_purchase_button_down"]

@@ -41,13 +41,8 @@ var turns_per_level := {
 	4: 40,
 }
 func _ready():
-	current_level = 0
-	for i in range(board_size):
-		var row = []
-		for j in range(board_size):
-			row.append("0")
-		current_board.append(row)
-
+	setup_board()
+	
 	assets.append("res://Art/Chess Pieces/BlackBishop.png")
 	assets.append("res://Art/Chess Pieces/BlackKing.png")
 	assets.append("res://Art/Chess Pieces/BlackKnight.png")
@@ -62,7 +57,15 @@ func _ready():
 	assets.append("res://Art/Chess Pieces/WhiteRook.png")
 	
 	SignalManager.done_moving.connect(get_ai_move)
-	
+
+func setup_board():
+	current_level = 0
+	for i in range(board_size):
+		var row = []
+		for j in range(board_size):
+			row.append("0")
+		current_board.append(row)
+
 func get_board():
 	return current_board
 	
