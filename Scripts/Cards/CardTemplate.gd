@@ -10,7 +10,7 @@ class_name Card extends Node2D
 @onready var collision_shape = $Area2D/CollisionShape2D
 @onready var backside = $Backside
 @onready var summary_label = $Backside/Summary
-@onready var price_label = $Price
+@onready var price_label = $CoinLabel/Price
 
 var tween_hover : Tween
 

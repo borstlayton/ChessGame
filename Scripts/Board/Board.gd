@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var tile_scene = preload("res://Scenes/tile.tscn")
+@onready var defeat_gui = $ColorRect/Defeat
 @onready var grid_container = $ColorRect/GridContainer
 @onready var next_level_button = $"ColorRect/Next Level"
 @onready var purchase_pieces_gui = $Bottom/GridContainer/PurchasePieces
@@ -16,6 +17,7 @@ func _ready():
 	
 	next_level_button.show()
 	purchase_pieces_gui.show()
+	defeat_gui.hide()
 	
 	SignalManager.tile_pressed.connect(show_valid_grid_tiles)
 	SignalManager.clear_valid_tiles.connect(clear_valid_grid_tiles)
@@ -181,3 +183,4 @@ func piece_captured(piece_captured : String, piece_used : String, column, row, p
 func reset():
 	print("defeated")
 	BoardManager.current_board_state = BoardManager.board_states.DEFEATED
+	defeat_gui.show()

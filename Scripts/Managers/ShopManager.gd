@@ -19,7 +19,7 @@ var coin_amount := {
 }
 func _ready():
 	SignalManager.placed_purchased_piece.connect(add_piece)
-	current_coin_amount = 30
+	current_coin_amount = 50
 func purchase_piece(piece_type : String):
 	current_piece = piece_type
 	SignalManager.purchased_piece.emit(piece_type)

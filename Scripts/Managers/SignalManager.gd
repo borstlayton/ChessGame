@@ -16,3 +16,4 @@ signal captured_piece(piece_taken : String, piece_used : String, column : int, r
 signal turn_change
 signal changed_bounty
 signal defeated
+signal pawn_promoted(row : int, column : int)

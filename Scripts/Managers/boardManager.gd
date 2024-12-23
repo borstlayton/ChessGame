@@ -27,13 +27,19 @@ var fen_dict := {	"b" = PieceNames.BLACK_BISHOP, "k" = PieceNames.BLACK_KING,
 					
 var fen_order : Array[String] = ["b", "k", "n", "p", "q", "r", "B", "K", "N", "P", "Q", "R"]
 var level_fen := {
-	0: "111nkn11/111ppp11/8/8/8/8/8/1111K111",
-	1: "8/8/8/8/8/8/8/8",
+	0: "1111k111/111ppp11/8/8/8/8/8/1111K111",
+	1: "111nkn11/111ppp11/8/8/8/8/8/1111K111",
 	2: "111qknnn/8/8/8/8/8/8/4K3",
 	3: "111qknnn/8/8/8/8/8/8/4K3",
 	4: "111qknnn/8/8/8/8/8/8/4K3",
 }
-
+var turns_per_level := {
+	0: 30,
+	1: 30,
+	2: 35,
+	3: 35,
+	4: 40,
+}
 func _ready():
 	current_level = 0
 	for i in range(board_size):
@@ -105,12 +111,18 @@ func piece_moved(row: int, column : int):
 #tiles is clicked. It moves the pieces on the current board after changing the current_board_state
 #to PIECE_MOVED
 func move_pieces(row : int, column : int):
+	
+	var white_turn : bool = false
+	
 	if current_board_state == board_states.WHITE_PIECE_CLICKED:
+		white_turn = true
 		current_board_state = board_states.WHITE_PIECE_MOVED
 	elif current_board_state == board_states.BLACK_PIECE_CLICKED:
+		white_turn = false
 		current_board_state = board_states.BLACK_PIECE_MOVED
 	
 	var past_piece = current_board[row][column]
+	var moving_piece = current_board[current_piece.x][current_piece.y]
 	
 	current_board[row][column] = current_board[current_piece.x][current_piece.y]
 	current_board[current_piece.x][current_piece.y] = "0"
@@ -120,9 +132,27 @@ func move_pieces(row : int, column : int):
 	if past_piece != "0":
 		SignalManager.captured_piece.emit(past_piece, current_board[row][column], column, row, current_piece.y, current_piece.x)
 	
-	if current_board_state == board_states.WHITE_PIECE_MOVED:
-		turn_counter += 1
-		SignalManager.turn_change.emit()
+	if white_turn:
+		change_turn()
+		
+	check_promotion(moving_piece, row, column)
+	
+func change_turn():
+	turn_counter += 1
+	if turn_counter > turns_per_level[current_level]:
+		turn_counter = 0
+		current_board_state = board_states.PURCHASE
+		SignalManager.beat_level.emit()
+	SignalManager.turn_change.emit()
+
+func check_promotion(piece_moved : String, row : int, column : int):
+	
+	if piece_moved == "p" and row == 7:
+		current_board[row][column] = "q"
+		SignalManager.pawn_promoted.emit(row, column)
+	elif piece_moved == "P" and row == 0:
+		current_board[row][column] = "Q"
+		SignalManager.pawn_promoted.emit(row, column)
 	
 func create_board(board_index:int, piece_type:int):
 	var row := int(board_index/8)

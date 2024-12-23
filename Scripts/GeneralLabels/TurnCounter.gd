@@ -8,4 +8,4 @@ func _ready() -> void:
 	text = str("Current turn: 0")
 	
 func change_text():
-	text = str("Current turn: ", BoardManager.turn_counter)
+	text = str("Current turn: ", BoardManager.turn_counter, "/", BoardManager.turns_per_level[BoardManager.current_level] )

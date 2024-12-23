@@ -2,6 +2,9 @@ extends GridContainer
 
 var original_color = Color("b52d00")
 
+func _ready():
+	SignalManager.pawn_promoted.connect(update_icon)
+	
 #show_tiles
 #summary: shows all the valid tiles once called. This is connected to the tile_pressed signal from Board.gd
 #iterates through the valid_tiles (or tiles_shown) given for a certain tile then makes them dark olive green 
@@ -55,3 +58,7 @@ func move_pieces(past_tile : Vector2, next_tile : Vector2):
 func is_tile_modified(tile : Vector2):
 	var ID = 8*tile.x + tile.y
 	return get_child(ID).check_if_has_modifier()
+
+func update_icon(row : int, column : int):
+	var ID = 8*row + column
+	get_child(ID).load_icon(BoardManager.fen_dict[BoardManager.current_board[row][column]])
