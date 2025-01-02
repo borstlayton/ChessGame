@@ -1,6 +1,6 @@
 extends GridContainer
 
-var current_card_ID_array = [-1,-1,-1,-1,-1]
+var current_card_ID_array = [-1,-1,-1,-1,-1,-1]
 
 var bought_permanent_cards = []
 @onready var bought_permanent_card_template = preload("res://Scenes/Cards/BoughtPermanentCards/bought_permanent_card_template.tscn")
@@ -22,7 +22,17 @@ func update_array(ID : int):
 			
 	if index != -1:
 		add_card(ID, index)
-
+		check_availability()
 func add_card(ID : int, index : int):
 	var scene = bought_permanent_cards[ID].instantiate()
 	get_child(index).add_child(scene)
+
+func check_availability():
+	
+	var can_purchase = false
+	for i in range(current_card_ID_array.size()):
+		if current_card_ID_array[i] == -1:
+			can_purchase = true
+			
+	PermanentManager.slots_available = can_purchase
+	SignalManager.added_permanent_card.emit()

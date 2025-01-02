@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8bptr0xc67bt"]
+[gd_scene load_steps=4 format=3 uid="uid://c8bptr0xc67bt"]
 
 [ext_resource type="PackedScene" uid="uid://c8qpa7a6vj5u0" path="res://Scenes/Cards/CardTemplate.tscn" id="1_461f4"]
 [ext_resource type="Script" path="res://Scripts/Cards/PermanentCards/perma_cards_template.gd" id="2_kq8u2"]
+[ext_resource type="Texture2D" uid="uid://cgex1hf2t1inu" path="res://Art/Cards/PermanentCards/NoOpenSlots.png" id="3_kvtw5"]
 
 [node name="CardTemplate" instance=ExtResource("1_461f4")]
 script = ExtResource("2_kq8u2")
+
+[node name="CanPurchase" type="Sprite2D" parent="." index="6"]
+texture = ExtResource("3_kvtw5")

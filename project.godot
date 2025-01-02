@@ -24,6 +24,7 @@ CardManager="*res://Scripts/Managers/CardManager.gd"
 RoundManager="*res://Scripts/Managers/RoundManager.gd"
 ModifierManager="*res://Scripts/Cards/ModifierCards/ModifierManager.gd"
 BountyManager="*res://Scripts/Managers/BountyManager.gd"
+PermanentManager="*res://Scripts/Cards/PermanentCards/PermanentManager.gd"
 
 [display]
 
