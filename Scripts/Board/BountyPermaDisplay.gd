@@ -11,10 +11,17 @@ func _ready():
 	
 func generate_shop():
 	
-	for card_container in [first_card, second_card, third_card, fourth_card]:
+	for card_container in [first_card, second_card]:
 		card_container.show()
 		# Instantiate a new card
 		var new_card = CardManager.get_bounty_card()
+		# Add the card to the corresponding container
+		card_container.add_child(new_card)
+		
+	for card_container in [third_card, fourth_card]:
+		card_container.show()
+		# Instantiate a new card
+		var new_card = CardManager.get_permanent_card()
 		# Add the card to the corresponding container
 		card_container.add_child(new_card)
 

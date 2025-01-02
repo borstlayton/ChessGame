@@ -17,3 +17,4 @@ signal turn_change
 signal changed_bounty
 signal defeated
 signal pawn_promoted(row : int, column : int)
+signal bought_permanent_card(ID : int)

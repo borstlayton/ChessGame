@@ -15,6 +15,8 @@ extends Node
 @onready var crown_modifier_card = preload("res://Scenes/Cards/ModifierCards/CrownModifierCard.tscn")
 @onready var hero_modifier_card = preload("res://Scenes/Cards/ModifierCards/HeroModifierCard.tscn")
 
+@onready var permanent_card_template = preload("res://Scenes/Cards/PermanentCardTemplate.tscn")
+
 var modifier_deck = []
 var bounty_deck = []
 var permanent_deck = []
@@ -33,8 +35,13 @@ func _ready():
 	modifier_deck.append(crown_modifier_card)
 	modifier_deck.append(hero_modifier_card)
 	
+	permanent_deck.append(permanent_card_template)
+	
 func get_modifier_card():
 	return modifier_deck.pick_random().instantiate()
 
 func get_bounty_card():
 	return bounty_deck.pick_random().instantiate()
+
+func get_permanent_card():
+	return permanent_deck.pick_random().instantiate()
