@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0qaq77pjgays"]
+
+[ext_resource type="PackedScene" uid="uid://c8bptr0xc67bt" path="res://Scenes/Cards/PermanentCardTemplate.tscn" id="1_fdxp5"]
+[ext_resource type="Script" path="res://Scripts/Cards/PermanentCards/modless_card.gd" id="2_m1lsd"]
+[ext_resource type="Texture2D" uid="uid://jxbl516oxgpg" path="res://Art/Cards/PermanentCards/ModlessCard.png" id="2_y8aas"]
+
+[node name="CardTemplate" instance=ExtResource("1_fdxp5")]
+script = ExtResource("2_m1lsd")
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("2_y8aas")

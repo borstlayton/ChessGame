@@ -183,7 +183,6 @@ func piece_captured(piece_captured : String, piece_used : String, column, row, p
 			RoundManager.change_total(piece_captured)
 
 func reset():
-	print("defeated")
 	BoardManager.current_board_state = BoardManager.board_states.DEFEATED
 	defeat_gui.show()
 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://q3jgtnu0iyyi"]
+
+[ext_resource type="PackedScene" uid="uid://ca07uje8so24" path="res://Scenes/Cards/BoughtPermanentCards/bought_permanent_card_template.tscn" id="1_v0ckt"]
+[ext_resource type="Texture2D" uid="uid://rreu5e8k7lgi" path="res://Art/Cards/PermanentCards/NoEnemiesCard.png" id="2_0dq0v"]
+[ext_resource type="Script" path="res://Scripts/Cards/BoughtPermanentCards/bought_no_enemies.gd" id="2_jqjsl"]
+
+[node name="BoughtPermanentCardTemplate" instance=ExtResource("1_v0ckt")]
+script = ExtResource("2_jqjsl")
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("2_0dq0v")

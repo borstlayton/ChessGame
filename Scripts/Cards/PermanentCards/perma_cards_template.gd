@@ -2,6 +2,7 @@ class_name PermanentCard extends Card
 
 @onready var cannot_purchase = $CanPurchase
 @onready var slot_available : bool = true
+
 func _ready():
 	
 	super()
@@ -13,11 +14,11 @@ func can_purchase():
 	
 	if not slot_available:
 		cannot_purchase.show()
-		buy_panel.hide()
+		can_buy = false
 		
 	elif slot_available:
 		cannot_purchase.hide()
-		buy_panel.show()
+		can_buy = true
 		
 func card_effect():
 	SignalManager.bought_permanent_card.emit(0)

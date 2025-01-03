@@ -13,6 +13,7 @@ class_name Card extends Node2D
 @onready var price_label = $CoinLabel/Price
 
 var tween_hover : Tween
+var can_buy = true
 
 func _ready():
 	buy_panel.hide()
@@ -25,7 +26,7 @@ func _ready():
 
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
+		if event.button_index == MOUSE_BUTTON_LEFT and can_buy:
 			buy_panel.show()
 			collision_shape.disabled = true
 

@@ -1,0 +1,1 @@
+class_name BoughtNoEnemies extends BoughtPermanentCard

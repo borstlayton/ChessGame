@@ -27,7 +27,7 @@ func generate_shop():
 
 
 func _on_next_level_button_down():
-	pass
-#	for card_container in [first_card, second_card, third_card, fourth_card]:
-#		if card_container:
-#			hide()
+	
+	for card_container in [first_card, second_card, third_card, fourth_card]:
+		if card_container.get_child_count() != 0:
+			card_container.get_child(0).queue_free()

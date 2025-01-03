@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfxuwadjyy5yt"]
+
+[ext_resource type="PackedScene" uid="uid://ca07uje8so24" path="res://Scenes/Cards/BoughtPermanentCards/bought_permanent_card_template.tscn" id="1_850hg"]
+[ext_resource type="Texture2D" uid="uid://jxbl516oxgpg" path="res://Art/Cards/PermanentCards/ModlessCard.png" id="2_g866r"]
+[ext_resource type="Script" path="res://Scripts/Cards/BoughtPermanentCards/bought_modless.gd" id="2_jttbx"]
+
+[node name="BoughtPermanentCardTemplate" instance=ExtResource("1_850hg")]
+script = ExtResource("2_jttbx")
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("2_g866r")

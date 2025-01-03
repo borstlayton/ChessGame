@@ -10,7 +10,7 @@ func _ready():
 	SignalManager.beat_level.connect(generate_shop)
 	
 func generate_shop():
-	print("reached here")
+	
 	for card_container in [first_card, second_card, third_card, fourth_card]:
 		card_container.show()
 		# Instantiate a new card
@@ -19,7 +19,7 @@ func generate_shop():
 		card_container.add_child(new_card)
 
 func _on_next_level_button_down():
-	print("reached next level")
+	
 	for card_container in [first_card, second_card, third_card, fourth_card]:
-		if card_container:
-			card_container.hide()
+		if card_container.get_child_count() != 0:
+			card_container.get_child(0).queue_free()

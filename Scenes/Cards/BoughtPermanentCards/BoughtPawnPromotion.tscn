@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://biwosaybd2rhk"]
+
+[ext_resource type="PackedScene" uid="uid://ca07uje8so24" path="res://Scenes/Cards/BoughtPermanentCards/bought_permanent_card_template.tscn" id="1_lq21q"]
+[ext_resource type="Texture2D" uid="uid://co63jm6xkbh7c" path="res://Art/Cards/PermanentCards/PawnPromotionCard.png" id="2_33xqs"]
+[ext_resource type="Script" path="res://Scripts/Cards/BoughtPermanentCards/bought_pawn_promotion.gd" id="2_rc15r"]
+
+[node name="BoughtPermanentCardTemplate" instance=ExtResource("1_lq21q")]
+script = ExtResource("2_rc15r")
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("2_33xqs")
