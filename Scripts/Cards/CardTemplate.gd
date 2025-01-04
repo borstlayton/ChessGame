@@ -11,9 +11,11 @@ class_name Card extends Node2D
 @onready var backside = $Backside
 @onready var summary_label = $Backside/Summary
 @onready var price_label = $CoinLabel/Price
+@onready var timer = $Timer
 
 var tween_hover : Tween
 var can_buy = true
+var is_hovered = false
 
 func _ready():
 	buy_panel.hide()
@@ -46,18 +48,10 @@ func card_effect():
 	print("put effect here")
 
 
-func _on_more_info_button_down() -> void:
-	backside.show()
-
-
-func _on_cancel_backside_button_down() -> void:
-	backside.hide()
-	collision_shape.disabled = true
-	await get_tree().create_timer(0.25).timeout
-	collision_shape.disabled = false
-
-
 func _on_area_2d_mouse_entered() -> void:
+	is_hovered = true
+	timer.start()
+	
 	if tween_hover and tween_hover.is_running():
 		tween_hover.kill()
 	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -65,7 +59,16 @@ func _on_area_2d_mouse_entered() -> void:
 
 
 func _on_area_2d_mouse_exited() -> void:
+	is_hovered = false
+	timer.stop()
+	backside.hide()
+	
 	if tween_hover and tween_hover.is_running():
 		tween_hover.kill()
 	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween_hover.tween_property(self, "scale", Vector2(1,1), 0.55)
+
+
+func _on_timer_timeout() -> void:
+	if is_hovered:
+		backside.show()

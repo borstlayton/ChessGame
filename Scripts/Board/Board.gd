@@ -131,6 +131,7 @@ func show_purchasable_tiles(_piece_type : String):
 	ShopManager.purchasable_tiles = purchasable_tiles
 
 func modifier_moving(ID : int):
+	next_level_button.hide()
 	var modifiable_tiles = []
 	for i in range(6,8):
 		for j in range(8):
@@ -164,7 +165,8 @@ func release_modifier():
 	if has_modifier:
 		new_modifier.queue_free()
 		has_modifier = false
-
+	next_level_button.show()
+	
 func piece_captured(piece_captured : String, piece_used : String, column, row, past_column, past_row):
 	var black_piece_used : bool = true if piece_used == piece_used.to_lower() else false
 	
