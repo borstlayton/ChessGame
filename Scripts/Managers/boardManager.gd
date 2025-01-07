@@ -95,13 +95,6 @@ func piece_moved(row: int, column : int):
 			is_valid_tile = true
 			break
 	if is_valid_tile:
-		#TEMPORARY: checks if piece captured is king, then moves on to the next level if this is true
-		if current_board[row][column] == "k":
-			current_board_state = board_states.PURCHASE
-			SignalManager.beat_level.emit()
-		elif current_board[row][column] == "K":
-			SignalManager.defeated.emit()
-			
 		move_pieces(row,column) #moves the pieces
 	else:
 		if current_board_state == board_states.WHITE_PIECE_CLICKED:
@@ -137,9 +130,16 @@ func move_pieces(row : int, column : int):
 	
 	if white_turn:
 		change_turn()
-		
-	check_promotion(moving_piece, row, column)
 	
+	check_king_capture(past_piece)
+	check_promotion(moving_piece, row, column)
+
+func check_king_capture(past_piece : String):
+		if past_piece == "k":
+			current_board_state = board_states.PURCHASE
+			SignalManager.beat_level.emit()
+		elif past_piece == "K":
+			SignalManager.defeated.emit()
 func change_turn():
 	turn_counter += 1
 	if turn_counter > turns_per_level[current_level]:

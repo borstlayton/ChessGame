@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ca07uje8so24"]
+[gd_scene load_steps=5 format=3 uid="uid://ca07uje8so24"]
 
 [ext_resource type="Script" path="res://Scenes/Cards/BoughtPermanentCards/bought_permanent_card_template.gd" id="1_f3kci"]
 [ext_resource type="Texture2D" uid="uid://b6je51pem3kfr" path="res://Art/Cards/CardBase.png" id="2_2t6sl"]
+[ext_resource type="Texture2D" uid="uid://bspwm6xf767im" path="res://Art/Cards/PermanentCards/LevelDisplay.png" id="3_h85rx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecqog"]
 size = Vector2(102, 155)
@@ -17,6 +18,16 @@ texture = ExtResource("2_2t6sl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ecqog")
+
+[node name="LevelDisplay" type="Sprite2D" parent="."]
+position = Vector2(0, 104)
+texture = ExtResource("3_h85rx")
+
+[node name="Label" type="Label" parent="LevelDisplay"]
+offset_left = -20.0
+offset_top = -11.0
+offset_right = 20.0
+offset_bottom = 12.0
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

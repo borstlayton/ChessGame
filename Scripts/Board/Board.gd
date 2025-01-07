@@ -41,6 +41,7 @@ func setup_run():
 	purchase_pieces_gui.show()
 	defeat_gui.hide()
 	create_board()
+	BoardManager.current_board_state = BoardManager.board_states.PURCHASE
 	
 func create_board():
 	for i in range(8):

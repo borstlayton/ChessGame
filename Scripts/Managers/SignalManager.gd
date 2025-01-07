@@ -19,3 +19,4 @@ signal defeated
 signal pawn_promoted(row : int, column : int)
 signal bought_permanent_card(ID : int)
 signal added_permanent_card
+signal card_leveled_up(index : int, new_level : int)

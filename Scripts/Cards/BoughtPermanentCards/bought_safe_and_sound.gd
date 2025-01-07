@@ -1,1 +1,1 @@
-class_name BoughtSafeAndSound extends PermanentCard
+class_name BoughtSafeAndSound extends BoughtPermanentCard

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=17 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/Board/GridContainer.gd" id="2_6tt8d"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Board/Board State.gd" id="4_lnx8x"]
 [ext_resource type="Script" path="res://Scripts/GeneralLabels/CoinCounter.gd" id="5_cx7gl"]
 [ext_resource type="Script" path="res://Scenes/RoundTotal.gd" id="5_eqnbu"]
+[ext_resource type="Script" path="res://Scripts/Board/cards_used.gd" id="5_r4mqx"]
 [ext_resource type="Script" path="res://Scripts/Purchase Pieces.gd" id="6_4x2eg"]
 [ext_resource type="Texture2D" uid="uid://c6bm5mu3p10jq" path="res://Art/Coin.png" id="6_nii58"]
 [ext_resource type="Script" path="res://Scripts/Board/BountyPermaDisplay.gd" id="6_svofr"]
@@ -87,6 +88,7 @@ vertical_alignment = 1
 script = ExtResource("3_bxv2v")
 
 [node name="Defeat" type="Control" parent="ColorRect"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,6 +137,73 @@ offset_right = 31.0
 offset_bottom = 31.0
 grow_horizontal = 2
 text = "Defeat"
+
+[node name="CardsUsedInRound" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect/CardsUsedInRound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.219501, 0.219501, 0.219501, 1)
+
+[node name="CardsUsed" type="GridContainer" parent="ColorRect/CardsUsedInRound/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 90.0
+offset_right = -130.0
+offset_bottom = -190.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+columns = 3
+script = ExtResource("5_r4mqx")
+
+[node name="Card1" type="CenterContainer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Card2" type="CenterContainer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Card3" type="CenterContainer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Card4" type="CenterContainer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Card5" type="CenterContainer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Card6" type="CenterContainer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Timer" type="Timer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
+wait_time = 5.0
 
 [node name="RightSide" type="Control" parent="."]
 layout_mode = 3
@@ -464,6 +533,7 @@ text = "cancel"
 [connection signal="button_down" from="ColorRect/Next Level" to="RightSide/ModifierCardsBackground/ModifierCardDisplay" method="_on_next_level_button_down"]
 [connection signal="button_down" from="ColorRect/Next Level" to="RightSide/BountyAndPermaBackground/BountyandPermaDisplay" method="_on_next_level_button_down"]
 [connection signal="button_down" from="ColorRect/Defeat/DefeatBackground/Reset" to="." method="_on_reset_button_down"]
+[connection signal="timeout" from="ColorRect/CardsUsedInRound/ColorRect/CardsUsed/Timer" to="ColorRect/CardsUsedInRound/ColorRect/CardsUsed" method="_on_timer_timeout"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/PawnPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_pawn_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/BishopPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_bishop_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/KnightPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_knight_purchase_button_down"]
