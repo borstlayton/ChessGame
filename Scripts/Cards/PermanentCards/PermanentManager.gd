@@ -3,6 +3,7 @@ extends Node
 var slots_available
 var current_permanent_cards = [-1,-1,-1,-1,-1,-1]
 var current_cards_level = [1,1,1,1,1,1]
+var perma_multiplier = 1
 
 var buzzer_beater : bool = false
 var modless : bool = true
@@ -72,3 +73,6 @@ func traverse_cards():
 		if used:
 			current_cards_level[i] += 1
 			SignalManager.card_leveled_up.emit(i, current_cards_level[i])
+			perma_multiplier *= BoostsLevel.level_boosts[card-1][current_cards_level[i]]
+			
+	SignalManager.done_getting_perma_bonus.emit()

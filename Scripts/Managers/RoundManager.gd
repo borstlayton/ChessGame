@@ -15,7 +15,7 @@ var piece_values = {
 	}
 	
 func _ready():
-	SignalManager.beat_level.connect(reset_round)
+	SignalManager.done_getting_perma_bonus.connect(reset_round)
 	
 func change_total(piece : String):
 	# Check if the captured piece was white
@@ -50,5 +50,8 @@ func subtract_total(piece : String):
 	modifier_multiplier = 1
 	
 func reset_round():
+	
+	round_total *= PermanentManager.perma_multiplier
 	ShopManager.current_coin_amount += round_total
 	round_total = 0
+	PermanentManager.perma_multiplier = 1

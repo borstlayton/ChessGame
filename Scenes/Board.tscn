@@ -32,6 +32,7 @@ offset_left = 600.0
 offset_top = 180.0
 offset_right = 1320.0
 offset_bottom = 900.0
+mouse_filter = 2
 
 [node name="GridContainer" type="GridContainer" parent="ColorRect"]
 layout_mode = 0
@@ -101,6 +102,7 @@ offset_right = 150.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="DefeatBackground" type="ColorRect" parent="ColorRect/Defeat"]
 layout_mode = 1
@@ -162,10 +164,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 150.0
-offset_top = 90.0
-offset_right = -130.0
-offset_bottom = -190.0
+offset_top = 133.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -204,6 +203,14 @@ size_flags_vertical = 6
 
 [node name="Timer" type="Timer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
 wait_time = 5.0
+
+[node name="Label" type="Label" parent="ColorRect/CardsUsedInRound/ColorRect"]
+layout_mode = 0
+offset_right = 717.0
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 28
+text = "Cards Leveled Up This Round"
+horizontal_alignment = 1
 
 [node name="RightSide" type="Control" parent="."]
 layout_mode = 3

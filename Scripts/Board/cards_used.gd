@@ -2,6 +2,7 @@ extends GridContainer
 
 var current_cards = [-1,-1,-1,-1,-1,-1]
 var bought_permanent_cards = []
+var leveled_up : bool = false
 
 @onready var cards_used_gui = $"../.."
 @onready var timer = $Timer
@@ -28,16 +29,19 @@ func _ready():
 	
 	SignalManager.card_leveled_up.connect(append_card)
 	SignalManager.beat_level.connect(show_all)
+	
 func append_card(index: int, level : int):
 	
+	leveled_up = true
 	var ID = PermanentManager.current_permanent_cards[index]
 	var scene = bought_permanent_cards[ID].instantiate()
 	get_child(index).add_child(scene)
 	get_child(index).get_child(0).update_level_display(level)
 	
 func show_all():
-	cards_used_gui.show()
-	timer.start()
+	if leveled_up:
+		cards_used_gui.show()
+		timer.start()
 	
 func take_down_gui():
 	
@@ -45,6 +49,7 @@ func take_down_gui():
 	for i in range(current_cards.size()):
 		if current_cards[i] != -1:
 			get_child(i).get_child(0).queue_free()
-
+			
+	leveled_up = false
 func _on_timer_timeout() -> void:
 	take_down_gui()
