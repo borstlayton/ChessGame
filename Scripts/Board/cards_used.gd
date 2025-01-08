@@ -51,5 +51,6 @@ func take_down_gui():
 			get_child(i).get_child(0).queue_free()
 			
 	leveled_up = false
+	
 func _on_timer_timeout() -> void:
 	take_down_gui()

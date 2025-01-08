@@ -24,6 +24,7 @@ script = ExtResource("1_bohl5")
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 1922.0
 offset_bottom = 1081.0
+mouse_filter = 2
 color = Color(0.103744, 0.103744, 0.103744, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -89,7 +90,6 @@ vertical_alignment = 1
 script = ExtResource("3_bxv2v")
 
 [node name="Defeat" type="Control" parent="ColorRect"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -111,6 +111,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 0.00999999, 0.00999999, 1)
 
 [node name="Reset" type="Button" parent="ColorRect/Defeat/DefeatBackground"]
@@ -126,6 +127,7 @@ offset_right = 37.5
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 text = "Reset
 "
 
@@ -138,6 +140,7 @@ offset_left = -28.0
 offset_right = 31.0
 offset_bottom = 31.0
 grow_horizontal = 2
+mouse_filter = 2
 text = "Defeat"
 
 [node name="CardsUsedInRound" type="Control" parent="ColorRect"]
@@ -147,7 +150,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="ColorRect" type="ColorRect" parent="ColorRect/CardsUsedInRound"]
 layout_mode = 1
@@ -156,7 +159,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 color = Color(0.219501, 0.219501, 0.219501, 1)
 
 [node name="CardsUsed" type="GridContainer" parent="ColorRect/CardsUsedInRound/ColorRect"]
@@ -167,7 +170,6 @@ anchor_bottom = 1.0
 offset_top = 133.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 columns = 3
 script = ExtResource("5_r4mqx")
 
@@ -180,6 +182,7 @@ size_flags_vertical = 6
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+mouse_filter = 2
 
 [node name="Card3" type="CenterContainer" parent="ColorRect/CardsUsedInRound/ColorRect/CardsUsed"]
 layout_mode = 2
