@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=19 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/Board/GridContainer.gd" id="2_6tt8d"]
@@ -18,7 +18,6 @@
 [ext_resource type="Script" path="res://Scripts/CardDisplay.gd" id="8_kpls1"]
 [ext_resource type="Script" path="res://Scripts/Cards/deck_draw.gd" id="9_uj7ju"]
 [ext_resource type="Script" path="res://Scripts/GeneralLabels/TurnCounter.gd" id="11_vnya1"]
-[ext_resource type="Script" path="res://Scripts/Board/last_piece_taken.gd" id="12_rr2mm"]
 
 [node name="Board" type="Node2D"]
 position = Vector2(-2, -2)
@@ -105,7 +104,7 @@ offset_right = 150.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="DefeatBackground" type="ColorRect" parent="ColorRect/Defeat"]
 layout_mode = 1
@@ -114,7 +113,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 color = Color(1, 0.00999999, 0.00999999, 1)
 
 [node name="Reset" type="Button" parent="ColorRect/Defeat/DefeatBackground"]
@@ -393,20 +392,6 @@ size_flags_vertical = 6
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-
-[node name="LastPieceTaken" type="Control" parent="LeftSide"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -283.0
-grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("12_rr2mm")
-
-[node name="PieceTaken" type="Sprite2D" parent="LeftSide/LastPieceTaken"]
-position = Vector2(287, 151)
 
 [node name="Top" type="Control" parent="."]
 clip_contents = true

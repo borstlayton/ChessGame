@@ -6,10 +6,11 @@
 
 [node name="CardTemplate" node_paths=PackedStringArray("card_image") instance=ExtResource("1_51q2u")]
 script = ExtResource("2_bj0cb")
+base_cost = 15
 card_image = NodePath("CardSprite")
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("3_y5k15")
 
-[node name="Backside" parent="." index="6"]
+[node name="Backside" parent="." index="3"]
 visible = false

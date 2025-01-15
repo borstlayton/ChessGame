@@ -4,7 +4,7 @@ class_name Card extends Node2D
 @export var card_ID : int
 @export var base_cost: int = 0
 @export var card_image: Sprite2D
-@export var summary : String
+@export var summary : String = "put summary here"
 
 @onready var buy_panel = $BuyPanel
 @onready var collision_shape = $Area2D/CollisionShape2D
@@ -16,16 +16,25 @@ class_name Card extends Node2D
 var tween_hover : Tween
 var can_buy = true
 var is_hovered = false
+var card_cost
+var k = 3
+var n = 2
 
 func _ready():
 	buy_panel.hide()
-	base_cost = 0
-	
 	backside.hide()
-	summary = "put summary here"
+	
 	summary_label.text = summary
-	price_label.text = str(base_cost)
-
+	
+	SignalManager.beat_level.connect(calculate_price)
+	calculate_price()
+	
+func calculate_price():
+	
+	print("entered")
+	card_cost = int(base_cost * (1 + BoardManager.current_level/k) * exp (BoardManager.current_level/n)) + BoardManager.current_level
+	price_label.text = str(card_cost)
+	
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and can_buy:

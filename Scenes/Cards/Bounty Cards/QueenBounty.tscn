@@ -6,9 +6,10 @@
 
 [node name="CardTemplate" instance=ExtResource("1_em4bq")]
 script = ExtResource("2_ssu63")
+base_cost = 20
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_kmqa3")
 
-[node name="Backside" parent="." index="6"]
+[node name="Backside" parent="." index="3"]
 visible = false
