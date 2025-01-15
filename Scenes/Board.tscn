@@ -405,8 +405,25 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("12_rr2mm")
 
+[node name="Background" type="ColorRect" parent="LeftSide/LastPieceTaken"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.244776, 0.244776, 0.244776, 1)
+
 [node name="PieceTaken" type="Sprite2D" parent="LeftSide/LastPieceTaken"]
 position = Vector2(287, 151)
+
+[node name="PiecePriceLabel" type="Label" parent="LeftSide/LastPieceTaken"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+horizontal_alignment = 1
 
 [node name="Top" type="Control" parent="."]
 clip_contents = true
