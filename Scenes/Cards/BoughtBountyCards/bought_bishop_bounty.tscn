@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://csqahkuspse5w"]
+
+[ext_resource type="PackedScene" uid="uid://dunw74wjv532f" path="res://Scenes/Cards/BoughtBountyCards/bought_bounty_template.tscn" id="1_dnnb3"]
+[ext_resource type="Texture2D" uid="uid://djmeqrpgytd7p" path="res://Art/Cards/Bounty Cards/BountyBishop.png" id="2_sh7je"]
+
+[node name="BoughtBountyTemplate" instance=ExtResource("1_dnnb3")]
+
+[node name="CardSprite" parent="." index="0"]
+texture = ExtResource("2_sh7je")

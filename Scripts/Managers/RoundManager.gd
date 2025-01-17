@@ -2,6 +2,7 @@ extends Node
 
 var round_total = 0
 var modifier_multiplier = 1
+var last_used_modifier_multiplier = 1
 var multiplier
 var piece_total = 0
 
@@ -47,6 +48,7 @@ func subtract_total(piece : String):
 	var piece_name = piece.to_lower()
 	
 	round_total += piece_values[piece_name] * multiplier * modifier_multiplier
+	last_used_modifier_multiplier = modifier_multiplier
 	modifier_multiplier = 1
 	
 func reset_round():

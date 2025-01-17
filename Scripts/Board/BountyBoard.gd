@@ -1,25 +1,38 @@
-extends Node2D
+extends Control
 
-@onready var knight_bounty_label = $Background/LabelsContainer/KnightBountyLabel
-@onready var queen_bounty_label = $Background/LabelsContainer/QueenBountyLabel
-@onready var rook_bounty_label = $Background/LabelsContainer/RookBountyLabel
-@onready var bishop_bounty_label = $Background/LabelsContainer/BishopBountyLabel
-@onready var pawn_bounty_label = $Background/LabelsContainer/PawnBountyLabel
+@onready var bought_bishop_scene = preload("res://Scenes/Cards/BoughtBountyCards/bought_bishop_bounty.tscn")
+@onready var bought_knight_scene = preload("res://Scenes/Cards/BoughtBountyCards/bought_knight_bounty.tscn")
+@onready var bought_pawn_scene = preload("res://Scenes/Cards/BoughtBountyCards/bought_pawn_bounty.tscn")
+@onready var bought_queen_scene = preload("res://Scenes/Cards/BoughtBountyCards/bought_queen_bounty.tscn")
+@onready var bought_rook_scene = preload("res://Scenes/Cards/BoughtBountyCards/bought_rook_bounty.tscn")
 
-var current_knight_bounty
-var current_queen_bounty
-var current_rook_bounty
-var current_bishop_bounty
-var current_pawn_bounty
+@onready var bounty_slot_1 = $CardContainer/BountyCard1
+@onready var bounty_slot_2 = $CardContainer/BountyCard2
+
+var bounty_board = [-1,-1]
+var bought_bounty_deck = []
 
 func _ready():
-	update_board()
 	
-	SignalManager.changed_bounty.connect(update_board)
+	bought_bounty_deck.append(bought_bishop_scene)
+	bought_bounty_deck.append(bought_knight_scene)
+	bought_bounty_deck.append(bought_pawn_scene)
+	bought_bounty_deck.append(bought_queen_scene)
+	bought_bounty_deck.append(bought_rook_scene)
 	
-func update_board():
-	knight_bounty_label.text = str("knight bounty ", BountyManager.knight_bounty_amount)
-	queen_bounty_label.text = str("queen bounty ", BountyManager.queen_bounty_amount)
-	rook_bounty_label.text = str("rook bounty ", BountyManager.rook_bounty_amount)
-	bishop_bounty_label.text = str("bishop bounty ", BountyManager.bishop_bounty_amount)
-	pawn_bounty_label.text = str("pawn bounty ", BountyManager.pawn_bounty_amount)
+	SignalManager.bought_bounty.connect(update_board)
+	
+func update_board(cardID : int):
+	var slot
+	var index
+	if bounty_board[0] == -1:
+		slot = bounty_slot_1
+		index = 0
+	else:
+		slot = bounty_slot_2
+		index = 1
+		
+	BountyManager.current_bounty_cards[index] = cardID
+	bounty_board[index] = cardID
+	var new_bought_bounty_scene = bought_bounty_deck[cardID-1].instantiate()
+	slot.add_child(new_bought_bounty_scene)

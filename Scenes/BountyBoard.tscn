@@ -1,39 +1,35 @@
-[gd_scene load_steps=2 format=3 uid="uid://cifn8asgnvula"]
+[gd_scene load_steps=3 format=3 uid="uid://cifn8asgnvula"]
 
 [ext_resource type="Script" path="res://Scripts/Board/BountyBoard.gd" id="1_krs6v"]
+[ext_resource type="Texture2D" uid="uid://6ft18ga13sr" path="res://Art/Board/BountyBoard.png" id="2_wq5nx"]
 
-[node name="BountyBoard" type="Node2D"]
+[node name="BountyBoard" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 250.0
 script = ExtResource("1_krs6v")
 
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 200.0
-offset_bottom = 200.0
-color = Color(0.51, 0.51, 0.51, 1)
+[node name="BountyBoard" type="Sprite2D" parent="."]
+texture = ExtResource("2_wq5nx")
+centered = false
 
-[node name="LabelsContainer" type="VBoxContainer" parent="Background"]
+[node name="CardContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
-[node name="KnightBountyLabel" type="Label" parent="Background/LabelsContainer"]
+[node name="BountyCard1" type="CenterContainer" parent="CardContainer"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_horizontal = 6
+size_flags_vertical = 4
 
-[node name="QueenBountyLabel" type="Label" parent="Background/LabelsContainer"]
+[node name="BountyCard2" type="CenterContainer" parent="CardContainer"]
 layout_mode = 2
-size_flags_vertical = 6
-
-[node name="RookBountyLabel" type="Label" parent="Background/LabelsContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-
-[node name="BishopBountyLabel" type="Label" parent="Background/LabelsContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-
-[node name="PawnBountyLabel" type="Label" parent="Background/LabelsContainer"]
-layout_mode = 2
-size_flags_vertical = 6
+size_flags_horizontal = 6
+size_flags_vertical = 4

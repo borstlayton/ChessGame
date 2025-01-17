@@ -14,7 +14,7 @@ signal modifier_placed(location : Vector2)
 signal done_checking_modifiable_board
 signal captured_piece(piece_taken : String, piece_used : String, column : int, row : int, past_column : int, past_row : int)
 signal turn_change
-signal changed_bounty
+signal bought_bounty(cardID : int)
 signal defeated
 signal pawn_promoted(row : int, column : int)
 signal bought_permanent_card(ID : int)

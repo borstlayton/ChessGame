@@ -16,5 +16,6 @@ func update_sprite(updated_sprite : Texture2D):
 func update_text(piece_taken : String):
 	var piece_value = RoundManager.piece_values[piece_taken]
 	var bounty_amount = BountyManager.retreive_bounty(piece_taken)
-	var price_text : String = str("Piece Value: ", piece_value, " X ", "Bounty: ", bounty_amount," X ", "Modifier Bonus: ")
+	var modifier_amount = RoundManager.last_used_modifier_multiplier
+	var price_text : String = str("Piece Value: ", piece_value, " X ", "Bounty: ", bounty_amount," X ", "Modifier Bonus: ", modifier_amount)
 	piece_price_label.text = price_text
