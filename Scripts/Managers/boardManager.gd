@@ -113,7 +113,6 @@ func piece_moved(row: int, column : int):
 			current_board_state = board_states.WHITE_IDLE
 		elif current_board_state == board_states.BLACK_PIECE_CLICKED:
 			current_board_state = board_states.BLACK_IDLE
-
 #move_pieces
 #summary: is called after the current_board_state is PIECE_CLICKED and another tile that is in valid
 #tiles is clicked. It moves the pieces on the current board after changing the current_board_state
@@ -125,6 +124,7 @@ func move_pieces(row : int, column : int):
 	if current_board_state == board_states.WHITE_PIECE_CLICKED:
 		white_turn = true
 		current_board_state = board_states.WHITE_PIECE_MOVED
+		
 	elif current_board_state == board_states.BLACK_PIECE_CLICKED:
 		white_turn = false
 		current_board_state = board_states.BLACK_PIECE_MOVED
@@ -152,7 +152,9 @@ func check_king_capture(past_piece : String):
 			SignalManager.beat_level.emit()
 		elif past_piece == "K":
 			SignalManager.defeated.emit()
+			
 func change_turn():
+	
 	turn_counter += 1
 	if turn_counter > turns_per_level[current_level]:
 		turn_counter = 0

@@ -60,14 +60,16 @@ func _on_button_button_down():
 		SignalManager.tile_pressed.emit()
 		
 func _on_button_button_up():
-	SignalManager.clear_valid_tiles.emit()
+	pass
+	#SignalManager.clear_valid_tiles.emit()
 
 func _on_button_pressed():
 	if BoardManager.current_board_state == BoardManager.board_states.WHITE_IDLE and get_icon()!= null:
 		BoardManager.piece_selected(tile_row, tile_column)
 	elif BoardManager.current_board_state == BoardManager.board_states.WHITE_PIECE_CLICKED:
 		BoardManager.piece_moved(tile_row, tile_column)
-	
+		SignalManager.clear_valid_tiles.emit()
+		
 	if BoardManager.current_board_state == BoardManager.board_states.PURCHASE and ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_PIECE:
 		if ShopManager.check_purchasable_tile(Vector2(tile_row,tile_column)):
 			ShopManager.current_state = ShopManager.piece_purchase_states.PIECE_PLACED
@@ -75,13 +77,14 @@ func _on_button_pressed():
 			SignalManager.placed_purchased_piece.emit(location_pressed, ShopManager.current_piece)
 			load_icon(BoardManager.fen_dict[ShopManager.current_piece])
 			BoardManager.add_to_board(tile_row, tile_column, ShopManager.current_piece)
-			SignalManager.complete_purchase.emit()
 			ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
 			
 		elif ShopManager.check_purchasable_tile(Vector2(tile_row,tile_column)) == false:
 			ShopManager.current_state = ShopManager.piece_purchase_states.PURCHASE_IDLE
-			SignalManager.complete_purchase.emit()
-			
+		
+		SignalManager.complete_purchase.emit()
+		SignalManager.clear_valid_tiles.emit()
+		
 	if BoardManager.current_board_state == BoardManager.board_states.PURCHASE and ShopManager.current_state == ShopManager.piece_purchase_states.MOVING_MODIFIER:
 		if ShopManager.check_modifiable_tile(Vector2(tile_row, tile_column)):
 			show_modifier()

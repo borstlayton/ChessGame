@@ -19,11 +19,11 @@ func modifier_piece_used(piece_captured : String, piece_used : String, column, r
 		2:
 			handle_balance_modifier(piece_captured, piece_used)
 		3:
-			handle_crimson_modifier()
+			handle_crimson_modifier(piece_captured)
 		4:
 			handle_crown_modifier(piece_captured)
 		5:
-			handle_hero_modifier()
+			handle_hero_modifier(piece_captured, piece_used)
 		
 	RoundManager.change_total(piece_captured)
 
@@ -49,8 +49,8 @@ func handle_balance_modifier(piece_captured : String, piece_used : String):
 	else:
 		RoundManager.modifier_multiplier = 1
 	
-func handle_crimson_modifier():
-	print("crimson modifier used")
+func handle_crimson_modifier(piece_captured : String):
+	RoundManager.modifier_multiplier = 2
 
 func crimson_modifier_taken(piece_captured : String):
 	
@@ -63,5 +63,7 @@ func handle_crown_modifier(piece_captured):
 	else:
 		RoundManager.modifier_multiplier = 1
 	
-func handle_hero_modifier():
-	print("hero modifier used")
+func handle_hero_modifier(piece_captured : String, piece_used : String):
+	piece_used = piece_used.to_lower()
+	if RoundManager.piece_values[piece_captured] > RoundManager.piece_values[piece_used]:
+		RoundManager.modifier_multiplier = 2

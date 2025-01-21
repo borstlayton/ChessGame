@@ -42,13 +42,14 @@ func change_total(piece : String):
 			piece_total *= BountyManager.bishop_bounty_amount
 	
 	round_total += piece_total
+	last_used_modifier_multiplier = modifier_multiplier
 	modifier_multiplier = 1
-
+	SignalManager.done_computing_piece_total.emit(piece_name)
+	
 func subtract_total(piece : String):
 	var piece_name = piece.to_lower()
 	
 	round_total += piece_values[piece_name] * multiplier * modifier_multiplier
-	last_used_modifier_multiplier = modifier_multiplier
 	modifier_multiplier = 1
 	
 func reset_round():

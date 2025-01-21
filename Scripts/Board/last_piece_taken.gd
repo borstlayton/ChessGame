@@ -4,11 +4,11 @@ extends Control
 @onready var piece_price_label = $PiecePriceLabel
 func _ready():
 	SignalManager.captured_piece.connect(determine_piece)
+	SignalManager.done_computing_piece_total.connect(update_text)
 	
 func determine_piece(piece_taken : String, _piece_used : String, _column : int, _row : int, _past_column : int, _past_row : int):
 	if piece_taken == piece_taken.to_lower(): #is black piece
 		sprite.texture = load(BoardManager.assets[BoardManager.fen_dict[piece_taken]])
-		update_text(piece_taken)
 		
 func update_sprite(updated_sprite : Texture2D):
 	sprite.texture = updated_sprite
