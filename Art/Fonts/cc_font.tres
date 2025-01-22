@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://dj3iovhb2yq7d"]
+
+[ext_resource type="FontFile" uid="uid://bn7spyp85qo1n" path="res://Art/Fonts/PeaberryMono.ttf" id="1_rt3g7"]
+
+[resource]
+base_font = ExtResource("1_rt3g7")

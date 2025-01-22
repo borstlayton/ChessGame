@@ -2,6 +2,7 @@ extends Control
 
 @onready var sprite = $PieceTaken
 @onready var piece_price_label = $PiecePriceLabel
+@onready var total_piece = $PieceTotalLabel
 func _ready():
 	SignalManager.captured_piece.connect(determine_piece)
 	SignalManager.done_computing_piece_total.connect(update_text)
@@ -19,3 +20,4 @@ func update_text(piece_taken : String):
 	var modifier_amount = RoundManager.last_used_modifier_multiplier
 	var price_text : String = str("Piece Value: ", piece_value, " X ", "Bounty: ", bounty_amount," X ", "Modifier Bonus: ", modifier_amount)
 	piece_price_label.text = price_text
+	total_piece.text = str(int(piece_value * bounty_amount * modifier_amount))
