@@ -43,7 +43,7 @@ func _ready():
 	
 	permanent_deck.append(buzzer_beater_card)
 	permanent_deck.append(modless_card)
-	permanent_deck.append(no_enemies_card)
+#	permanent_deck.append(no_enemies_card)
 	permanent_deck.append(pawn_promotion_card)
 	permanent_deck.append(safe_and_sound_card)
 	permanent_deck.append(timely_king_card)

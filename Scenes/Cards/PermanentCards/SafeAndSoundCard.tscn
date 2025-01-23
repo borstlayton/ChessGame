@@ -6,6 +6,8 @@
 
 [node name="CardTemplate" instance=ExtResource("1_wkr5n")]
 script = ExtResource("2_qtfka")
+summary = "Get a multiplier bonus after the round if none of your pieces were taken during the round."
+card_type = 1
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("3_ov25h")

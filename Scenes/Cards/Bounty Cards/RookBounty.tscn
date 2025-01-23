@@ -7,6 +7,7 @@
 [node name="CardTemplate" instance=ExtResource("1_1immy")]
 script = ExtResource("2_nmkds")
 base_cost = 15
+summary = "Rooks captured in the next round are worth 2x more"
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("3_yvmbn")

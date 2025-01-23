@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Cards/CardTemplate.gd" id="1_t4yuw"]
 [ext_resource type="Texture2D" uid="uid://b6je51pem3kfr" path="res://Art/Cards/CardBase.png" id="2_88hl1"]
-[ext_resource type="Texture2D" uid="uid://cf8s8tsoclccj" path="res://Art/Cards/Backside.png" id="3_q2cir"]
+[ext_resource type="Texture2D" uid="uid://dn3d3jh6rvapq" path="res://Art/Cards/Backside.png" id="3_q2cir"]
 [ext_resource type="FontFile" uid="uid://dhcqelidb0ak3" path="res://Art/Fonts/MedodicaRegular.otf" id="4_h40hb"]
 [ext_resource type="Texture2D" uid="uid://dsgkfyg7jhq2p" path="res://Art/Cards/CoinLabel.png" id="5_gbhc3"]
 
@@ -73,15 +73,29 @@ offset_bottom = 84.0
 texture = ExtResource("3_q2cir")
 centered = false
 
+[node name="CardTypeLabel" type="Label" parent="Backside"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 2.0
+offset_right = 8232.0
+offset_bottom = 1202.0
+grow_horizontal = 2
+scale = Vector2(0.02, 0.02)
+theme_override_fonts/font = ExtResource("4_h40hb")
+theme_override_font_sizes/font_size = 1250
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Summary" type="Label" parent="Backside"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2.0
-offset_top = 2.0
+offset_top = 38.0
 offset_right = 8034.0
-offset_bottom = 8034.0
+offset_bottom = 6270.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.02, 0.02)
@@ -89,6 +103,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_h40hb")
 theme_override_font_sizes/font_size = 1000
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="CoinLabel" type="Sprite2D" parent="."]

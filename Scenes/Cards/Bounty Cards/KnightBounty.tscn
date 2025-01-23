@@ -8,9 +8,7 @@
 script = ExtResource("2_bj0cb")
 base_cost = 15
 card_image = NodePath("CardSprite")
+summary = "Knights captured in the next round are worth 2x more"
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("3_y5k15")
-
-[node name="Backside" parent="." index="3"]
-visible = false

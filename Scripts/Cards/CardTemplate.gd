@@ -5,6 +5,7 @@ class_name Card extends Node2D
 @export var base_cost: int = 0
 @export var card_image: Sprite2D
 @export var summary : String = "put summary here"
+@export var card_type : card_types
 
 @onready var buy_panel = $BuyPanel
 @onready var collision_shape = $Area2D/CollisionShape2D
@@ -12,6 +13,14 @@ class_name Card extends Node2D
 @onready var summary_label = $Backside/Summary
 @onready var price_label = $CoinLabel/Price
 @onready var timer = $Timer
+@onready var card_type_label = $Backside/CardTypeLabel
+
+enum card_types{Bounty, Permanent, Modifier}
+var card_map := {
+	card_types.Bounty : "Bounty",
+	card_types.Permanent : "Permanent",
+	card_types.Modifier : "Modifier",
+}
 
 var tween_hover : Tween
 var can_buy = true
@@ -25,7 +34,7 @@ func _ready():
 	backside.hide()
 	
 	summary_label.text = summary
-	
+	card_type_label.text = card_map[card_type]
 	SignalManager.beat_level.connect(calculate_price)
 	calculate_price()
 	

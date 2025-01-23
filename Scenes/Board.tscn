@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=18 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/Board/GridContainer.gd" id="2_6tt8d"]
@@ -13,10 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://c6bm5mu3p10jq" path="res://Art/Coin.png" id="6_nii58"]
 [ext_resource type="Script" path="res://Scripts/Board/BountyPermaDisplay.gd" id="6_svofr"]
 [ext_resource type="PackedScene" uid="uid://cifn8asgnvula" path="res://Scenes/BountyBoard.tscn" id="6_up1y1"]
-[ext_resource type="Texture2D" uid="uid://pkkcrpy7aj3h" path="res://Art/Cards/BacksideCard.png" id="8_3x77a"]
 [ext_resource type="Script" path="res://Scripts/Board/PermanentCardsContainer.gd" id="8_7cal6"]
 [ext_resource type="Script" path="res://Scripts/CardDisplay.gd" id="8_kpls1"]
-[ext_resource type="Script" path="res://Scripts/Cards/deck_draw.gd" id="9_uj7ju"]
 [ext_resource type="Script" path="res://Scripts/GeneralLabels/TurnCounter.gd" id="11_vnya1"]
 [ext_resource type="Script" path="res://Scripts/Board/last_piece_taken.gd" id="12_rr2mm"]
 
@@ -335,11 +333,6 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-
-[node name="Deck" type="Sprite2D" parent="RightSide"]
-position = Vector2(303, 906)
-texture = ExtResource("8_3x77a")
-script = ExtResource("9_uj7ju")
 
 [node name="LeftSide" type="Control" parent="."]
 layout_mode = 3

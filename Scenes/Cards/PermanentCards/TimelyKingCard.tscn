@@ -6,6 +6,8 @@
 
 [node name="CardTemplate" instance=ExtResource("1_q38bx")]
 script = ExtResource("2_l3x5f")
+summary = "Get a multiplier bonus after the round if enemy king is captured within the first half of the turn limit."
+card_type = 1
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_cavi0")

@@ -6,6 +6,8 @@
 
 [node name="CardTemplate" instance=ExtResource("1_6budt")]
 script = ExtResource("2_e8p8h")
+summary = "Get a multiplier bonus after the round if you promoted a pawn this round."
+card_type = 1
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_ppam1")

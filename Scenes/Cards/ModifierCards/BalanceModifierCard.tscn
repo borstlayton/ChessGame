@@ -6,6 +6,8 @@
 
 [node name="CardTemplate" instance=ExtResource("1_7n3b3")]
 script = ExtResource("2_nw3xh")
+summary = "Get 2x when capturing a piece of the same value."
+card_type = 2
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_gc5rq")

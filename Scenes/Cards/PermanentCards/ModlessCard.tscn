@@ -6,6 +6,7 @@
 
 [node name="CardTemplate" instance=ExtResource("1_fdxp5")]
 script = ExtResource("2_m1lsd")
+card_type = 1
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_y8aas")
