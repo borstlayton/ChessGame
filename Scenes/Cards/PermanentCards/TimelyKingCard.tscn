@@ -1,13 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6661gtueqx83"]
+[gd_scene load_steps=5 format=3 uid="uid://b6661gtueqx83"]
 
 [ext_resource type="PackedScene" uid="uid://c8bptr0xc67bt" path="res://Scenes/Cards/PermanentCardTemplate.tscn" id="1_q38bx"]
 [ext_resource type="Texture2D" uid="uid://t8j2tiern7or" path="res://Art/Cards/PermanentCards/TimeKingCard.png" id="2_cavi0"]
 [ext_resource type="Script" path="res://Scripts/Cards/PermanentCards/timely_king_card.gd" id="2_l3x5f"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c72kx"]
+load_path = "res://.godot/imported/Backside.png-35d1a9c072de3bd956fdfaf2a0146472.ctex"
+
 [node name="CardTemplate" instance=ExtResource("1_q38bx")]
 script = ExtResource("2_l3x5f")
+card_name = "Timely King"
 summary = "Get a multiplier bonus after the round if enemy king is captured within the first half of the turn limit."
 card_type = 1
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_cavi0")
+
+[node name="Backside" parent="Backside" index="0"]
+texture = SubResource("CompressedTexture2D_c72kx")

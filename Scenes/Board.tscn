@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=21 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/Board/GridContainer.gd" id="2_6tt8d"]
@@ -15,8 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://cifn8asgnvula" path="res://Scenes/BountyBoard.tscn" id="6_up1y1"]
 [ext_resource type="Script" path="res://Scripts/Board/PermanentCardsContainer.gd" id="8_7cal6"]
 [ext_resource type="Script" path="res://Scripts/CardDisplay.gd" id="8_kpls1"]
+[ext_resource type="Texture2D" uid="uid://c2i63p2jk6nbt" path="res://Art/Board/PieceTotalBoard.png" id="11_a2tew"]
 [ext_resource type="Script" path="res://Scripts/GeneralLabels/TurnCounter.gd" id="11_vnya1"]
 [ext_resource type="Script" path="res://Scripts/Board/last_piece_taken.gd" id="12_rr2mm"]
+[ext_resource type="Texture2D" uid="uid://3j2qkwxidbg" path="res://Art/Board/RoundTotalPieceTaken.png" id="12_vpf2a"]
+[ext_resource type="FontFile" uid="uid://dhcqelidb0ak3" path="res://Art/Fonts/MedodicaRegular.otf" id="20_56i1p"]
 
 [node name="Board" type="Node2D"]
 position = Vector2(-2, -2)
@@ -348,7 +351,7 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -290.0
-offset_bottom = 110.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 3
@@ -390,7 +393,10 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -283.0
+offset_left = 100.0
+offset_top = -330.0
+offset_right = -100.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("12_rr2mm")
@@ -404,32 +410,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.244776, 0.244776, 0.244776, 1)
 
-[node name="PieceTaken" type="Sprite2D" parent="LeftSide/LastPieceTaken"]
-position = Vector2(287, 151)
-
-[node name="PiecePriceLabel" type="Label" parent="LeftSide/LastPieceTaken"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-horizontal_alignment = 1
-
-[node name="PieceTotalLabel" type="Label" parent="LeftSide/LastPieceTaken"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -37.0
-offset_top = -84.5
-offset_right = 3.0
-offset_bottom = -61.5
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_alignment = 1
-
 [node name="RoundTotal" type="Label" parent="LeftSide/LastPieceTaken"]
 layout_mode = 2
 offset_top = 220.0
@@ -439,7 +419,61 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("5_eqnbu")
 
+[node name="PieceTotalBoard" type="Sprite2D" parent="LeftSide/LastPieceTaken"]
+texture = ExtResource("11_a2tew")
+centered = false
+
+[node name="PieceInfoBoard" type="Sprite2D" parent="LeftSide/LastPieceTaken"]
+position = Vector2(0, 100)
+texture = ExtResource("12_vpf2a")
+centered = false
+
+[node name="PieceTaken" type="Sprite2D" parent="LeftSide/LastPieceTaken"]
+position = Vector2(302, 205)
+
+[node name="PriceLabels" type="HBoxContainer" parent="LeftSide/LastPieceTaken"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -100.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PieceValueLabel" type="Label" parent="LeftSide/LastPieceTaken/PriceLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BountyValueLabel" type="Label" parent="LeftSide/LastPieceTaken/PriceLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ModifierValueLabel" type="Label" parent="LeftSide/LastPieceTaken/PriceLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PieceTotalLabel" type="Label" parent="LeftSide/LastPieceTaken/PriceLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BountyBoard" parent="LeftSide" instance=ExtResource("6_up1y1")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+grow_horizontal = 2
 mouse_filter = 1
 
 [node name="Top" type="Control" parent="."]
@@ -504,23 +538,25 @@ script = ExtResource("6_4x2eg")
 
 [node name="PawnPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("20_56i1p")
 text = "pawn"
 
 [node name="PawnPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/PawnPurchase"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 31.0
-offset_right = 45.0
+offset_right = 31.0
 offset_bottom = 54.0
 text = "1"
 
 [node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/PawnPurchase"]
-position = Vector2(40, 42)
+position = Vector2(31, 42)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_nii58")
 
 [node name="BishopPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("20_56i1p")
 text = "bishop"
 
 [node name="BishopPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/BishopPurchase"]
@@ -532,12 +568,13 @@ offset_bottom = 53.0
 text = "3"
 
 [node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/BishopPurchase"]
-position = Vector2(48, 41)
+position = Vector2(37, 41)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_nii58")
 
 [node name="KnightPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("20_56i1p")
 text = "knight"
 
 [node name="KnightPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/KnightPurchase"]
@@ -549,12 +586,13 @@ offset_bottom = 52.0
 text = "3"
 
 [node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/KnightPurchase"]
-position = Vector2(46, 41)
+position = Vector2(35, 42)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_nii58")
 
 [node name="QueenPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("20_56i1p")
 text = "queen"
 
 [node name="QueenPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/QueenPurchase"]
@@ -566,12 +604,13 @@ offset_bottom = 53.0
 text = "8"
 
 [node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/QueenPurchase"]
-position = Vector2(45, 41)
+position = Vector2(36, 42)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_nii58")
 
 [node name="RookPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("20_56i1p")
 text = "rook"
 
 [node name="RookPrice" type="Label" parent="Bottom/GridContainer/PurchasePieces/RookPurchase"]
@@ -583,12 +622,13 @@ offset_bottom = 52.0
 text = "5"
 
 [node name="CoinSprite" type="Sprite2D" parent="Bottom/GridContainer/PurchasePieces/RookPurchase"]
-position = Vector2(35, 41)
+position = Vector2(31, 42)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_nii58")
 
 [node name="CancelPurchase" type="Button" parent="Bottom/GridContainer/PurchasePieces"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("20_56i1p")
 text = "cancel"
 
 [connection signal="button_down" from="ColorRect/Next Level" to="." method="_on_next_level_button_down"]

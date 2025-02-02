@@ -6,6 +6,7 @@
 
 [node name="CardTemplate" instance=ExtResource("1_7n3b3")]
 script = ExtResource("2_nw3xh")
+card_name = "Balance"
 summary = "Get 2x when capturing a piece of the same value."
 card_type = 2
 

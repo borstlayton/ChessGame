@@ -1,13 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2aalnqckq1pn"]
+[gd_scene load_steps=5 format=3 uid="uid://c2aalnqckq1pn"]
 
 [ext_resource type="PackedScene" uid="uid://c8bptr0xc67bt" path="res://Scenes/Cards/PermanentCardTemplate.tscn" id="1_6budt"]
 [ext_resource type="Script" path="res://Scripts/Cards/PermanentCards/pawn_promotion_card.gd" id="2_e8p8h"]
 [ext_resource type="Texture2D" uid="uid://co63jm6xkbh7c" path="res://Art/Cards/PermanentCards/PawnPromotionCard.png" id="2_ppam1"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c72kx"]
+load_path = "res://.godot/imported/Backside.png-35d1a9c072de3bd956fdfaf2a0146472.ctex"
+
 [node name="CardTemplate" instance=ExtResource("1_6budt")]
 script = ExtResource("2_e8p8h")
+card_name = "Pawn Promotion"
 summary = "Get a multiplier bonus after the round if you promoted a pawn this round."
 card_type = 1
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_ppam1")
+
+[node name="Backside" parent="Backside" index="0"]
+texture = SubResource("CompressedTexture2D_c72kx")
+
+[node name="NameLabel" parent="Backside/NamePlate" index="0"]
+theme_override_font_sizes/font_size = 1000

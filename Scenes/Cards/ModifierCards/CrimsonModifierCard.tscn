@@ -6,6 +6,7 @@
 
 [node name="CardTemplate" instance=ExtResource("1_ctenc")]
 script = ExtResource("2_wa4er")
+card_name = "Crimson"
 summary = "Get 2x when capturing, but lose 1.5x the piece's value when captured."
 card_type = 2
 

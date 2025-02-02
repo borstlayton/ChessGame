@@ -6,6 +6,7 @@
 
 [node name="CardTemplate" instance=ExtResource("1_6bkip")]
 script = ExtResource("2_kdjcp")
+card_name = "Hero"
 summary = "Get 2x when capturing with a piece worth less than the piece captured (does not work on king)."
 card_type = 2
 

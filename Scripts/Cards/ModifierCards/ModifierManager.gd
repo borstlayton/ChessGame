@@ -65,5 +65,5 @@ func handle_crown_modifier(piece_captured):
 	
 func handle_hero_modifier(piece_captured : String, piece_used : String):
 	piece_used = piece_used.to_lower()
-	if RoundManager.piece_values[piece_captured] > RoundManager.piece_values[piece_used]:
+	if RoundManager.piece_values[piece_captured] > RoundManager.piece_values[piece_used] and piece_captured != "k":
 		RoundManager.modifier_multiplier = 2

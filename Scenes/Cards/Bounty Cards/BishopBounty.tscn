@@ -6,6 +6,7 @@
 
 [node name="CardTemplate" instance=ExtResource("1_wwl3b")]
 script = ExtResource("2_5mku8")
+card_name = "Bishop Bounty"
 base_cost = 15
 summary = "Bishops captured in the next round are worth 2x more"
 

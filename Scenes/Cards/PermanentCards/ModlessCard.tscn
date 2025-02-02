@@ -1,13 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0qaq77pjgays"]
+[gd_scene load_steps=5 format=3 uid="uid://b0qaq77pjgays"]
 
 [ext_resource type="PackedScene" uid="uid://c8bptr0xc67bt" path="res://Scenes/Cards/PermanentCardTemplate.tscn" id="1_fdxp5"]
 [ext_resource type="Script" path="res://Scripts/Cards/PermanentCards/modless_card.gd" id="2_m1lsd"]
 [ext_resource type="Texture2D" uid="uid://jxbl516oxgpg" path="res://Art/Cards/PermanentCards/ModlessCard.png" id="2_y8aas"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c72kx"]
+load_path = "res://.godot/imported/Backside.png-35d1a9c072de3bd956fdfaf2a0146472.ctex"
+
 [node name="CardTemplate" instance=ExtResource("1_fdxp5")]
 script = ExtResource("2_m1lsd")
+card_name = "Modless"
 summary = "Get a multiplier bonus after the round if the king was taken on the very last turn."
 card_type = 1
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_y8aas")
+
+[node name="Backside" parent="Backside" index="0"]
+texture = SubResource("CompressedTexture2D_c72kx")

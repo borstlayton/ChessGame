@@ -14,6 +14,7 @@ class_name Card extends Node2D
 @onready var price_label = $CoinLabel/Price
 @onready var timer = $Timer
 @onready var card_type_label = $Backside/CardTypeLabel
+@onready var name_label = $Backside/NamePlate/NameLabel
 
 enum card_types{Bounty, Permanent, Modifier}
 var card_map := {
@@ -35,6 +36,7 @@ func _ready():
 	
 	summary_label.text = summary
 	card_type_label.text = card_map[card_type]
+	name_label.text = card_name
 	SignalManager.beat_level.connect(calculate_price)
 	calculate_price()
 	
