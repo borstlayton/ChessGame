@@ -59,13 +59,13 @@ public partial class ChessAi : Node
         { "n", 3 },  // Black knight
         { "b", 3 },  // Black bishop
         { "q", 9 },  // Black queen
-        { "k", 100 }, // Black king
+        { "k", 30 }, // Black king
         { "P", -1 }, // White pawn
         { "R", -5 }, // White rook
         { "N", -3 }, // White knight
         { "B", -3 }, // White bishop
         { "Q", -9 }, // White queen
-        { "K", -100 }, // White king
+        { "K", -150 }, // White king
         { "0", 0 }   // Empty square
     };
 	private static int Minimax(string[,] board, int depth, bool isMaximizing, int alpha, int beta)

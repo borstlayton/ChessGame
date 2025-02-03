@@ -19,7 +19,7 @@ func _ready():
 	
 	SignalManager.complete_purchase.connect(update_prices)
 	SignalManager.complete_purchase.connect(show_buttons)
-	
+	SignalManager.defeated.connect(update_prices)
 func _on_pawn_purchase_button_down():
 	start_purchase("P")
 func _on_bishop_purchase_button_down():
