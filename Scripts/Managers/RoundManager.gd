@@ -17,7 +17,7 @@ var piece_values = {
 	
 func _ready():
 	SignalManager.done_getting_perma_bonus.connect(reset_round)
-	
+	SignalManager.next_level_selected.connect(reset_round_total)
 func change_total(piece : String):
 	# Check if the captured piece was white
 	var white : bool = piece == piece.to_upper()
@@ -42,6 +42,7 @@ func change_total(piece : String):
 			piece_total *= BountyManager.bishop_bounty_amount
 	
 	round_total += piece_total
+	piece_total = 0
 	last_used_modifier_multiplier = modifier_multiplier
 	modifier_multiplier = 1
 	SignalManager.done_computing_piece_total.emit(piece_name)
@@ -56,5 +57,7 @@ func reset_round():
 	
 	round_total *= PermanentManager.perma_multiplier
 	ShopManager.current_coin_amount += round_total
-	round_total = 0
 	PermanentManager.perma_multiplier = 1
+
+func reset_round_total():
+	round_total = 0

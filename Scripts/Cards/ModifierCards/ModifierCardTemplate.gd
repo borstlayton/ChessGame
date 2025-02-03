@@ -12,11 +12,9 @@ func can_purchase():
 	
 	if not modifiable:
 		cannot_purchase.show()
-		buy_panel.hide()
 		
 	elif modifiable:
 		cannot_purchase.hide()
-		buy_panel.show()
 
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:

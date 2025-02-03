@@ -20,7 +20,7 @@ func _ready():
 	SignalManager.pawn_promoted.connect(pawn_promotion_boosts)
 	SignalManager.beat_level.connect(traverse_cards)
 	SignalManager.next_level_selected.connect(reset_bools)
-	
+	SignalManager.deleted_card.connect(deleted_card)
 func reset_bools():
 	
 	buzzer_beater= false
@@ -49,7 +49,10 @@ func modifier_boosts(location : Vector2):
 
 func pawn_promotion_boosts(_row : int, _column : int):
 	pawn_promotion = true
-
+	
+func deleted_card(index : int):
+	current_permanent_cards[index] = -1
+	current_cards_level[index] = 1
 func traverse_cards():
 	for i in range(current_permanent_cards.size()):
 		var card = current_permanent_cards[i]

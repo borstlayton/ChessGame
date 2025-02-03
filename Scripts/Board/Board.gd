@@ -98,6 +98,7 @@ func next_level():
 	BoardManager.current_level += 1
 	next_level_button.show()
 	purchase_pieces_gui.show()
+	parse_fen(BoardManager.current_level)
 	add_piece(60, BoardManager.fen_dict["K"]) #adding king
 	
 func _on_next_level_button_down():
@@ -105,7 +106,6 @@ func _on_next_level_button_down():
 	SignalManager.emit_signal("next_level_selected")
 	next_level_button.hide()
 	purchase_pieces_gui.hide()
-	parse_fen(BoardManager.current_level)
 	BoardManager.current_board_state = BoardManager.board_states.WHITE_IDLE
 
 func moving_purchased_piece(piece_type):

@@ -29,5 +29,51 @@ offset_top = -11.0
 offset_right = 20.0
 offset_bottom = 12.0
 
+[node name="SellMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -59.0
+offset_top = -41.0
+offset_right = 60.0
+offset_bottom = 40.0
+
+[node name="DeleteBackground" type="ColorRect" parent="SellMenu"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -8.0
+offset_right = 119.0
+offset_bottom = 29.0
+color = Color(0.396078, 0.396078, 0.396078, 0.745098)
+
+[node name="DeleteLabel" type="Label" parent="SellMenu/DeleteBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Delete Card?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeleteButton" type="Button" parent="SellMenu"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 29.0
+offset_right = 59.0
+offset_bottom = 60.0
+text = "Yes"
+
+[node name="CancelButton" type="Button" parent="SellMenu"]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 29.0
+offset_right = 119.0
+offset_bottom = 60.0
+text = "Cancel"
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="pressed" from="SellMenu/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="SellMenu/CancelButton" to="." method="_on_cancel_button_pressed"]

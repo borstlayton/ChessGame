@@ -23,6 +23,7 @@ func _ready():
 	
 	SignalManager.bought_permanent_card.connect(update_array)
 	SignalManager.card_leveled_up.connect(update_card_levels)
+	SignalManager.deleted_card.connect(delete_card)
 	
 func update_array(ID : int):
 	var index = -1
@@ -39,9 +40,12 @@ func update_array(ID : int):
 		
 func add_card(ID : int, index : int):
 	var scene = bought_permanent_cards[ID].instantiate()
+	scene.set_index(index)
 	get_child(index).add_child(scene)
 	update_card_levels(index, 1)
 
+func delete_card(index : int):
+	current_card_ID_array[index] = -1
 func check_availability():
 	
 	var can_purchase = false
