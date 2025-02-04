@@ -122,9 +122,18 @@ func _on_cancel_purchase_button_down():
 func clear_purchased_piece_scene():
 	purchased_piece.queue_free()
 
-func show_purchasable_tiles(_piece_type : String):
+func show_purchasable_tiles(piece_type : String):
 	var purchasable_tiles = []
-	for i in range(6,8):
+	
+	var tile_range_dict := {
+		"P": 4,
+		"N": 5,
+		"B": 5,
+		"R": 6,
+		"Q": 6
+	}
+	var row_start : int = tile_range_dict[piece_type]
+	for i in range(row_start,8):
 		for j in range(8):
 			if BoardManager.current_board[i][j] == "0":
 				purchasable_tiles.append(Vector2(i,j))
@@ -134,7 +143,7 @@ func show_purchasable_tiles(_piece_type : String):
 func modifier_moving(ID : int):
 	next_level_button.hide()
 	var modifiable_tiles = []
-	for i in range(6,8):
+	for i in range(4,8):
 		for j in range(8):
 			if BoardManager.current_board[i][j] != "0" and not grid_container.is_tile_modified(Vector2(i,j)):
 				modifiable_tiles.append(Vector2(i,j))
@@ -147,7 +156,7 @@ func modifier_moving(ID : int):
 	
 func check_modifiable(_tile : Vector2 = Vector2(-1,-1)):
 	var modifiable_tiles_on_board = false
-	for i in range(6,8):
+	for i in range(4,8):
 		for j in range(8):
 			if BoardManager.current_board[i][j] != "0" and not grid_container.is_tile_modified(Vector2(i,j)):
 				modifiable_tiles_on_board = true

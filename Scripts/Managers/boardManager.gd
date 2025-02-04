@@ -42,7 +42,7 @@ var level_fen := {
 var turns_per_level := {
 	0: 10,
 	1: 15,
-	2: 15,
+	2: 20,
 	3: 20,
 	4: 25,
 	5: 25,

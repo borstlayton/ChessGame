@@ -4,7 +4,7 @@ var original_color = Color("b52d00")
 
 func _ready():
 	SignalManager.pawn_promoted.connect(update_icon)
-	
+	SignalManager.modifier_placed.connect(clear_modifiable_tiles)
 #show_tiles
 #summary: shows all the valid tiles once called. This is connected to the tile_pressed signal from Board.gd
 #iterates through the valid_tiles (or tiles_shown) given for a certain tile then makes them dark olive green 
@@ -22,9 +22,10 @@ func show_current_tile(current_piece_tile : Vector2):
 	var ID = 8*current_piece_tile.x + current_piece_tile.y #converts the row and column to the ID of the tile so we can use get_child()
 	get_child(ID).set_color(Color.GOLD) 
 
+func clear_modifiable_tiles(location : Vector2):
+	clear_valid_tiles()
 #clear_valid_tiles
 #summary: goes through all the tiles in GridContainer (chessboard) and changes all their color to their default
-#this is called from tile.gd when the button_up signal is emitted. 
 func clear_valid_tiles():
 	for i in range(8):
 		for j in range(8):
