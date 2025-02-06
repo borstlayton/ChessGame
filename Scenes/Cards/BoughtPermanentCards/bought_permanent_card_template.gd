@@ -31,7 +31,6 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 
 func set_index(ind : int):
 	index = ind
-	print(index)
 	
 func _on_delete_button_pressed() -> void:
 	self.queue_free()

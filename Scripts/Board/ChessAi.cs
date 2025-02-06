@@ -8,21 +8,21 @@ public partial class ChessAi : Node
 	{
 	}
 	public string[,] ConvertAndUseBoard(string[] godotArray)
-    {
-        // Initialize a new 2D array (string[,])
-        string[,] board = new string[8, 8];  // 8x8 board for chess
-        
-        // Copy the contents of the 1D Godot array into the C# 2D array (string[,])
-        int index = 0;
-        for (int i = 0; i < 8; i++)  // Loop through rows
-        {
-            for (int j = 0; j < 8; j++)  // Loop through columns
-            {
-                // Assign values from the 1D array to the 2D array
-                board[i, j] = godotArray[index];
-                index++;
-            }
-        }
+	{
+		// Initialize a new 2D array (string[,])
+		string[,] board = new string[8, 8];  // 8x8 board for chess
+		
+		// Copy the contents of the 1D Godot array into the C# 2D array (string[,])
+		int index = 0;
+		for (int i = 0; i < 8; i++)  // Loop through rows
+		{
+			for (int j = 0; j < 8; j++)  // Loop through columns
+			{
+				// Assign values from the 1D array to the 2D array
+				board[i, j] = godotArray[index];
+				index++;
+			}
+		}
 		return board;
 	}
 	public string get_best_move(string[] arr)
@@ -53,21 +53,21 @@ public partial class ChessAi : Node
 		return best_move;
 	}
 	private static readonly Dictionary<string, int> PieceValues = new Dictionary<string, int>
-    {
-        { "p", 1 },  // Black pawn
-        { "r", 5 },  // Black rook
-        { "n", 3 },  // Black knight
-        { "b", 3 },  // Black bishop
-        { "q", 9 },  // Black queen
-        { "k", 30 }, // Black king
-        { "P", -1 }, // White pawn
-        { "R", -5 }, // White rook
-        { "N", -3 }, // White knight
-        { "B", -3 }, // White bishop
-        { "Q", -9 }, // White queen
-        { "K", -150 }, // White king
-        { "0", 0 }   // Empty square
-    };
+	{
+		{ "p", 1 },  // Black pawn
+		{ "r", 5 },  // Black rook
+		{ "n", 3 },  // Black knight
+		{ "b", 3 },  // Black bishop
+		{ "q", 9 },  // Black queen
+		{ "k", 30 }, // Black king
+		{ "P", -1 }, // White pawn
+		{ "R", -5 }, // White rook
+		{ "N", -3 }, // White knight
+		{ "B", -3 }, // White bishop
+		{ "Q", -9 }, // White queen
+		{ "K", -150 }, // White king
+		{ "0", 0 }   // Empty square
+	};
 	private static int Minimax(string[,] board, int depth, bool isMaximizing, int alpha, int beta)
 	{
 		// Base case: return the board evaluation if depth is 0 or the game is over
@@ -138,68 +138,68 @@ public partial class ChessAi : Node
 		return bestMove;
 	}
 
-    private static int Minimax(string[,] board, int depth, bool isMaximizing)
-    {
-        if (depth == 0 || IsGameOver(board))
-        {
-            return EvaluateBoard(board);
-        }
+	private static int Minimax(string[,] board, int depth, bool isMaximizing)
+	{
+		if (depth == 0 || IsGameOver(board))
+		{
+			return EvaluateBoard(board);
+		}
 
-        if (isMaximizing)
-        {
-            int maxEval = int.MinValue;
+		if (isMaximizing)
+		{
+			int maxEval = int.MinValue;
 
-            foreach (var move in GenerateAllPossibleMoves(board, "black"))
-            {
-                string[,] newBoard = ApplyMove(board, move);
-                int eval = Minimax(newBoard, depth - 1, false);
-                maxEval = Math.Max(maxEval, eval);
-            }
+			foreach (var move in GenerateAllPossibleMoves(board, "black"))
+			{
+				string[,] newBoard = ApplyMove(board, move);
+				int eval = Minimax(newBoard, depth - 1, false);
+				maxEval = Math.Max(maxEval, eval);
+			}
 
-            return maxEval;
-        }
-        else
-        {
-            int minEval = int.MaxValue;
+			return maxEval;
+		}
+		else
+		{
+			int minEval = int.MaxValue;
 
-            foreach (var move in GenerateAllPossibleMoves(board, "white"))
-            {
-                string[,] newBoard = ApplyMove(board, move);
-                int eval = Minimax(newBoard, depth - 1, true);
-                minEval = Math.Min(minEval, eval);
-            }
+			foreach (var move in GenerateAllPossibleMoves(board, "white"))
+			{
+				string[,] newBoard = ApplyMove(board, move);
+				int eval = Minimax(newBoard, depth - 1, true);
+				minEval = Math.Min(minEval, eval);
+			}
 
-            return minEval;
-        }
-    }
+			return minEval;
+		}
+	}
 
-    private static int EvaluateBoard(string[,] board)
-    {
-        int score = 0;
+	private static int EvaluateBoard(string[,] board)
+	{
+		int score = 0;
 
-        foreach (string piece in board)
-        {
-            score += PieceValues[piece];
-        }
+		foreach (string piece in board)
+		{
+			score += PieceValues[piece];
+		}
 
-        return score;
-    }
+		return score;
+	}
 
-    private static bool IsGameOver(string[,] board)
-    {
-        bool whiteKing = false;
-        bool blackKing = false;
+	private static bool IsGameOver(string[,] board)
+	{
+		bool whiteKing = false;
+		bool blackKing = false;
 
-        foreach (string piece in board)
-        {
-            if (piece == "K") whiteKing = true;
-            if (piece == "k") blackKing = true;
-        }
+		foreach (string piece in board)
+		{
+			if (piece == "K") whiteKing = true;
+			if (piece == "k") blackKing = true;
+		}
 
-        return !(whiteKing && blackKing); // Game over if one king is missing
-    }
+		return !(whiteKing && blackKing); // Game over if one king is missing
+	}
 
-    private static List<string> GenerateAllPossibleMoves(string[,] board, string color)
+	private static List<string> GenerateAllPossibleMoves(string[,] board, string color)
 	{
 		var moves = new List<string>();
 
@@ -238,10 +238,10 @@ public partial class ChessAi : Node
 			}
 		}
 
-    	return moves;
+		return moves;
 	}
 
-    private static string[,] ApplyMove(string[,] board, string move)
+	private static string[,] ApplyMove(string[,] board, string move)
 	{
 		string[,] newBoard = (string[,])board.Clone();
 
@@ -266,15 +266,15 @@ public partial class ChessAi : Node
 	}
 	private static bool IsInBounds(int row, int col)
 	{
-    return row >= 0 && row < 8 && col >= 0 && col < 8;
+	return row >= 0 && row < 8 && col >= 0 && col < 8;
 	}
 
 	private static bool IsEnemyPiece(string piece, string color)
 	{
-    if (color == "white")
-        return char.IsLower(piece[0]); // Enemy pieces are lowercase for white
-    else
-        return char.IsUpper(piece[0]); // Enemy pieces are uppercase for black
+	if (color == "white")
+		return char.IsLower(piece[0]); // Enemy pieces are lowercase for white
+	else
+		return char.IsUpper(piece[0]); // Enemy pieces are uppercase for black
 	}
 	private static List<string> GeneratePawnMoves(string[,] board, int row, int col, string color)
 	{
@@ -372,7 +372,7 @@ public partial class ChessAi : Node
 	}
 	private static List<string> GenerateBishopMoves(string[,] board, int row, int col, string color)
 	{
-    	return GenerateSlidingMoves(board, row, col, color, new int[,] { { -1, -1 }, { -1, 1 }, { 1, -1 }, { 1, 1 } });
+		return GenerateSlidingMoves(board, row, col, color, new int[,] { { -1, -1 }, { -1, 1 }, { 1, -1 }, { 1, 1 } });
 	}
 	private static List<string> GenerateQueenMoves(string[,] board, int row, int col, string color)
 	{
@@ -403,38 +403,35 @@ public partial class ChessAi : Node
 		// Placeholder: Add castling logic here
 		return moves;
 	}
-	private static List<string> GenerateSlidingMoves(string[,] board, int row, int col, string color, int[,] directions)
+private static List<string> GenerateSlidingMoves(string[,] board, int row, int col, string color, int[,] directions)
+{
+	var moves = new List<string>();
+
+	// Iterate over the directions using a for loop
+	for (int d = 0; d < directions.GetLength(0); d++)
 	{
-		var moves = new List<string>();
+		int dRow = directions[d, 0];
+		int dCol = directions[d, 1];
 
-		int[][] directions_slide = {
-			new int[] { -1, -1 }, new int[] { -1, 1 }, new int[] { 1, -1 }, new int[] { 1, 1 }, // Diagonal
-			new int[] { -1, 0 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { 0, 1 }   // Straight
-		};
-
-		foreach (var direction in directions_slide)
+		for (int i = 1; IsInBounds(row + i * dRow, col + i * dCol); i++)
 		{
-			int dRow = direction[0], dCol = direction[1];
+			int newRow = row + i * dRow;
+			int newCol = col + i * dCol;
 
-			for (int i = 1; IsInBounds(row + i * dRow, col + i * dCol); i++)
+			if (board[newRow, newCol] == "0") // Empty square
 			{
-				int newRow = row + i * dRow;
-				int newCol = col + i * dCol;
-
-				if (board[newRow, newCol] == "0") // Empty square
-				{
-					moves.Add($"{row}{col}{newRow}{newCol}");
-				}
-				else if (IsEnemyPiece(board[newRow, newCol], color)) // Capture
-				{
-					moves.Add($"{row}{col}{newRow}{newCol}");
-					break; // Block further movement
-				}
-				else break; // Blocked by same-color piece
+				moves.Add($"{row}{col}{newRow}{newCol}");
 			}
+			else if (IsEnemyPiece(board[newRow, newCol], color)) // Capture
+			{
+				moves.Add($"{row}{col}{newRow}{newCol}");
+				break; // Block further movement
+			}
+			else break; // Blocked by same-color piece
 		}
-
-		return moves;
 	}
+
+	return moves;
 }
 
+}

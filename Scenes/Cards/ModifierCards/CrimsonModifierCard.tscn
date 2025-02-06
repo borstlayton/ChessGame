@@ -12,3 +12,6 @@ card_type = 2
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("3_2dxf6")
+
+[node name="NamePlate" parent="Backside" index="3"]
+texture = null

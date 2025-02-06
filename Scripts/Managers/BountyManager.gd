@@ -29,6 +29,8 @@ func retreive_bounty(piece_name):
 			return queen_bounty_amount
 		"r":
 			return rook_bounty_amount
+		"b":
+			return bishop_bounty_amount
 			
 func update_bounty(cardID : int):
 	match cardID:

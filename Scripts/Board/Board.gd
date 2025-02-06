@@ -71,7 +71,8 @@ func add_piece(num_grid, piece_type):
 	BoardManager.create_board(num_grid, piece_type)
 	
 func parse_fen(level):
-	var fen = BoardManager.level_fen[level]
+	var fen = FenManager.get_random_fen(FenManager.fen_lower_bounds[level], FenManager.fen_upper_bounds[level])
+	#var fen = BoardManager.level_fen[level]
 	var boardstate = fen.split(" ")
 	var board_index := 0
 
@@ -117,7 +118,7 @@ func moving_purchased_piece(piece_type):
 
 func _on_cancel_purchase_button_down():
 	purchased_piece.queue_free()
-	print("Best Move Update Complete")
+	grid_container.clear_valid_tiles()
 
 func clear_purchased_piece_scene():
 	purchased_piece.queue_free()
