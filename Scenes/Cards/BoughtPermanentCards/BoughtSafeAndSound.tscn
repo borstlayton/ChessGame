@@ -6,10 +6,10 @@
 
 [node name="BoughtPermanentCardTemplate" instance=ExtResource("1_bd5hb")]
 script = ExtResource("2_34bxy")
-card_name = ""
-card_ID = 0
-base_cost = 0
-summary = ""
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_nt6lg")
+
+[node name="Summary" parent="." index="4"]
+card_name = "Safe And Sound"
+card_summary = "Gives an after round multiplier if none of your pieces were taken in the previous round."

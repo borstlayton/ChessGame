@@ -9,3 +9,7 @@ script = ExtResource("2_rc15r")
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_33xqs")
+
+[node name="Summary" parent="." index="4"]
+card_name = "Pawn Promotion"
+card_summary = "Gives an after round multiplier if a pawn was promoted this round."

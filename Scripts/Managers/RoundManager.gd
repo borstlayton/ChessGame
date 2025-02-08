@@ -18,6 +18,7 @@ var piece_values = {
 func _ready():
 	SignalManager.done_getting_perma_bonus.connect(reset_round)
 	SignalManager.next_level_selected.connect(reset_round_total)
+	SignalManager.defeated.connect(reset_round_total)
 func change_total(piece : String):
 	# Check if the captured piece was white
 	var white : bool = piece == piece.to_upper()

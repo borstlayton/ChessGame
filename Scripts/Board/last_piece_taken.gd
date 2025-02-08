@@ -8,6 +8,7 @@ extends Control
 func _ready():
 	SignalManager.captured_piece.connect(determine_piece)
 	SignalManager.done_computing_piece_total.connect(update_text)
+	SignalManager.defeated.connect(reset_board)
 	
 func determine_piece(piece_taken : String, _piece_used : String, _column : int, _row : int, _past_column : int, _past_row : int):
 	if piece_taken == piece_taken.to_lower(): #is black piece
@@ -25,3 +26,11 @@ func update_text(piece_taken : String):
 	bounty_value_label.text = str(bounty_amount)
 	modifier_value_label.text = str(modifier_amount)
 	total_piece.text = str(int(piece_value * bounty_amount * modifier_amount))
+
+func reset_board():
+	piece_price_label.text = ""
+	bounty_value_label.text = ""
+	modifier_value_label.text = ""
+	total_piece.text = ""
+	
+	sprite.texture = null

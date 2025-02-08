@@ -2,13 +2,23 @@ class_name BoughtPermanentCard extends Node2D
 
 @onready var level_label = $LevelDisplay/Label
 @onready var sell_menu = $SellMenu
+@onready var timer = $Timer
+@onready var summary_panel = $Summary
+
+var is_hovered : bool = false
 var tween_hover : Tween
 var index : int
 
 func _ready():
 	sell_menu.hide()
-
+	summary_panel.hide()
+	
+	SignalManager.defeated.connect(_on_delete_button_pressed)
+	
 func _on_area_2d_mouse_entered() -> void:
+	is_hovered = true
+	timer.start()
+	
 	if tween_hover and tween_hover.is_running():
 		tween_hover.kill()
 	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -16,6 +26,10 @@ func _on_area_2d_mouse_entered() -> void:
 	
 
 func _on_area_2d_mouse_exited() -> void:
+	is_hovered = false
+	timer.stop()
+	summary_panel.hide()
+	
 	if tween_hover and tween_hover.is_running():
 		tween_hover.kill()
 	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -38,3 +52,8 @@ func _on_delete_button_pressed() -> void:
 	
 func _on_cancel_button_pressed() -> void:
 	sell_menu.hide()
+
+
+func _on_timer_timeout() -> void:
+	if is_hovered:
+		summary_panel.show()
