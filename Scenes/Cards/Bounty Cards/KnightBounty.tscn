@@ -7,7 +7,7 @@
 [node name="CardTemplate" node_paths=PackedStringArray("card_image") instance=ExtResource("1_51q2u")]
 script = ExtResource("2_bj0cb")
 card_name = "Knight Bounty"
-base_cost = 15
+base_cost = 4
 card_image = NodePath("CardSprite")
 summary = "Knights captured in the next round are worth 2x more"
 

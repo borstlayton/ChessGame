@@ -27,8 +27,8 @@ var tween_hover : Tween
 var can_buy = true
 var is_hovered = false
 var card_cost
-var k = 7
-var n = 4
+var k = 9
+var n = 6
 
 func _ready():
 	buy_panel.hide()

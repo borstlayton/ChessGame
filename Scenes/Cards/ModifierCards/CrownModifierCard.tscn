@@ -7,6 +7,7 @@
 [node name="CardTemplate" instance=ExtResource("1_k1esn")]
 script = ExtResource("2_8mfbn")
 card_name = "Crown"
+base_cost = 2
 summary = "Get 2x if this piece captures the king."
 card_type = 2
 

@@ -7,6 +7,7 @@
 [node name="CardTemplate" instance=ExtResource("1_cr85o")]
 script = ExtResource("2_hdxor")
 card_name = "Speed"
+base_cost = 3
 summary = "Get 2x when capturing a piece in the first 10 moves."
 card_type = 2
 

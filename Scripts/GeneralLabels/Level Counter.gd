@@ -2,4 +2,4 @@ extends Label
 
 
 func _process(_delta):
-	text = "Level: " + str(BoardManager.current_level)
+	text = str((BoardManager.current_level+1), "/20")

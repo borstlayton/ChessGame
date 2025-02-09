@@ -7,7 +7,7 @@
 [node name="CardTemplate" instance=ExtResource("1_1immy")]
 script = ExtResource("2_nmkds")
 card_name = "Rook Bounty"
-base_cost = 15
+base_cost = 4
 summary = "Rooks captured in the next round are worth 2x more"
 
 [node name="CardSprite" parent="." index="0"]

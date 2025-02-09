@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=19 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/Board/GridContainer.gd" id="2_6tt8d"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Scripts/GeneralLabels/TurnCounter.gd" id="11_vnya1"]
 [ext_resource type="Script" path="res://Scripts/Board/last_piece_taken.gd" id="12_rr2mm"]
 [ext_resource type="Texture2D" uid="uid://3j2qkwxidbg" path="res://Art/Board/RoundTotalPieceTaken.png" id="12_vpf2a"]
+[ext_resource type="Texture2D" uid="uid://rykn0n657y0n" path="res://Art/Board/InfoHeader.png" id="17_fcerq"]
 
 [node name="Board" type="Node2D"]
 position = Vector2(-2, -2)
@@ -85,7 +86,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-color = Color(1, 0.00999999, 0.00999999, 1)
+color = Color(1, 0.0117647, 0.0117647, 0.470588)
 
 [node name="Reset" type="Button" parent="ColorRect/Defeat/DefeatBackground"]
 layout_mode = 1
@@ -188,6 +189,63 @@ theme_override_font_sizes/font_size = 28
 text = "Cards Leveled Up This Round"
 horizontal_alignment = 1
 
+[node name="Top" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 600.0
+offset_right = 1320.0
+offset_bottom = 180.0
+
+[node name="Header" type="Sprite2D" parent="Top"]
+position = Vector2(160, 0)
+texture = ExtResource("17_fcerq")
+centered = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Top"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 70.0
+offset_right = 200.0
+offset_bottom = 140.0
+grow_horizontal = 2
+
+[node name="Level Counter" type="Label" parent="Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_o4k1a")
+
+[node name="Turn Counter" type="Label" parent="Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+script = ExtResource("11_vnya1")
+
+[node name="CoinCounter" type="Label" parent="Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_cx7gl")
+
+[node name="CoinSprite" type="Sprite2D" parent="Top/HBoxContainer/CoinCounter"]
+position = Vector2(89, 12)
+scale = Vector2(0.812499, 0.812499)
+texture = ExtResource("6_nii58")
+
+[node name="Board State" type="Label" parent="Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_lnx8x")
+
 [node name="RightSide" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -218,7 +276,7 @@ offset_bottom = -150.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.180005, 0.180005, 0.180005, 1)
+color = Color(0.133333, 0.12549, 0.203922, 1)
 
 [node name="ModifierCardDisplay" type="Control" parent="RightSide/ModifierCardsBackground"]
 layout_mode = 1
@@ -266,7 +324,7 @@ offset_top = 450.0
 offset_right = 600.0
 offset_bottom = 750.0
 mouse_filter = 2
-color = Color(0.19, 0.19, 0.19, 1)
+color = Color(0.133333, 0.12549, 0.203922, 1)
 
 [node name="BountyandPermaDisplay" type="Control" parent="RightSide/BountyAndPermaBackground"]
 layout_mode = 1
@@ -447,49 +505,11 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -200.0
+offset_top = 3.0
 offset_right = 200.0
+offset_bottom = 253.0
 grow_horizontal = 2
 mouse_filter = 1
-
-[node name="Top" type="Control" parent="."]
-clip_contents = true
-layout_mode = 3
-anchors_preset = 0
-offset_left = 600.0
-offset_right = 1320.0
-offset_bottom = 180.0
-
-[node name="HBoxContainer" type="VBoxContainer" parent="Top"]
-clip_contents = true
-layout_mode = 0
-offset_right = 720.0
-offset_bottom = 180.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Level Counter" type="Label" parent="Top/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-script = ExtResource("2_o4k1a")
-
-[node name="Board State" type="Label" parent="Top/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-script = ExtResource("4_lnx8x")
-
-[node name="TurnCounter" type="Label" parent="Top/HBoxContainer"]
-layout_mode = 2
-script = ExtResource("11_vnya1")
-
-[node name="CoinCounter" type="Label" parent="Top/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-script = ExtResource("5_cx7gl")
-
-[node name="CoinSprite" type="Sprite2D" parent="Top/HBoxContainer/CoinCounter"]
-position = Vector2(74, 12)
-texture = ExtResource("6_nii58")
 
 [node name="Bottom" type="Control" parent="."]
 clip_contents = true

@@ -5,7 +5,7 @@ extends Label
 func _ready() -> void:
 	SignalManager.turn_change.connect(change_text)
 	SignalManager.next_level_selected.connect(change_text)
-	text = str("Current turn: 0")
+	text = str("0")
 	
 func change_text():
-	text = str("Current turn: ", BoardManager.turn_counter, "/", BoardManager.turns_per_level[BoardManager.current_level] )
+	text = str(BoardManager.turn_counter, "/", BoardManager.turns_per_level[BoardManager.current_level] )
