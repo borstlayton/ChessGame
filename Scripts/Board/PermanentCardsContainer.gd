@@ -42,7 +42,7 @@ func add_card(ID : int, index : int):
 	var scene = bought_permanent_cards[ID].instantiate()
 	scene.set_index(index)
 	get_child(index).add_child(scene)
-	update_card_levels(index, 1)
+	update_card_levels(index, 0)
 
 func delete_card(index : int):
 	current_card_ID_array[index] = -1

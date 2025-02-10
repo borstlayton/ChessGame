@@ -13,3 +13,4 @@ texture = ExtResource("2_33xqs")
 [node name="Summary" parent="." index="4"]
 card_name = "Pawn Promotion"
 card_summary = "Gives an after round multiplier if a pawn was promoted this round."
+ID = 4

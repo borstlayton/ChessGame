@@ -36,7 +36,7 @@ func _on_area_2d_mouse_exited() -> void:
 	tween_hover.tween_property(self, "scale", Vector2(1,1), 0.55)
 
 func update_level_display(level : int):
-	level_label.text = str("Lvl ", level)
+	level_label.text = str("Lvl ", level+1)
 
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:

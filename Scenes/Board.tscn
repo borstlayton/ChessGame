@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c26jsfa5u6he4"]
+[gd_scene load_steps=20 format=3 uid="uid://c26jsfa5u6he4"]
 
 [ext_resource type="Script" path="res://Scripts/Board/Board.gd" id="1_bohl5"]
 [ext_resource type="Script" path="res://Scripts/Board/GridContainer.gd" id="2_6tt8d"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Scripts/GeneralLabels/TurnCounter.gd" id="11_vnya1"]
 [ext_resource type="Script" path="res://Scripts/Board/last_piece_taken.gd" id="12_rr2mm"]
 [ext_resource type="Texture2D" uid="uid://3j2qkwxidbg" path="res://Art/Board/RoundTotalPieceTaken.png" id="12_vpf2a"]
+[ext_resource type="Script" path="res://Scripts/Board/next_level_tester.gd" id="12_wbvtg"]
 [ext_resource type="Texture2D" uid="uid://rykn0n657y0n" path="res://Art/Board/InfoHeader.png" id="17_fcerq"]
 
 [node name="Board" type="Node2D"]
@@ -188,6 +189,55 @@ offset_bottom = 89.0
 theme_override_font_sizes/font_size = 28
 text = "Cards Leveled Up This Round"
 horizontal_alignment = 1
+
+[node name="Victory" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VictoryBackground" type="ColorRect" parent="ColorRect/Victory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 0.482353)
+
+[node name="Reset" type="Button" parent="ColorRect/Victory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Reset"
+
+[node name="VictoryLabel" type="Label" parent="ColorRect/Victory"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Victory (you're the GOAT)"
 
 [node name="Top" type="Control" parent="."]
 clip_contents = true
@@ -365,12 +415,32 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
+[node name="NextLevelTester" type="Button" parent="RightSide"]
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Next Level Tester"
+script = ExtResource("12_wbvtg")
+
 [node name="LeftSide" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 600.0
 offset_bottom = 1080.0
 mouse_filter = 2
+
+[node name="BountyBoard" parent="LeftSide" instance=ExtResource("6_up1y1")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 3.0
+offset_right = 200.0
+offset_bottom = 253.0
+grow_horizontal = 2
+mouse_filter = 1
 
 [node name="PermanentCardsContainer" type="GridContainer" parent="LeftSide"]
 layout_mode = 1
@@ -386,11 +456,14 @@ columns = 3
 script = ExtResource("8_7cal6")
 
 [node name="Card1" type="CenterContainer" parent="LeftSide/PermanentCardsContainer"]
+z_index = 2
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="Card2" type="CenterContainer" parent="LeftSide/PermanentCardsContainer"]
+visibility_layer = 2
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -401,11 +474,13 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="Card4" type="CenterContainer" parent="LeftSide/PermanentCardsContainer"]
+z_index = 2
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="Card5" type="CenterContainer" parent="LeftSide/PermanentCardsContainer"]
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -498,18 +573,6 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="BountyBoard" parent="LeftSide" instance=ExtResource("6_up1y1")]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = 3.0
-offset_right = 200.0
-offset_bottom = 253.0
-grow_horizontal = 2
-mouse_filter = 1
 
 [node name="Bottom" type="Control" parent="."]
 clip_contents = true
@@ -625,6 +688,8 @@ text = "cancel"
 [connection signal="button_down" from="ColorRect/Next Level" to="RightSide/BountyAndPermaBackground/BountyandPermaDisplay" method="_on_next_level_button_down"]
 [connection signal="button_down" from="ColorRect/Defeat/DefeatBackground/Reset" to="." method="_on_reset_button_down"]
 [connection signal="timeout" from="ColorRect/CardsUsedInRound/ColorRect/CardsUsed/Timer" to="ColorRect/CardsUsedInRound/ColorRect/CardsUsed" method="_on_timer_timeout"]
+[connection signal="button_down" from="ColorRect/Victory/Reset" to="." method="_on_reset_button_down"]
+[connection signal="button_down" from="RightSide/NextLevelTester" to="RightSide/NextLevelTester" method="_on_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/PawnPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_pawn_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/BishopPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_bishop_purchase_button_down"]
 [connection signal="button_down" from="Bottom/GridContainer/PurchasePieces/KnightPurchase" to="Bottom/GridContainer/PurchasePieces" method="_on_knight_purchase_button_down"]

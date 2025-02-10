@@ -13,3 +13,4 @@ texture = ExtResource("2_nt6lg")
 [node name="Summary" parent="." index="4"]
 card_name = "Safe And Sound"
 card_summary = "Gives an after round multiplier if none of your pieces were taken in the previous round."
+ID = 5

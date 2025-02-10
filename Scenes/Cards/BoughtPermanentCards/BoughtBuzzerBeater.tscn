@@ -9,3 +9,8 @@ script = ExtResource("2_v4wui")
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("3_k5i74")
+
+[node name="Summary" parent="." index="4"]
+card_name = "Buzzer Beater"
+card_summary = "Gives after round bonus if the king is captured on the very last turn."
+ID = 1

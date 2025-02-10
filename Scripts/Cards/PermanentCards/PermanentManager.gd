@@ -2,7 +2,7 @@ extends Node
 
 var slots_available
 var current_permanent_cards = [-1,-1,-1,-1,-1,-1]
-var current_cards_level = [1,1,1,1,1,1]
+var current_cards_level = [0,0,0,0,0,0]
 var perma_multiplier = 1
 
 var buzzer_beater : bool = false
@@ -74,8 +74,9 @@ func traverse_cards():
 				used = timely_king
 		
 		if used:
-			current_cards_level[i] += 1
-			SignalManager.card_leveled_up.emit(i, current_cards_level[i])
+			if current_cards_level[i] < 9:
+				current_cards_level[i] += 1
+				SignalManager.card_leveled_up.emit(i, current_cards_level[i])
 			perma_multiplier *= BoostsLevel.level_boosts[card-1][current_cards_level[i]]
 			
 	SignalManager.done_getting_perma_bonus.emit()

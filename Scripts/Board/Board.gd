@@ -7,7 +7,7 @@ extends Node2D
 @onready var purchase_pieces_gui = $Bottom/GridContainer/PurchasePieces
 @onready var purchase_piece_scene = load("res://Scenes/Purchasable Piece.tscn")
 @onready var modifier_scene = preload("res://Scenes/Modifier.tscn")
-
+@onready var victory_gui = $ColorRect/Victory
 var new_modifier
 var has_modifier : bool = false
 var purchased_piece
@@ -40,6 +40,7 @@ func setup_run():
 	next_level_button.show()
 	purchase_pieces_gui.show()
 	defeat_gui.hide()
+	victory_gui.hide()
 	create_board()
 	BoardManager.current_board_state = BoardManager.board_states.PURCHASE
 	
@@ -97,10 +98,15 @@ func move_piece_grid(current_piece : Vector2, next_piece : Vector2):
 func next_level():
 	clear_board()
 	BoardManager.current_level += 1
-	next_level_button.show()
-	purchase_pieces_gui.show()
-	parse_fen(BoardManager.current_level)
-	add_piece(60, BoardManager.fen_dict["K"]) #adding king
+	
+	if BoardManager.current_level > 19:
+		victory_gui.show()
+	
+	else:
+		next_level_button.show()
+		purchase_pieces_gui.show()
+		parse_fen(BoardManager.current_level)
+		add_piece(60, BoardManager.fen_dict["K"]) #adding king
 	
 func _on_next_level_button_down():
 	BoardManager.turn_counter = 0

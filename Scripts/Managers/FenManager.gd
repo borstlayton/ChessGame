@@ -33,7 +33,6 @@ var fen_lower_bounds := {
 	17: 29,
 	18: 32,
 	19: 34,
-	20: 36
 }
 var fen_upper_bounds := {
 	0: -3,
@@ -56,7 +55,6 @@ var fen_upper_bounds := {
 	17: 33,
 	18: 35,
 	19: 38,
-	20: 40
 }
 var fens := []
 func _ready() -> void:

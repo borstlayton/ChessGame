@@ -23,3 +23,12 @@ r3kn2/4b3/4p3/8/8/8/8/4K3
 8/p4kp1/1p3p2/8/8/3P4/4R3/4K3
 3k4/p1bpb1p1/1p3p2/8/8/8/4R3/4K3
 5k2/6p1/5p2/8/8/8/1B6/4K3
+2q5/1rkr4/1p1b2p1/2p5/8/8/7N/4K3
+1qqkr3/3brp2/1pp1p3/8/8/8/8/4K3
+2rkr3/2n1pp2/2pp4/8/8/8/8/4K3
+2qkr3/1p2pp2/2pp4/8/8/8/8/4K3
+2q2kn1/1prqpp2/2pp2p1/8/8/8/8/4K3
+1nq3n1/1kb1pp2/rpp3p1/p7/8/8/8/4K2R
+1nq3n1/2rk4/rp1bb1p1/p2ppp2/8/8/8/4K3
+1n6/2rb1knp/r1pbb1p1/p2ppp2/8/8/8/4K3
+1n6/1nrbkrnp/1pp2pp1/3pp3/8/8/8/4K3

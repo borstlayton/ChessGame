@@ -6,7 +6,6 @@ func _ready():
 	super()
 	cannot_purchase.hide()
 	SignalManager.done_checking_modifiable_board.connect(can_purchase)
-	
 func can_purchase():
 	modifiable = ModifierManager.is_modifiable
 	
@@ -24,3 +23,7 @@ func _on_area_2d_input_event(_viewport, event, _shape_idx):
 
 func card_effect():
 	SignalManager.modifier_purchased.emit(0)
+
+
+func release_card():
+	self.queue_free()

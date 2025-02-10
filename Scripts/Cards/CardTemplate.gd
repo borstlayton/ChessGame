@@ -42,7 +42,7 @@ func _ready():
 	
 func calculate_price():
 	
-	card_cost = int(base_cost * (1 + BoardManager.current_level/k) * exp (BoardManager.current_level/n)) + BoardManager.current_level
+	card_cost = int((base_cost * (1 + BoardManager.current_level/k) * exp (BoardManager.current_level/n)) + BoardManager.current_level)
 	price_label.text = str(card_cost)
 	
 func _on_area_2d_input_event(_viewport, event, _shape_idx):

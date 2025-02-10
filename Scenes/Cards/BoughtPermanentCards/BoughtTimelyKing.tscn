@@ -9,3 +9,8 @@ script = ExtResource("2_8j0y2")
 
 [node name="CardSprite" parent="." index="0"]
 texture = ExtResource("2_eo3it")
+
+[node name="Summary" parent="." index="4"]
+card_name = "Timely King"
+card_summary = "Gives after round bonus if you capture the king within the first half of turn limit."
+ID = 6

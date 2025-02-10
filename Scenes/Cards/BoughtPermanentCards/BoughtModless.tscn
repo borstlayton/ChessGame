@@ -13,3 +13,4 @@ texture = ExtResource("2_g866r")
 [node name="Summary" parent="." index="4"]
 card_name = "Modless"
 card_summary = "Gives after round multiplier if no modifiers are used."
+ID = 2
